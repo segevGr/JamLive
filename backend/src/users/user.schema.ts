@@ -22,7 +22,7 @@ export class User {
   _id: Types.ObjectId;
 
   @Prop({ required: true, unique: true })
-  email: string;
+  userName: string;
 
   @Prop({ required: true })
   password: string;

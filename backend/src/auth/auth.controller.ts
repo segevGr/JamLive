@@ -9,14 +9,12 @@ export class AuthController {
 
   @Public()
   @Post('login')
-  async login(
-    @Body() body: { email: string; password: string },
-  ) {
-    const error = validateFields(body, ['email', 'password']);
+  async login(@Body() body: { userName: string; password: string }) {
+    const error = validateFields(body, ['userName', 'password']);
     if (error) {
       throw new BadRequestException(error);
     }
 
-    return this.authService.login(body.email, body.password);
+    return this.authService.login(body.userName, body.password);
   }
 }

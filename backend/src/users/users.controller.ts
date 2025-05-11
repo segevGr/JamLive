@@ -11,9 +11,9 @@ export class UsersController {
   @Public()
   @Post('signup')
   async signup(
-    @Body() body: { email: string; password: string; instrument: string },
+    @Body() body: { userName: string; password: string; instrument: string },
   ) {
-    const error = validateFields(body, ['email', 'password', 'instrument']);
+    const error = validateFields(body, ['userName', 'password', 'instrument']);
     if (error) {
       throw new BadRequestException(error);
     }
@@ -23,7 +23,7 @@ export class UsersController {
     }
 
     const user = await this.usersService.createUser(
-      body.email,
+      body.userName,
       body.password,
       UserRole.USER,
       body.instrument as Instrument,
@@ -34,9 +34,9 @@ export class UsersController {
   @Public()
   @Post('signup-admin')
   async signupAdmin(
-    @Body() body: { email: string; password: string; instrument: string },
+    @Body() body: { userName: string; password: string; instrument: string },
   ) {
-    const error = validateFields(body, ['email', 'password', 'instrument']);
+    const error = validateFields(body, ['userName', 'password', 'instrument']);
     if (error) {
       throw new BadRequestException(error);
     }
@@ -46,7 +46,7 @@ export class UsersController {
     }
 
     const user = await this.usersService.createUser(
-      body.email,
+      body.userName,
       body.password,
       UserRole.ADMIN,
       body.instrument as Instrument,

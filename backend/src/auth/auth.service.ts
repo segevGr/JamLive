@@ -11,27 +11,34 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.usersService.findByEmail(email);
-    if (!user) throw new UnauthorizedException('Incorrect email or password');
+  async validateUser(userName: string, password: string): Promise<User> {
+    const user = await this.usersService.findByUserName(userName);
+    if (!user)
+      throw new UnauthorizedException('Incorrect userName or password');
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) throw new UnauthorizedException('Incorrect email or password');
+    if (!isPasswordMatch)
+      throw new UnauthorizedException('Incorrect userName or password');
 
     return user;
   }
 
-  async login(email: string, password: string) {
-    const user = await this.validateUser(email, password);
+  async login(userName: string, password: string) {
+    const user = await this.validateUser(userName, password);
 
-    const payload = { sub: user._id, email: user.email, role: user.role, instrument: user.instrument };
+    const payload = {
+      sub: user._id,
+      userName: user.userName,
+      role: user.role,
+      instrument: user.instrument,
+    };
     const token = this.jwtService.sign(payload);
 
     return {
       access_token: token,
       user: {
         id: user._id,
-        email: user.email,
+        userName: user.userName,
         role: user.role,
         instrument: user.instrument,
       },
