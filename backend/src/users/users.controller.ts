@@ -1,6 +1,6 @@
 import { Body, Controller, Post, BadRequestException } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserRole } from './user.schema';
+import { UserRole, Instrument } from './user.schema';
 import { validateFields } from '../utils/validateFields';
 import { Public } from 'src/common/decorators/public.decorator';
 
@@ -10,36 +10,47 @@ export class UsersController {
 
   @Public()
   @Post('signup')
-  async signup(@Body() body: { email: string; password: string; instrument: string }) {
+  async signup(
+    @Body() body: { email: string; password: string; instrument: string },
+  ) {
     const error = validateFields(body, ['email', 'password', 'instrument']);
     if (error) {
       throw new BadRequestException(error);
+    }
+
+    if (!Object.values(Instrument).includes(body.instrument as Instrument)) {
+      throw new BadRequestException('Invalid instrument value');
     }
 
     const user = await this.usersService.createUser(
       body.email,
       body.password,
       UserRole.USER,
-      body.instrument,
+      body.instrument as Instrument,
     );
     return { message: 'User created successfully', userId: user._id };
   }
 
   @Public()
   @Post('signup-admin')
-  async signupAdmin(@Body() body: { email: string; password: string; instrument: string }) {
+  async signupAdmin(
+    @Body() body: { email: string; password: string; instrument: string },
+  ) {
     const error = validateFields(body, ['email', 'password', 'instrument']);
     if (error) {
       throw new BadRequestException(error);
+    }
+
+    if (!Object.values(Instrument).includes(body.instrument as Instrument)) {
+      throw new BadRequestException('Invalid instrument value');
     }
 
     const user = await this.usersService.createUser(
       body.email,
       body.password,
       UserRole.ADMIN,
-      body.instrument,
+      body.instrument as Instrument,
     );
     return { message: 'Admin created successfully', userId: user._id };
-
   }
-  }
+}

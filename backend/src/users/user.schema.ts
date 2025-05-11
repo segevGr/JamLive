@@ -32,7 +32,6 @@ export class User {
 
   @Prop({ enum: Instrument, required: true })
   instrument: Instrument;
-  
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
