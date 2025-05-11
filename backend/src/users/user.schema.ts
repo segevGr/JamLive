@@ -8,6 +8,15 @@ export enum UserRole {
   USER = 'user',
 }
 
+export enum Instrument {
+  DRUMS = 'drums',
+  GUITAR = 'guitar',
+  BASS = 'bass',
+  SAXOPHONE = 'saxophone',
+  KEYBOARD = 'keyboard',
+  VOCALS = 'vocals',
+}
+
 @Schema({ timestamps: true })
 export class User {
   _id: Types.ObjectId;
@@ -21,8 +30,9 @@ export class User {
   @Prop({ enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @Prop({ required: true })
-  instrument: string;
+  @Prop({ enum: Instrument, required: true })
+  instrument: Instrument;
+  
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

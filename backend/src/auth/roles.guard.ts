@@ -2,6 +2,7 @@ import {
 	Injectable,
 	CanActivate,
 	ExecutionContext,
+	ForbiddenException,
   } from '@nestjs/common';
   import { Reflector } from '@nestjs/core';
   import { ROLES_KEY } from '../common/decorators/roles.decorator';
@@ -19,7 +20,15 @@ import {
 	  if (!requiredRoles || requiredRoles.length === 0) return true;
   
 	  const { user } = context.switchToHttp().getRequest();
-	  return requiredRoles.includes(user.role);
-	}
+	  
+	  const hasRole = requiredRoles.includes(user.role);
+	  if (!hasRole) {
+		throw new ForbiddenException(
+		  `Access denied: ${user.role} is not allowed to access this resource`,
+		);
+	  }
+  
+	  return true;
+	  }
   }
   

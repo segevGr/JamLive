@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { SongSessionModule } from './song-session/song-session.module';
 import { ConfigModule } from '@nestjs/config';
 import { SongSessionGateway } from './song-session/song-session.gateway';
+import { SongsModule } from './songs/songs.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { SongSessionGateway } from './song-session/song-session.gateway';
     UsersModule,
     AuthModule,
     SongSessionModule,
+    SongsModule,
   ],
   providers: [SongSessionGateway],
 })
