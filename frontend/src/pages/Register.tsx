@@ -4,6 +4,8 @@ import axios from "axios";
 import { useAppDispatch } from "../store/storeHooks";
 import { login } from "../store/authSlice";
 import InputField from "../components/InputField";
+import AuthFormLayout from "../components/AuthFormLayout";
+import { API } from "../constants/api";
 
 const instruments = [
   "Drums",
@@ -19,28 +21,39 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    username: "",
+    userName: "",
     password: "",
     instrument: "",
   });
 
   const [errors, setErrors] = useState<Partial<typeof form>>({});
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[name as keyof typeof form];
+      return newErrors;
+    });
   };
 
   const validateForm = () => {
     const newErrors: Partial<typeof form> = {};
 
-    if (!form.username.trim()) newErrors.username = "username is required";
-    else if (form.username.length < 4)
-      newErrors.username = "username must be at least 4 characters";
+    if (!form.userName.trim()) newErrors.userName = "Username is required";
+    else if (form.userName.length < 4)
+      newErrors.userName = "Username must be at least 4 characters";
+
     if (!form.instrument.trim())
       newErrors.instrument = "Please select an instrument";
-    if (!form.password.trim()) newErrors.password = "password is required";
+
+    if (!form.password.trim()) newErrors.password = "Password is required";
     else if (form.password.length < 4)
       newErrors.password = "Password must be at least 4 characters";
 
@@ -55,29 +68,45 @@ export default function Register() {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post("http://localhost:3000/users/signup", form);
-      // dispatch(login(res.data));
-      // navigate(res.data.role === "admin" ? "/admin" : "/player");
-      console.log(res.data);
+      const formToSend = {
+        ...form,
+        instrument: form.instrument.toLowerCase(),
+      };
+
+      const res = await axios.post(API.AUTH.SIGNUP, formToSend);
+
+      setSuccessMessage("Registered successfully! Redirecting...");
+
+      setTimeout(() => {
+        // dispatch(login(res.data));
+        navigate("/login");
+      }, 2000);
     } catch (err: any) {
-      setErrors({ username: err.response?.data?.message || "Signup failed" });
+      if (err.response?.data.message === "User already exists") {
+        setErrors({
+          userName: "Username already exists, please choose another username",
+        });
+      } else {
+        console.log(err.response?.data);
+        alert("Something went wrong\nPlease try again later");
+      }
     }
   };
 
   return (
-    <div className="flex h-screen font-sans bg-background">
-      <div className="flex-1 flex flex-col justify-center items-center p-10">
-        <h1 className="text-3xl text-gold mb-2">Welcome to JaMoveo</h1>
-        <h2 className="text-7xl font-bold text-primary mb-10">Register</h2>
-
-        <form className="space-y-6 w-full max-w-sm" onSubmit={handleSubmit}>
+    <AuthFormLayout
+      title="Register"
+      imageSrc="/macabi-register.png"
+      successMessage={successMessage ? "Welcome to Moveo Family!" : ""}
+      formContent={
+        <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
             label="Username"
-            name="username"
+            name="userName"
             placeholder="Select your username"
-            value={form.username}
+            value={form.userName}
             onChange={handleChange}
-            errorMessage={errors.username}
+            errorMessage={errors.userName}
           />
 
           <InputField
@@ -100,7 +129,7 @@ export default function Register() {
             label="Create password"
             name="password"
             type="password"
-            placeholder="Your Password"
+            placeholder="Your password"
             value={form.password}
             onChange={handleChange}
             errorMessage={errors.password}
@@ -113,8 +142,9 @@ export default function Register() {
             Register
           </button>
         </form>
-
-        <p className="text-sm mt-4 text-placeholderGray">
+      }
+      bottomText={
+        <>
           Already have an account?{" "}
           <span
             onClick={() => navigate("/login")}
@@ -122,16 +152,8 @@ export default function Register() {
           >
             Log In
           </span>
-        </p>
-      </div>
-
-      <div className="hidden md:flex w-1/2 items-center justify-center">
-        <img
-          src="/macabi.png"
-          alt="musicians"
-          className="rounded-3xl shadow-xl object-cover w-full h-full max-w-[90%] max-h-[95%]"
-        />
-      </div>
-    </div>
+        </>
+      }
+    />
   );
 }
