@@ -9,7 +9,7 @@ export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
   @Get('search')
-  search(@Query('q') query: string) {
+  search(@Query('query') query: string) {
     return this.songsService.search(query);
   }
 

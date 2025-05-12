@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import InputField from "../components/InputField";
 import AuthFormLayout from "../components/AuthFormLayout";
 import { API } from "../constants/api";
@@ -8,6 +7,7 @@ import { useState } from "react";
 import { validateRegisterForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../constants/routes";
+import { axiosInstance } from "../constants/axios";
 interface Props {
   isAdmin?: boolean;
 }
@@ -52,8 +52,8 @@ export default function Register({ isAdmin = false }: Props) {
       };
 
       const res = isAdmin
-        ? await axios.post(API.AUTH.SIGNUP_ADMIN, formToSend)
-        : await axios.post(API.AUTH.SIGNUP, formToSend);
+        ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
+        : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
       setSuccessMessage("Registered successfully! Redirecting...");
 

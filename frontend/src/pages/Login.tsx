@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAppDispatch } from "../store/storeHooks";
 import { login } from "../store/authSlice";
 import InputField from "../components/InputField";
@@ -9,6 +8,7 @@ import { useAuthForm } from "../hooks/useAuthForm";
 import { validateLoginForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../constants/routes";
+import { axiosInstance } from "../constants/axios";
 export default function Login() {
   usePageTitle("Login");
   const dispatch = useAppDispatch();
@@ -32,8 +32,15 @@ export default function Login() {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post(API.AUTH.LOGIN, form);
-      dispatch(login(res.data.user));
+      const res = await axiosInstance.post(API.AUTH.LOGIN, form);
+      dispatch(
+        login({
+          userId: res.data.user.id,
+          role: res.data.user.role,
+          token: res.data.access_token,
+          instrument: res.data.user.instrument,
+        })
+      );
       navigate(
         res.data.user.role === "admin"
           ? ROUTES.ADMIN_SEARCH
