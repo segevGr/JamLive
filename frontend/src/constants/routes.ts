@@ -6,5 +6,5 @@ export const ROUTES = {
   WAITING_ROOM: "/waiting-room",
   ADMIN_SEARCH: "/search-song",
   ACCESS_DENIED: "/access-denied",
-  JAM: (songId = ":songId") => `/jam/${songId}`,
+  JAM: "/jam",
 };

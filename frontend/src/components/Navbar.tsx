@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Music, User, LogOut } from "lucide-react";
-import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
+import { useAppDispatch } from "../store/storeHooks";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {

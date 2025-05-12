@@ -11,15 +11,16 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+import songSessionReducer from "./songSessionSlice";
 const rootReducer = combineReducers({
   auth: authReducer,
+  songSession: songSessionReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "songSession"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -38,3 +39,5 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+// persistor.purge();

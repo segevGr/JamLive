@@ -35,7 +35,7 @@ function App() {
           }
         />
         <Route
-          path={ROUTES.JAM()}
+          path={ROUTES.JAM}
           element={
             <ProtectedRoute allowedRoles={["admin", "user"]}>
               <Jam />

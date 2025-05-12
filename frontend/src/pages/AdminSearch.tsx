@@ -5,9 +5,12 @@ import { usePageTitle } from "../hooks/usePageTitle";
 import { API } from "../constants/api";
 import { axiosInstance } from "../constants/axios";
 import Navbar from "../components/Navbar";
-import SongCard from "../components/SongCard";
 import SongList from "../components/songsList";
 import { ROUTES } from "../constants/routes";
+import { setCurrentSong } from "../store/songSessionSlice";
+import { useSocket } from "../context/SocketProvider";
+import { useAppDispatch, useAppSelector } from "../store/storeHooks";
+import type { SongData } from "../store/songSessionSlice";
 
 interface Song {
   id: string;
@@ -22,6 +25,9 @@ export default function AdminSearch() {
   const [query, setQuery] = useState("");
   const [songs, setSongs] = useState<Song[]>([]);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
+  const { socket } = useSocket();
 
   const fetchSongs = async (searchTerm: string) => {
     try {
@@ -47,8 +53,20 @@ export default function AdminSearch() {
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
-  const handleSelectSong = (songId: string) => {
-    navigate(ROUTES.JAM(songId));
+  const handleSelectSong = async (songId: string) => {
+    const selected = songs.find((s) => s.id === songId);
+    if (!selected) return;
+
+    const res = await axiosInstance.get<SongData>(API.SONGS.GET_BY_ID(songId));
+    const fullSong = res.data;
+
+    socket?.emit("startSong", {
+      song: fullSong,
+      token,
+    });
+
+    dispatch(setCurrentSong(fullSong));
+    navigate(ROUTES.JAM);
   };
 
   return (
