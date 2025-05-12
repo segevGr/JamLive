@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
 import { clearSession } from "../store/songSessionSlice";
 import { ROUTES } from "../constants/routes";
+import ErrorPage from "../components/ErrorPage";
+
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);
   const { currentSong } = useAppSelector((state) => state.songSession);
@@ -73,6 +75,20 @@ export default function Jam() {
     dispatch(clearSession());
     navigate(ROUTES.ADMIN_SEARCH);
   };
+
+  if (!currentSong) {
+    return (
+      <ErrorPage
+        title="Access Denied"
+        description="You're off tempo – no song has started yet!"
+        imageSrc="/access-denied-graphic.png"
+        buttonText={role === "admin" ? "Select a song" : "Back to Waiting Room"}
+        redirectTo={
+          role === "admin" ? ROUTES.ADMIN_SEARCH : ROUTES.WAITING_ROOM
+        }
+      />
+    );
+  }
 
   return (
     <div

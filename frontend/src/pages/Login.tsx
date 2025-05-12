@@ -9,6 +9,7 @@ import { validateLoginForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../constants/routes";
 import { axiosInstance } from "../constants/axios";
+
 export default function Login() {
   usePageTitle("Login");
   const dispatch = useAppDispatch();
@@ -18,6 +19,9 @@ export default function Login() {
     userName: "",
     password: "",
   });
+
+  const isFormValid =
+    form.userName.trim() !== "" && form.password.trim() !== "";
 
   const validateForm = () => {
     const newErrors = validateLoginForm(form);
@@ -59,59 +63,56 @@ export default function Login() {
   };
 
   return (
-    <AuthFormLayout
-      title="Log in"
-      imageSrc="/macabi-login.png"
-      formContent={
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <InputField
-            label="Enter your Username"
-            name="userName"
-            placeholder="Username"
-            value={form.userName}
-            onChange={handleChange}
-            errorMessage={errors.userName}
-          />
-
-          <InputField
-            label="Enter your Password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            errorMessage={errors.password}
-          />
-
-          <div className="flex justify-between items-center text-sm text-placeholderGray">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" className="accent-primary" />
-              Remember me
-            </label>
-            <span className="cursor-pointer hover:underline">
-              Forgot Password?
-            </span>
-          </div>
-
+    <form onSubmit={handleSubmit}>
+      <AuthFormLayout
+        title="Log in"
+        imageSrc="/macabi-login.png"
+        formContent={
+          <>
+            <InputField
+              label="Enter your Username"
+              name="userName"
+              placeholder="Username"
+              value={form.userName}
+              onChange={handleChange}
+              errorMessage={errors.userName}
+            />
+            <InputField
+              label="Enter your Password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              errorMessage={errors.password}
+            />
+          </>
+        }
+        submitButton={
           <button
             type="submit"
-            className="bg-primaryLight hover:bg-primary transition text-textOnDark text-lg font-semibold px-4 py-3 rounded-xl w-full"
+            className={`text-lg font-semibold px-4 py-3 rounded-xl w-full transition ${
+              isFormValid
+                ? "bg-primaryLight hover:bg-primary text-textOnDark opacity-100 cursor-pointer"
+                : "bg-gray-400 text-white opacity-50 cursor-not-allowed"
+            }`}
+            disabled={!isFormValid}
           >
             Log in
           </button>
-        </form>
-      }
-      bottomText={
-        <>
-          Don’t have an account?{" "}
-          <span
-            onClick={() => navigate(ROUTES.REGISTER)}
-            className="text-primary font-semibold cursor-pointer"
-          >
-            Register
-          </span>
-        </>
-      }
-    />
+        }
+        bottomText={
+          <>
+            Don’t have an account?{" "}
+            <span
+              onClick={() => navigate(ROUTES.REGISTER)}
+              className="text-primary font-semibold cursor-pointer"
+            >
+              Register
+            </span>
+          </>
+        }
+      />
+    </form>
   );
 }

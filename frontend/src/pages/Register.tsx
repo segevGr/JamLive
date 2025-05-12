@@ -8,6 +8,7 @@ import { validateRegisterForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../constants/routes";
 import { axiosInstance } from "../constants/axios";
+
 interface Props {
   isAdmin?: boolean;
 }
@@ -32,6 +33,11 @@ export default function Register({ isAdmin = false }: Props) {
   });
 
   const [successMessage, setSuccessMessage] = useState("");
+
+  const isFormValid =
+    form.userName.trim() !== "" &&
+    form.password.trim() !== "" &&
+    form.instrument.trim() !== "";
 
   const validateForm = () => {
     const newErrors = validateRegisterForm(form);
@@ -73,67 +79,75 @@ export default function Register({ isAdmin = false }: Props) {
   };
 
   return (
-    <AuthFormLayout
-      title="Register"
-      imageSrc="/macabi-register.png"
-      successMessage={successMessage ? "Welcome to Moveo Family!" : ""}
-      isAdmin={isAdmin}
-      formContent={
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <InputField
-            label="Username"
-            name="userName"
-            placeholder="Select your username"
-            value={form.userName}
-            onChange={handleChange}
-            errorMessage={errors.userName}
-          />
+    <form onSubmit={handleSubmit}>
+      <AuthFormLayout
+        title="Register"
+        imageSrc="/macabi-register.png"
+        isAdmin={isAdmin}
+        successMessage={successMessage ? "Welcome to Moveo Family!" : ""}
+        formContent={
+          <>
+            <InputField
+              label="Username"
+              name="userName"
+              placeholder="Select your username"
+              value={form.userName}
+              onChange={handleChange}
+              errorMessage={errors.userName}
+            />
 
-          <InputField
-            label="Your instrument"
-            name="instrument"
-            value={form.instrument}
-            onChange={handleChange}
-            as="select"
-            listPlaceholder="Select your instrument"
-            errorMessage={errors.instrument}
-          >
-            {instruments.map((inst) => (
-              <option key={inst} value={inst}>
-                {inst}
-              </option>
-            ))}
-          </InputField>
+            <InputField
+              label="Your instrument"
+              name="instrument"
+              value={form.instrument}
+              onChange={handleChange}
+              as="select"
+              listPlaceholder="Select your instrument"
+              errorMessage={errors.instrument}
+            >
+              {instruments.map((inst) => (
+                <option key={inst} value={inst}>
+                  {inst}
+                </option>
+              ))}
+            </InputField>
 
-          <InputField
-            label="Create password"
-            name="password"
-            type="password"
-            placeholder="Your password"
-            value={form.password}
-            onChange={handleChange}
-            errorMessage={errors.password}
-          />
-
+            <InputField
+              label="Create password"
+              name="password"
+              type="password"
+              placeholder="Your password"
+              value={form.password}
+              onChange={handleChange}
+              errorMessage={errors.password}
+            />
+          </>
+        }
+        submitButton={
           <button
             type="submit"
-            className="bg-primaryLight hover:bg-primary transition text-textOnDark text-lg font-semibold px-4 py-3 rounded-xl w-full"
+            className={`text-lg font-semibold px-4 py-3 rounded-xl w-full transition ${
+              isFormValid
+                ? "bg-primaryLight hover:bg-primary text-textOnDark opacity-100 cursor-pointer"
+                : "bg-gray-400 text-white opacity-50 cursor-not-allowed"
+            }`}
+            disabled={!isFormValid}
           >
             Register
           </button>
-        </form>
-      }
-      bottomText={
-        <>
-          Already have an account?{" "}
-          <span
-            onClick={() => navigate(ROUTES.LOGIN)}
-            className="text-primary font-semibold cursor-pointer"
-          >
-            Log In
-          </span>
-        </>
-      }
-    />
+        }
+        bottomText={
+          <>
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate(ROUTES.LOGIN)}
+              className="text-primary font-semibold cursor-pointer"
+            >
+              Log In
+            </span>
+          </>
+        }
+      />
+    </form>
   );
 }

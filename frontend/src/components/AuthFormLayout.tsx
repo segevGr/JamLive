@@ -3,6 +3,7 @@ import FooterLogos from "./FooterLogos";
 interface AuthFormLayoutProps {
   title: string;
   formContent: React.ReactNode;
+  submitButton: React.ReactNode;
   bottomText: React.ReactNode;
   imageSrc: string;
   successMessage?: string;
@@ -12,6 +13,7 @@ interface AuthFormLayoutProps {
 export default function AuthFormLayout({
   title,
   formContent,
+  submitButton,
   bottomText,
   imageSrc,
   successMessage,
@@ -35,7 +37,10 @@ export default function AuthFormLayout({
           {title}
         </h2>
 
-        <div className="space-y-6 w-full max-w-sm">{formContent}</div>
+        <div className="space-y-6 w-full max-w-sm">
+          {formContent}
+          {submitButton}
+        </div>
 
         <div className="text-sm mt-4 text-placeholderGray text-center">
           {bottomText}

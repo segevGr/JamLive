@@ -9,6 +9,7 @@ import AccessDenied from "./pages/AccessDenied";
 import HomeRedirect from "./pages/HomeRedirect";
 import { ROUTES } from "./constants/routes";
 import Jam from "./pages/Jam";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
           }
         />
         <Route path={ROUTES.ACCESS_DENIED} element={<AccessDenied />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
