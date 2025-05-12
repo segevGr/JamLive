@@ -8,6 +8,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AccessDenied from "./pages/AccessDenied";
 import HomeRedirect from "./pages/HomeRedirect";
 import { ROUTES } from "./constants/routes";
+import Jam from "./pages/Jam";
 
 function App() {
   return (
@@ -30,6 +31,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <AdminSearch />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.JAM()}
+          element={
+            <ProtectedRoute allowedRoles={["admin", "user"]}>
+              <Jam />
             </ProtectedRoute>
           }
         />

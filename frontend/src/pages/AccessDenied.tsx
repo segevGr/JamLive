@@ -7,8 +7,8 @@ export default function AccessDenied() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-background text-textPrimary font-sans relative px-6">
-      <div className="flex flex-col items-center text-center">
+    <div className="min-h-screen flex flex-col md:justify-center items-center bg-background text-textPrimary font-sans relative px-6">
+      <div className="flex flex-col items-center text-center mt-10 lg:mt-0">
         <p className="text-xl text-gold italic">
           Looks like you're out of key...
         </p>

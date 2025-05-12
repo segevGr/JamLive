@@ -5,6 +5,6 @@ export const ROUTES = {
   REGISTER_ADMIN: "/register-admin",
   WAITING_ROOM: "/waiting-room",
   ADMIN_SEARCH: "/search-song",
-  ADMIN_LIVE: (songId = ":id") => `/admin/live/${songId}`,
   ACCESS_DENIED: "/access-denied",
+  JAM: (songId = ":songId") => `/jam/${songId}`,
 };

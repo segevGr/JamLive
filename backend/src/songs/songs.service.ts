@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import index from './songs-list/index.json';
+import index from './index.json';
 import { Song } from './song.interface';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class SongsService {
@@ -35,9 +37,27 @@ export class SongsService {
     return ranked.map((entry) => entry.song);
   }
 
-  getById(id: string): Song {
+  getById(id: string): any {
     const song = this.songs.find((s) => s.id === id);
     if (!song) throw new NotFoundException('Song not found');
-    return song;
+
+    const lyricsPath = path.join(
+      process.cwd(),
+      'public',
+      'songs',
+      `${id}.json`,
+    );
+    console.log('🚀 ~ SongsService ~ getById ~ lyricsPath:', lyricsPath);
+    if (!fs.existsSync(lyricsPath)) {
+      throw new NotFoundException(`Lyrics file for '${id}' not found`);
+    }
+
+    const lyricsRaw = fs.readFileSync(lyricsPath, 'utf-8');
+    const lyrics = JSON.parse(lyricsRaw);
+
+    return {
+      ...song,
+      lyrics,
+    };
   }
 }

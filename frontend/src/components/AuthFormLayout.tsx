@@ -19,7 +19,7 @@ export default function AuthFormLayout({
 }: AuthFormLayoutProps) {
   return (
     <div className="relative flex h-screen font-sans bg-background">
-      <div className="flex-1 flex flex-col justify-center items-center p-10">
+      <div className="flex-1 flex flex-col md:justify-center justify-start mt-20 md:mt-0 items-center p-10">
         <FooterLogos />
 
         <h1 className="text-3xl text-gold mb-2 text-center">

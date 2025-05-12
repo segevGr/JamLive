@@ -1,12 +1,12 @@
 [
   {
-    "id": "hey-jude",
+    "id": "hey_jude",
     "title": "Hey Jude",
     "artist": "The Beatles",
     "image": "/images/veech-shelo.png"
   },
   {
-    "id": "veech-shelo",
+    "id": "veech_shelo",
     "title": "ואיך שלא",
     "artist": "עידן רייכל",
     "image": "/images/veech-shelo.png"

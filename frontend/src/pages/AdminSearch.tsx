@@ -7,6 +7,7 @@ import { axiosInstance } from "../constants/axios";
 import Navbar from "../components/Navbar";
 import SongCard from "../components/SongCard";
 import SongList from "../components/songsList";
+import { ROUTES } from "../constants/routes";
 
 interface Song {
   id: string;
@@ -47,7 +48,7 @@ export default function AdminSearch() {
   }, [query]);
 
   const handleSelectSong = (songId: string) => {
-    navigate(`/admin/live/${songId}`);
+    navigate(ROUTES.JAM(songId));
   };
 
   return (
