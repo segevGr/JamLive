@@ -3,6 +3,7 @@ const BASE_URL = "http://localhost:8000";
 export const API = {
   AUTH: {
     SIGNUP: `${BASE_URL}/users/signup`,
+    SIGNUP_ADMIN: `${BASE_URL}/users/signup-admin`,
     LOGIN: `${BASE_URL}/auth/login`,
   },
   SONGS: {

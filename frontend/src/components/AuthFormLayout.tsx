@@ -1,9 +1,12 @@
+import FooterLogos from "./FooterLogos";
+
 interface AuthFormLayoutProps {
   title: string;
   formContent: React.ReactNode;
   bottomText: React.ReactNode;
   imageSrc: string;
   successMessage?: string;
+  isAdmin?: boolean;
 }
 
 export default function AuthFormLayout({
@@ -12,22 +15,22 @@ export default function AuthFormLayout({
   bottomText,
   imageSrc,
   successMessage,
+  isAdmin = false,
 }: AuthFormLayoutProps) {
   return (
     <div className="relative flex h-screen font-sans bg-background">
       <div className="flex-1 flex flex-col justify-center items-center p-10">
-        <div className="absolute bottom-0 flex justify-center items-center gap-10 mb-6">
-          <img
-            src="/macabi-logo.png"
-            alt="macabi logo"
-            className="h-32 w-auto"
-          />
-          <img src="/moveo-logo.png" alt="moveo logo" className="h-32 w-auto" />
-        </div>
+        <FooterLogos />
 
         <h1 className="text-3xl text-gold mb-2 text-center">
           Welcome to JaMoveo
         </h1>
+        {isAdmin && (
+          <p className="text-sm text-primary font-medium uppercase tracking-wide">
+            Admin Registration
+          </p>
+        )}
+
         <h2 className="text-7xl font-bold text-primary mb-10 text-center">
           {title}
         </h2>

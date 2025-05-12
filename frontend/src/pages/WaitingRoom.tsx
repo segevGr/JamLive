@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Music } from "lucide-react";
 import Navbar from "../components/Navbar";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const WaitingRoom = () => {
+  usePageTitle("Waiting Room");
   const [dots, setDots] = useState("");
 
   useEffect(() => {

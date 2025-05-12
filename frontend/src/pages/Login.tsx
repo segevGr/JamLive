@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAppDispatch } from "../store/storeHooks";
@@ -6,38 +5,22 @@ import { login } from "../store/authSlice";
 import InputField from "../components/InputField";
 import AuthFormLayout from "../components/AuthFormLayout";
 import { API } from "../constants/api";
-
+import { useAuthForm } from "../hooks/useAuthForm";
+import { validateLoginForm } from "../utils/validation";
+import { usePageTitle } from "../hooks/usePageTitle";
+import { ROUTES } from "../constants/routes";
 export default function Login() {
+  usePageTitle("Login");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const { form, errors, setErrors, handleChange } = useAuthForm({
     userName: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState<Partial<typeof form>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setForm((prev) => ({ ...prev, [name]: value }));
-
-    setErrors((prev) => {
-      const newErrors = { ...prev };
-      delete newErrors[name as keyof typeof form];
-      return newErrors;
-    });
-  };
-
   const validateForm = () => {
-    const newErrors: Partial<typeof form> = {};
-
-    if (!form.userName.trim()) newErrors.userName = "Username is required";
-    if (!form.password.trim()) newErrors.password = "Password is required";
-
+    const newErrors = validateLoginForm(form);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -50,8 +33,12 @@ export default function Login() {
 
     try {
       const res = await axios.post(API.AUTH.LOGIN, form);
-      dispatch(login(res.data));
-      navigate(res.data.role === "admin" ? "/admin" : "/player");
+      dispatch(login(res.data.user));
+      navigate(
+        res.data.user.role === "admin"
+          ? ROUTES.ADMIN_SEARCH
+          : ROUTES.WAITING_ROOM
+      );
     } catch (err: any) {
       if (err.response?.data.message === "Incorrect userName or password") {
         setErrors({
@@ -111,7 +98,7 @@ export default function Login() {
         <>
           Don’t have an account?{" "}
           <span
-            onClick={() => navigate("/register")}
+            onClick={() => navigate(ROUTES.REGISTER)}
             className="text-primary font-semibold cursor-pointer"
           >
             Register

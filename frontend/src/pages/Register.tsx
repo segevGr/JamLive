@@ -1,11 +1,16 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAppDispatch } from "../store/storeHooks";
-import { login } from "../store/authSlice";
 import InputField from "../components/InputField";
 import AuthFormLayout from "../components/AuthFormLayout";
 import { API } from "../constants/api";
+import { useAuthForm } from "../hooks/useAuthForm";
+import { useState } from "react";
+import { validateRegisterForm } from "../utils/validation";
+import { usePageTitle } from "../hooks/usePageTitle";
+import { ROUTES } from "../constants/routes";
+interface Props {
+  isAdmin?: boolean;
+}
 
 const instruments = [
   "Drums",
@@ -16,47 +21,20 @@ const instruments = [
   "Vocals",
 ];
 
-export default function Register() {
-  const dispatch = useAppDispatch();
+export default function Register({ isAdmin = false }: Props) {
+  usePageTitle("Register");
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const { form, errors, setErrors, handleChange } = useAuthForm({
     userName: "",
     password: "",
     instrument: "",
   });
 
-  const [errors, setErrors] = useState<Partial<typeof form>>({});
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setForm((prev) => ({ ...prev, [name]: value }));
-
-    setErrors((prev) => {
-      const newErrors = { ...prev };
-      delete newErrors[name as keyof typeof form];
-      return newErrors;
-    });
-  };
-
   const validateForm = () => {
-    const newErrors: Partial<typeof form> = {};
-
-    if (!form.userName.trim()) newErrors.userName = "Username is required";
-    else if (form.userName.length < 4)
-      newErrors.userName = "Username must be at least 4 characters";
-
-    if (!form.instrument.trim())
-      newErrors.instrument = "Please select an instrument";
-
-    if (!form.password.trim()) newErrors.password = "Password is required";
-    else if (form.password.length < 4)
-      newErrors.password = "Password must be at least 4 characters";
-
+    const newErrors = validateRegisterForm(form);
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -73,13 +51,14 @@ export default function Register() {
         instrument: form.instrument.toLowerCase(),
       };
 
-      const res = await axios.post(API.AUTH.SIGNUP, formToSend);
+      const res = isAdmin
+        ? await axios.post(API.AUTH.SIGNUP_ADMIN, formToSend)
+        : await axios.post(API.AUTH.SIGNUP, formToSend);
 
       setSuccessMessage("Registered successfully! Redirecting...");
 
       setTimeout(() => {
-        // dispatch(login(res.data));
-        navigate("/login");
+        navigate(ROUTES.LOGIN);
       }, 2000);
     } catch (err: any) {
       if (err.response?.data.message === "User already exists") {
@@ -98,6 +77,7 @@ export default function Register() {
       title="Register"
       imageSrc="/macabi-register.png"
       successMessage={successMessage ? "Welcome to Moveo Family!" : ""}
+      isAdmin={isAdmin}
       formContent={
         <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
@@ -147,7 +127,7 @@ export default function Register() {
         <>
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/login")}
+            onClick={() => navigate(ROUTES.LOGIN)}
             className="text-primary font-semibold cursor-pointer"
           >
             Log In
