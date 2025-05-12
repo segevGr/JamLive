@@ -1,14 +1,17 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD, Reflector } from '@nestjs/core';
+
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { SongSessionModule } from './song-session/song-session.module';
-import { ConfigModule } from '@nestjs/config';
 import { SongsModule } from './songs/songs.module';
-import { APP_GUARD } from '@nestjs/core';
+
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './auth/roles.guard';
-import { Reflector } from '@nestjs/core';
+
+import { LoggerMiddleware } from './logger.middleware';
 
 @Module({
   imports: [
@@ -22,18 +25,18 @@ import { Reflector } from '@nestjs/core';
   providers: [
     {
       provide: APP_GUARD,
-      useFactory: (reflector: Reflector) => {
-        return new JwtAuthGuard(reflector);
-      },
+      useFactory: (reflector: Reflector) => new JwtAuthGuard(reflector),
       inject: [Reflector],
     },
     {
       provide: APP_GUARD,
-      useFactory: (reflector: Reflector) => {
-        return new RolesGuard(reflector);
-      },
+      useFactory: (reflector: Reflector) => new RolesGuard(reflector),
       inject: [Reflector],
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
