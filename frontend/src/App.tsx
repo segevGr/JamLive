@@ -43,6 +43,7 @@ function App() {
           }
         />
         <Route path={ROUTES.ACCESS_DENIED} element={<AccessDenied />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Router>
   );

@@ -1,136 +1,88 @@
 import {
-  SubscribeMessage,
   WebSocketGateway,
+  WebSocketServer,
+  SubscribeMessage,
   OnGatewayConnection,
   OnGatewayDisconnect,
   MessageBody,
   ConnectedSocket,
 } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
-import { SongsService } from '../songs/songs.service';
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { JwtStrategy } from '../auth/jwt.strategy';
+import { Server, Socket } from 'socket.io';
+import { Logger } from '@nestjs/common';
+import { SongData } from '../songs/song.interface';
+import * as jwt from 'jsonwebtoken';
 
 @WebSocketGateway({ cors: true })
-@Injectable()
-export class SongSessionGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  private sessions: Record<string, Set<string>> = {};
-  private activeSongs: Record<string, any> = {}; // sessionId → song
+export class SongSessionGateway
+  implements OnGatewayConnection, OnGatewayDisconnect
+{
+  @WebSocketServer()
+  server: Server;
 
-  constructor(
-    private readonly songsService: SongsService,
-    private readonly jwtService: JwtService,
-    private readonly jwtStrategy: JwtStrategy,
-  ) {}
+  private readonly logger = new Logger('SongSessionGateway');
+
+  // current active session state
+  private currentSong: SongData | null = null;
+  private participants: Set<string> = new Set();
 
   handleConnection(client: Socket) {
-    console.log(`Client connected: ${client.id}`);
+    this.logger.log(`Client connected: ${client.id}`);
   }
 
   handleDisconnect(client: Socket) {
-    console.log(`Client disconnected: ${client.id}`);
-    for (const sessionId in this.sessions) {
-      this.sessions[sessionId].delete(client.id);
-    }
+    this.logger.log(`Client disconnected: ${client.id}`);
+    this.participants.delete(client.id);
   }
 
   @SubscribeMessage('joinSession')
-  handleJoin(
-    @MessageBody() data: { sessionId: string },
-    @ConnectedSocket() client: Socket,
-  ) {
-    const { sessionId } = data;
-    if (!this.sessions[sessionId]) this.sessions[sessionId] = new Set();
-    this.sessions[sessionId].add(client.id);
-    client.join(sessionId);
+  handleJoin(@ConnectedSocket() client: Socket) {
+    this.logger.log(`Client joined session: ${client.id}`);
+    this.participants.add(client.id);
 
-    return { message: `Joined session ${sessionId}` };
-  }
-
-  @SubscribeMessage('sendLyrics')
-  handleSendLyrics(
-    @MessageBody() data: { sessionId: string; lyrics: string; chords?: string },
-    @ConnectedSocket() client: Socket,
-  ) {
-    const { sessionId, lyrics, chords } = data;
-    client.broadcast.to(sessionId).emit('receiveLyrics', { lyrics, chords });
+    if (this.currentSong) {
+      client.emit('startSong', this.currentSong);
+    }
   }
 
   @SubscribeMessage('startSong')
-  async handleStartSong(
-    @MessageBody() data: { sessionId: string; songId: string },
+  handleStartSong(
+    @MessageBody() payload: { song: SongData; token: string },
     @ConnectedSocket() client: Socket,
   ) {
-    const user = await this.getUserFromSocket(client);
-    if (!user || user.role !== 'admin') {
-      client.emit('error', { message: 'Only admin can start a song' });
-      return;
-    }
-
-    let song;
     try {
-      song = this.songsService.getById(data.songId);
-    } catch {
-      client.emit('error', { message: 'Song not found' });
-      return;
-    }
+      const decoded = jwt.verify(
+        payload.token,
+        process.env.JWT_SECRET || '',
+      ) as any;
 
-    this.activeSongs[data.sessionId] = song;
+      if (decoded.role !== 'admin') {
+        this.logger.warn(`❌ Unauthorized user tried to start song`);
+        return;
+      }
 
-    const server = client.nsp;
-    const sockets = await server.in(data.sessionId).fetchSockets();
-
-    for (const s of sockets) {
-      const instrument = s.handshake.auth.instrument || '';
-      const isSinger =
-        instrument.toLowerCase().includes('שירה') ||
-        instrument.toLowerCase().includes('vocal');
-
-      const filteredLyrics = song.lyricsChords.map((line: any[]) =>
-        line.map((item) => ({
-          lyrics: item.lyrics,
-          chords: isSinger ? undefined : item.chords,
-        })),
+      this.logger.log(
+        `✅ Admin ${decoded.userName} started song: ${payload.song.title}`,
       );
 
-      s.emit('startSong', {
-        title: song.title,
-        artist: song.artist,
-        lyricsChords: filteredLyrics,
-      });
+      this.currentSong = payload.song;
+
+      for (const participantId of this.participants) {
+        const socket = this.server.sockets.sockets.get(participantId);
+        if (socket) {
+          socket.emit('startSong', payload.song);
+        }
+      }
+    } catch (err) {
+      this.logger.error('Invalid token in startSong');
     }
   }
 
   @SubscribeMessage('quitSession')
-  async handleQuitSession(
-    @MessageBody() data: { sessionId: string },
-    @ConnectedSocket() client: Socket,
-  ) {
-    const user = await this.getUserFromSocket(client);
-    if (!user || user.role !== 'admin') {
-      client.emit('error', { message: 'Only admin can end the session' });
-      return;
-    }
+  handleQuitSession(@ConnectedSocket() client: Socket) {
+    this.logger.log(`Session quit by ${client.id}`);
+    this.currentSong = null;
+    this.participants.clear();
 
-    delete this.activeSongs[data.sessionId];
-
-    client.nsp.to(data.sessionId).emit('sessionEnded', {
-      message: 'The session has been ended by admin',
-    });
-  }
-
-  private async getUserFromSocket(client: Socket) {
-    const token = client.handshake.auth?.token;
-    if (!token) return null;
-
-    try {
-      const payload = this.jwtService.verify(token, {
-        secret: process.env.JWT_SECRET,
-      });
-      return await this.jwtStrategy.validate(payload);
-    } catch {
-      return null;
-    }
+    this.server.emit('sessionEnded');
   }
 }

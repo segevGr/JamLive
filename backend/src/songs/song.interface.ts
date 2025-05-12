@@ -1,6 +1,12 @@
-export interface Song {
+export type SongLine = {
+  lyrics: string;
+  chords?: string;
+};
+
+export interface SongData {
   id: string;
   title: string;
   artist: string;
-  [key: string]: any;
+  image: string;
+  lyrics: SongLine[][];
 }
