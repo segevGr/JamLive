@@ -4,8 +4,8 @@ JaMoveo is a full-stack web application that enables musicians to join live rehe
 
 ## 🌐 Live Demo
 
-- **Frontend**: [https://ja-moveo.vercel.app](https://ja-moveo.vercel.app)
-- **Backend**: [https://jamoveo-api.up.railway.app](https://jamoveo-api.up.railway.app)
+- **Frontend**: [https://jamoveo-macabi.vercel.app](https://jamoveo-macabi.vercel.app)
+- **Backend**: [https://jamoveo-server.up.railway.app](https://jamoveo-server.up.railway.app)
 
 ## 🚪 Signup Routes
 
@@ -103,6 +103,21 @@ FRONTEND_ORIGIN=http://localhost:3000
 > 💡 **Note**: The deployed demo version already connects to a live backend.  
 > If you'd like to run the backend locally, you'll need to provide your own `MONGO_URI` and `JWT_SECRET`.
 
+## 📬 Postman Collection
+
+You can test the backend API using the Postman collection provided in this repository:
+
+👉 [Download JaMoveo.postman_collection.json](./postman/JaMoveo.postman_collection.json)
+
+The collection includes all available endpoints:
+
+- Signup (user & admin)
+- Login
+- Song search
+- Auth-protected routes
+
+> Make sure to set the `url` environment variable in Postman to match your local or deployed server (e.g., `http://localhost:8000` or `https://jamoveo-api.up.railway.app`).
+
 ## 📸 Screenshots
 
 ### 🔐 Register Page (Admin/User)
@@ -130,3 +145,5 @@ FRONTEND_ORIGIN=http://localhost:3000
 - All connected users sync via WebSocket using Socket.io.
 - Players who join **after** the session has started will still receive the current song automatically.
 - The current song database is hard-coded in JSON format.
+
+> Built by Segev Grotas as part of a technical assignment for Moveo.
