@@ -8,6 +8,7 @@ import { validateRegisterForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../constants/routes";
 import { axiosInstance } from "../constants/axios";
+import ModalDialog from "../components/ModalDialog";
 
 interface Props {
   isAdmin?: boolean;
@@ -25,14 +26,13 @@ const instruments = [
 export default function Register({ isAdmin = false }: Props) {
   usePageTitle("Register");
   const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const { form, errors, setErrors, handleChange } = useAuthForm({
     userName: "",
     password: "",
     instrument: "",
   });
-
-  const [successMessage, setSuccessMessage] = useState("");
 
   const isFormValid =
     form.userName.trim() !== "" &&
@@ -62,11 +62,7 @@ export default function Register({ isAdmin = false }: Props) {
         ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
         : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
-      setSuccessMessage("Registered successfully! Redirecting...");
-
-      setTimeout(() => {
-        navigate(ROUTES.LOGIN);
-      }, 2000);
+      setShowSuccessModal(true);
     } catch (err: any) {
       if (err.response?.data.message === "User already exists") {
         setErrors({
@@ -80,56 +76,69 @@ export default function Register({ isAdmin = false }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <AuthFormLayout
-        title="Register"
-        imageSrc="/macabi-register.png"
-        isAdmin={isAdmin}
-        successMessage={successMessage ? "Welcome to Moveo Family!" : ""}
-        formContent={
-          <>
-            <InputField
-              label="Username*"
-              name="userName"
-              placeholder="Select your username"
-              value={form.userName}
-              onChange={handleChange}
-              errorMessage={errors.userName}
-            />
+    <>
+      <form onSubmit={handleSubmit}>
+        <AuthFormLayout
+          title="Register"
+          imageSrc="/macabi-register.png"
+          isAdmin={isAdmin}
+          formContent={
+            <>
+              <InputField
+                label="Username*"
+                name="userName"
+                placeholder="Select your username"
+                value={form.userName}
+                onChange={handleChange}
+                errorMessage={errors.userName}
+              />
 
-            <InputField
-              label="Your instrument*"
-              name="instrument"
-              value={form.instrument}
-              onChange={handleChange}
-              as="select"
-              listPlaceholder="Select your instrument"
-              errorMessage={errors.instrument}
-            >
-              {instruments.map((inst) => (
-                <option key={inst} value={inst}>
-                  {inst}
-                </option>
-              ))}
-            </InputField>
+              <InputField
+                label="Your instrument*"
+                name="instrument"
+                value={form.instrument}
+                onChange={handleChange}
+                as="select"
+                listPlaceholder="Select your instrument"
+                errorMessage={errors.instrument}
+              >
+                {instruments.map((inst) => (
+                  <option key={inst} value={inst}>
+                    {inst}
+                  </option>
+                ))}
+              </InputField>
 
-            <InputField
-              label="Create password*"
-              name="password"
-              type="password"
-              placeholder="Your password"
-              value={form.password}
-              onChange={handleChange}
-              errorMessage={errors.password}
-            />
-          </>
-        }
-        buttonText="Register"
-        isDisabled={!isFormValid}
-        bottomText="Already have an account?"
-        bottomLinkText="Log In"
-        onBottomLinkClick={() => navigate(ROUTES.LOGIN)}
-      />
-    </form>
+              <InputField
+                label="Create password*"
+                name="password"
+                type="password"
+                placeholder="Your password"
+                value={form.password}
+                onChange={handleChange}
+                errorMessage={errors.password}
+              />
+            </>
+          }
+          buttonText="Register"
+          isDisabled={!isFormValid}
+          bottomText="Already have an account?"
+          bottomLinkText="Log In"
+          onBottomLinkClick={() => navigate(ROUTES.LOGIN)}
+        />
+      </form>
+
+      {showSuccessModal && (
+        <ModalDialog
+          isOpen={showSuccessModal}
+          title="Registered Successfully!"
+          message="Welcome to the Moveo Family. You can now log in."
+          confirmText="Go to Login"
+          onConfirm={() => navigate(ROUTES.LOGIN)}
+          confirmColor="green"
+          showButtons={true}
+        />
+      )}
+    </>
   );
 }

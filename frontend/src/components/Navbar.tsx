@@ -4,13 +4,15 @@ import { logout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { useAppDispatch } from "../store/storeHooks";
+import ModalDialog from "./ModalDialog";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const confirmLogout = () => {
     dispatch(logout());
     navigate(ROUTES.HOME);
   };
@@ -33,7 +35,7 @@ const Navbar = () => {
         {open && (
           <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg z-50">
             <button
-              onClick={handleLogout}
+              onClick={() => setShowLogoutModal(true)}
               className="w-full flex items-center gap-2 px-4 py-2 text-sm text-errorText hover:opacity-50"
             >
               <LogOut size={16} />
@@ -42,6 +44,17 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      {showLogoutModal && (
+        <ModalDialog
+          isOpen={showLogoutModal}
+          title="Log Out"
+          message="Are you sure you want to log out?"
+          confirmText="Yes, Logout"
+          cancelText="Cancel"
+          onConfirm={confirmLogout}
+          onCancel={() => setShowLogoutModal(false)}
+        />
+      )}
     </header>
   );
 };

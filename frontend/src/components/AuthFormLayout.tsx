@@ -4,7 +4,6 @@ interface AuthFormLayoutProps {
   title: string;
   formContent: React.ReactNode;
   imageSrc: string;
-  successMessage?: string;
   isAdmin?: boolean;
   buttonText?: string;
   isDisabled?: boolean;
@@ -20,7 +19,6 @@ export default function AuthFormLayout({
   bottomLinkText,
   onBottomLinkClick,
   imageSrc,
-  successMessage,
   isAdmin = false,
   buttonText,
   isDisabled = false,
@@ -34,7 +32,7 @@ export default function AuthFormLayout({
           className="block md:hidden w-64 h-28 object-cover mx-auto self-start ml-0 mb-3"
         />
         <div className="w-full max-w-sm">
-          <div className="flex flex-col self-start md:self-center md:ml-0 ">
+          <div className="flex flex-col self-start md:self-center md:ml-0">
             <h1 className="text-xl md:text-3xl text-gold mb-2">
               Welcome to JaMoveo
             </h1>
@@ -76,11 +74,6 @@ export default function AuthFormLayout({
               {bottomLinkText}
             </span>
           </p>
-        )}
-        {successMessage && (
-          <div className="bg-green-100 text-primary px-4 py-2 rounded-md text-center font-medium mt-5">
-            {successMessage}
-          </div>
         )}
         <FooterLogos />
       </div>

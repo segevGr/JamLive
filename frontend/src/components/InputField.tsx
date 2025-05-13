@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { ChevronDown, Eye, EyeOff } from "lucide-react";
 
 interface InputFieldProps {
   label?: string;
@@ -57,18 +57,30 @@ const InputField: React.FC<InputFieldProps> = ({
             className={inputFieldStyles}
           />
         ) : (
-          <select
-            id={name}
-            name={name}
-            value={value}
-            onChange={onChange}
-            className={inputFieldStyles}
-          >
-            <option className="text-placeholderGray" value="" disabled hidden>
-              {listPlaceholder}
-            </option>
-            {children}
-          </select>
+          <>
+            <select
+              id={name}
+              name={name}
+              value={value}
+              onChange={onChange}
+              className={`${inputFieldStyles} pr-10 appearance-none`}
+            >
+              <option className="text-placeholderGray" value="" disabled hidden>
+                {listPlaceholder}
+              </option>
+              {children}
+            </select>
+
+            {!trailingIcon && (
+              <ChevronDown className="w-4 h-4 text-textMuted absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+            )}
+          </>
+        )}
+
+        {!isPasswordField && trailingIcon && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textMuted">
+            {trailingIcon}
+          </div>
         )}
 
         {isPasswordField && (

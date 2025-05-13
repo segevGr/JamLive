@@ -51,16 +51,46 @@ const WaitingRoom = () => {
   }, [socket]);
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="min-h-[100dvh] flex flex-col bg-background">
       <Navbar />
 
       <main className="flex flex-1 items-center justify-center">
-        <div className="w-10/12 h-[80vh] border-2 border-dashed border-borderGray rounded-xl flex flex-col items-center justify-center text-center px-4">
-          <Music className="text-gold w-20 h-20 mb-4" />
-          <p className="text-4xl text-primary font-medium">
-            Waiting for next song
-            <span className="inline-block w-6 text-left">{dots}</span>
-          </p>
+        <div className="relative w-10/12 md:w-11/12 h-[70vh] md:h-[80vh] flex items-center justify-center text-center px-4">
+          <svg
+            className="absolute top-0 left-0 w-full h-full pointer-events-none text-borderGray"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 400 400"
+            preserveAspectRatio="none"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="398"
+              height="398"
+              rx="16"
+              ry="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeDasharray="6 4"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to="10"
+                dur="0.5s"
+                repeatCount="indefinite"
+              />
+            </rect>
+          </svg>
+
+          <div className="z-10 flex flex-col items-center">
+            <Music className="text-gold w-20 h-20 mb-4" />
+            <p className="text-4xl text-primary font-medium">
+              Waiting for next song
+              <span className="inline-block w-6 text-left">...</span>
+            </p>
+          </div>
         </div>
       </main>
     </div>

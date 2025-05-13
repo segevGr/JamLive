@@ -10,6 +10,7 @@ import { useSocket } from "../context/SocketProvider";
 import { clearSession } from "../store/songSessionSlice";
 import { ROUTES } from "../constants/routes";
 import ErrorPage from "../components/ErrorPage";
+import ModalDialog from "../components/ModalDialog";
 
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);
@@ -20,15 +21,18 @@ export default function Jam() {
   const [autoScroll, setAutoScroll] = useState(false);
   const scrollInterval = useRef<NodeJS.Timeout | null>(null);
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [sessionEnded, setSessionEnded] = useState(false);
+
   const { socket } = useSocket();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentSong) {
+    if (!currentSong && !sessionEnded) {
       setError("No song selected. Please go back to the waiting room.");
     }
-  }, [currentSong]);
+  }, [currentSong, sessionEnded]);
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -36,7 +40,7 @@ export default function Jam() {
     if (autoScroll) {
       scrollInterval.current = setInterval(() => {
         const container = scrollRef.current!;
-        container.scrollBy({ top: 1, behavior: "smooth" });
+        container.scrollBy({ top: 1 });
 
         const { scrollTop, scrollHeight, clientHeight } = container;
         const reachedBottom = scrollTop + clientHeight >= scrollHeight - 5;
@@ -59,8 +63,8 @@ export default function Jam() {
     if (!socket) return;
 
     const handleSessionEnded = () => {
+      setSessionEnded(true);
       dispatch(clearSession());
-      navigate(ROUTES.WAITING_ROOM);
     };
 
     socket.on("sessionEnded", handleSessionEnded);
@@ -68,13 +72,41 @@ export default function Jam() {
     return () => {
       socket.off("sessionEnded", handleSessionEnded);
     };
-  }, [socket]);
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (!sessionEnded) return;
+
+    const timer = setTimeout(() => {
+      if (role === "admin") {
+        navigate(ROUTES.ADMIN_SEARCH);
+      } else {
+        navigate(ROUTES.WAITING_ROOM);
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [sessionEnded, role, navigate]);
 
   const handleQuit = () => {
     socket?.emit("quitSession");
-    dispatch(clearSession());
-    navigate(ROUTES.ADMIN_SEARCH);
+    setShowConfirmModal(false);
   };
+
+  if (sessionEnded) {
+    return (
+      <ModalDialog
+        isOpen={true}
+        title="Session Ended"
+        message={
+          role === "admin"
+            ? "The session has ended. Back to song selection..."
+            : "The session has ended. Waiting for the next song..."
+        }
+        showButtons={false}
+      />
+    );
+  }
 
   if (!currentSong) {
     return (
@@ -106,28 +138,39 @@ export default function Jam() {
         {!currentSong && !error && <p className="text-lg">Loading song...</p>}
 
         {currentSong && (
-          <>
-            <div className="bg-white rounded-xl shadow-md px-40 py-8 mx-auto text-center">
-              <h2 className="text-5xl font-bold text-gold mb-2">
-                {currentSong.title}
-              </h2>
-              <p className="text-xl text-primaryLight mb-4 mt-1">
-                {currentSong.artist}
-              </p>
-              <InstrumentBadge instrument={instrument!} />
-              <SongDisplay
-                song={currentSong.lyrics}
-                isSinger={instrument?.toLowerCase() === "vocals"}
-              />
-            </div>
-          </>
+          <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 md:px-40 py-8 text-center">
+            <h2 className="text-5xl font-bold text-gold mb-2">
+              {currentSong.title}
+            </h2>
+            <p className="text-xl text-primaryLight mb-4 mt-1">
+              {currentSong.artist}
+            </p>
+            <InstrumentBadge instrument={instrument!} />
+            <SongDisplay
+              song={currentSong.lyrics}
+              isSinger={instrument?.toLowerCase() === "vocals"}
+            />
+          </div>
         )}
       </div>
       <AutoScrollToggle
         isScrolling={autoScroll}
         toggle={() => setAutoScroll(!autoScroll)}
       />
-      {role === "admin" && <QuitButton onQuit={handleQuit} />}
+      {role === "admin" && (
+        <QuitButton onQuit={() => setShowConfirmModal(true)} />
+      )}
+      {showConfirmModal && (
+        <ModalDialog
+          isOpen={showConfirmModal}
+          title="End Session?"
+          message="Are you sure you want to end the session for all players?"
+          confirmText="Yes, Quit"
+          cancelText="Cancel"
+          onConfirm={handleQuit}
+          onCancel={() => setShowConfirmModal(false)}
+        />
+      )}
     </div>
   );
 }
