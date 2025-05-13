@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "584f2a17-f3f5-4d28-a233-9f42c788fe3b",
+		"name": "JaMoveo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24587721"
+	},
+	"item": [
+		{
+			"name": "songs",
+			"item": [
+				{
+					"name": "Get song list by query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/songs/search?query=mac",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"songs",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "mac"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get song by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/songs/hey_jude",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"songs",
+								"hey_jude"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"test3@jamoveo.com\",\r\n  \"password\": \"123456\",\r\n  \"instrument\": \"drums\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
