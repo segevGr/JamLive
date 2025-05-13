@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 interface InputFieldProps {
   label?: string;
@@ -17,7 +18,7 @@ interface InputFieldProps {
 }
 
 const inputFieldStyles =
-  "w-full bg-white text-textMain text-base font-medium border border-borderGray rounded-xl px-4 py-3 pr-10 placeholder-placeholderGray focus:outline-none focus:ring-2 focus:ring-primary";
+  "appearance-none w-full bg-white text-textMain border border-borderGray rounded-xl px-4 py-4 md:py-3 placeholder-placeholderGray focus:outline-none focus:ring-2 focus:ring-primary";
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -32,10 +33,14 @@ const InputField: React.FC<InputFieldProps> = ({
   errorMessage,
   trailingIcon,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPasswordField = type === "password";
+  const computedType = isPasswordField && showPassword ? "text" : type;
+
   return (
     <div className="w-full space-y-1">
       {label && (
-        <label htmlFor={name} className="text-sm font-semibold text-black">
+        <label htmlFor={name} className="text-lg text-black">
           {label}
         </label>
       )}
@@ -45,7 +50,7 @@ const InputField: React.FC<InputFieldProps> = ({
           <input
             id={name}
             name={name}
-            type={type}
+            type={computedType}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
@@ -66,9 +71,12 @@ const InputField: React.FC<InputFieldProps> = ({
           </select>
         )}
 
-        {trailingIcon && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textMuted">
-            {trailingIcon}
+        {isPasswordField && (
+          <div
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textMuted"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </div>
         )}
       </div>

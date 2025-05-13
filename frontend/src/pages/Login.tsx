@@ -35,8 +35,13 @@ export default function Login() {
 
     if (!validateForm()) return;
 
+    const formToSend = {
+      ...form,
+      userName: form.userName.toLowerCase(),
+    };
+
     try {
-      const res = await axiosInstance.post(API.AUTH.LOGIN, form);
+      const res = await axiosInstance.post(API.AUTH.LOGIN, formToSend);
       dispatch(
         login({
           userId: res.data.user.id,
@@ -65,12 +70,12 @@ export default function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <AuthFormLayout
-        title="Log in"
+        title="Log In"
         imageSrc="/macabi-login.png"
         formContent={
           <>
             <InputField
-              label="Enter your Username"
+              label="Enter your Username*"
               name="userName"
               placeholder="Username"
               value={form.userName}
@@ -78,7 +83,7 @@ export default function Login() {
               errorMessage={errors.userName}
             />
             <InputField
-              label="Enter your Password"
+              label="Enter your Password*"
               name="password"
               type="password"
               placeholder="Password"
@@ -88,30 +93,11 @@ export default function Login() {
             />
           </>
         }
-        submitButton={
-          <button
-            type="submit"
-            className={`text-lg font-semibold px-4 py-3 rounded-xl w-full transition ${
-              isFormValid
-                ? "bg-primaryLight hover:bg-primary text-textOnDark opacity-100 cursor-pointer"
-                : "bg-gray-400 text-white opacity-50 cursor-not-allowed"
-            }`}
-            disabled={!isFormValid}
-          >
-            Log in
-          </button>
-        }
-        bottomText={
-          <>
-            Don’t have an account?{" "}
-            <span
-              onClick={() => navigate(ROUTES.REGISTER)}
-              className="text-primary font-semibold cursor-pointer"
-            >
-              Register
-            </span>
-          </>
-        }
+        buttonText="Log in"
+        isDisabled={!isFormValid}
+        bottomText="Don’t have an account?"
+        bottomLinkText="Register"
+        onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
       />
     </form>
   );

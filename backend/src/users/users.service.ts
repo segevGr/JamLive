@@ -14,12 +14,15 @@ export class UsersService {
     role: UserRole,
     instrument: string,
   ): Promise<User> {
-    const existing = await this.userModel.findOne({ userName });
+    const normalizedUserName = userName.toLowerCase();
+    const existing = await this.userModel.findOne({
+      userName: normalizedUserName,
+    });
     if (existing) throw new ConflictException('User already exists');
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new this.userModel({
-      userName,
+      userName: normalizedUserName,
       password: hashedPassword,
       role,
       instrument,
@@ -28,6 +31,6 @@ export class UsersService {
   }
 
   async findByUserName(userName: string): Promise<User | null> {
-    return this.userModel.findOne({ userName }).exec();
+    return this.userModel.findOne({ userName: userName.toLowerCase() }).exec();
   }
 }

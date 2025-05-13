@@ -55,6 +55,7 @@ export default function Register({ isAdmin = false }: Props) {
       const formToSend = {
         ...form,
         instrument: form.instrument.toLowerCase(),
+        userName: form.userName.toLowerCase(),
       };
 
       const res = isAdmin
@@ -88,7 +89,7 @@ export default function Register({ isAdmin = false }: Props) {
         formContent={
           <>
             <InputField
-              label="Username"
+              label="Username*"
               name="userName"
               placeholder="Select your username"
               value={form.userName}
@@ -97,7 +98,7 @@ export default function Register({ isAdmin = false }: Props) {
             />
 
             <InputField
-              label="Your instrument"
+              label="Your instrument*"
               name="instrument"
               value={form.instrument}
               onChange={handleChange}
@@ -113,7 +114,7 @@ export default function Register({ isAdmin = false }: Props) {
             </InputField>
 
             <InputField
-              label="Create password"
+              label="Create password*"
               name="password"
               type="password"
               placeholder="Your password"
@@ -123,30 +124,11 @@ export default function Register({ isAdmin = false }: Props) {
             />
           </>
         }
-        submitButton={
-          <button
-            type="submit"
-            className={`text-lg font-semibold px-4 py-3 rounded-xl w-full transition ${
-              isFormValid
-                ? "bg-primaryLight hover:bg-primary text-textOnDark opacity-100 cursor-pointer"
-                : "bg-gray-400 text-white opacity-50 cursor-not-allowed"
-            }`}
-            disabled={!isFormValid}
-          >
-            Register
-          </button>
-        }
-        bottomText={
-          <>
-            Already have an account?{" "}
-            <span
-              onClick={() => navigate(ROUTES.LOGIN)}
-              className="text-primary font-semibold cursor-pointer"
-            >
-              Log In
-            </span>
-          </>
-        }
+        buttonText="Register"
+        isDisabled={!isFormValid}
+        bottomText="Already have an account?"
+        bottomLinkText="Log In"
+        onBottomLinkClick={() => navigate(ROUTES.LOGIN)}
       />
     </form>
   );

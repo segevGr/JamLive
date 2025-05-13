@@ -18,6 +18,9 @@ module.exports = {
         placeholderGray: "#6b7280",
         errorText: "#dc2626",
       },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
     },
   },
   plugins: [],

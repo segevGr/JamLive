@@ -12,7 +12,8 @@ export class AuthService {
   ) {}
 
   async validateUser(userName: string, password: string): Promise<User> {
-    const user = await this.usersService.findByUserName(userName);
+    const normalizedUserName = userName.toLowerCase();
+    const user = await this.usersService.findByUserName(normalizedUserName);
     if (!user)
       throw new UnauthorizedException('Incorrect userName or password');
 
