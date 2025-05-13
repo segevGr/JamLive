@@ -8,11 +8,4 @@ export const API = {
     SEARCH: "/songs/search",
     GET_BY_ID: (id: string) => `/songs/${id}`,
   },
-  SESSION: {
-    CREATE: "/session/create",
-    JOIN: "/session/join",
-  },
-  USERS: {
-    ME: "/users/me",
-  },
 };

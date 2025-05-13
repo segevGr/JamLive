@@ -8,7 +8,12 @@ import * as path from 'path';
 export class SongsService {
   private songs: SongData[] = index as SongData[];
 
-  search(query: string): SongData[] {
+  search(query?: string, limit: number = 15): SongData[] {
+    // ללא query – החזר את הראשונים
+    if (!query || query.trim() === '') {
+      return this.songs.slice(0, limit);
+    }
+
     const lowerQuery = query.toLowerCase();
 
     const ranked = this.songs
@@ -30,9 +35,9 @@ export class SongsService {
 
         return { song, score };
       })
-      // .filter((entry) => entry.score > 0)
+      .filter((entry) => entry.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 10);
+      .slice(0, limit);
 
     return ranked.map((entry) => entry.song);
   }

@@ -16,11 +16,8 @@ interface SongListProps {
 export default function SongList({ songs, query, onSelect }: SongListProps) {
   const trimmedQuery = query.trim();
 
-  if (!trimmedQuery) {
-    return null;
-  }
-
-  if (songs.length === 0) {
+  // אם אין חיפוש, להציג את כל השירים
+  if (!trimmedQuery && songs.length === 0) {
     return (
       <div className="text-center mt-6">
         <h2 className="text-xl font-semibold text-gray-700 mb-2">
@@ -36,12 +33,18 @@ export default function SongList({ songs, query, onSelect }: SongListProps) {
   return (
     <div className="mt-4">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">
-        Search Results
+        {trimmedQuery ? "Search Results" : "Song List"}
       </h2>
       <div className="space-y-3">
-        {songs.map((song) => (
-          <SongCard key={song.id} song={song} onSelect={onSelect} />
-        ))}
+        {songs.length === 0 ? (
+          <div className="text-center">
+            <p>No songs found, try a different search.</p>
+          </div>
+        ) : (
+          songs.map((song) => (
+            <SongCard key={song.id} song={song} onSelect={onSelect} />
+          ))
+        )}
       </div>
     </div>
   );

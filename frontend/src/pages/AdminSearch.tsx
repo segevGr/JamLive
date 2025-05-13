@@ -29,9 +29,11 @@ export default function AdminSearch() {
   const { token } = useAppSelector((state) => state.auth);
   const { socket } = useSocket();
 
-  const fetchSongs = async (searchTerm: string) => {
+  const fetchSongs = async (searchTerm?: string) => {
     try {
-      const url = `${API.SONGS.SEARCH}?query=${encodeURIComponent(searchTerm)}`;
+      const url = searchTerm?.trim()
+        ? `${API.SONGS.SEARCH}?query=${encodeURIComponent(searchTerm)}`
+        : `${API.SONGS.SEARCH}?limit=15`;
       const res = await axiosInstance.get(url);
       setSongs(res.data);
     } catch (err) {
@@ -40,9 +42,13 @@ export default function AdminSearch() {
   };
 
   useEffect(() => {
+    fetchSongs();
+  }, []);
+
+  useEffect(() => {
     const trimmedQuery = query.trim();
     if (trimmedQuery.length === 0) {
-      setSongs([]);
+      fetchSongs();
       return;
     }
 
@@ -55,7 +61,9 @@ export default function AdminSearch() {
 
   const handleSelectSong = async (songId: string) => {
     const selected = songs.find((s) => s.id === songId);
-    if (!selected) return;
+    if (!selected) {
+      return;
+    }
 
     const res = await axiosInstance.get<SongData>(API.SONGS.GET_BY_ID(songId));
     const fullSong = res.data;
@@ -70,9 +78,8 @@ export default function AdminSearch() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
-
       <div className="px-6 py-10 text-textPrimary font-sans flex-grow">
         <div className="max-w-4xl mx-auto">
           <InputField

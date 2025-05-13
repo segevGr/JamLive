@@ -1,14 +1,183 @@
 [
   {
+    "id": "yarok_baeynayim",
+    "title": "ירוק בעיניים",
+    "artist": "חיים משה",
+    "image": "/images/example6.png"
+  },
+  {
+    "id": "tamid_ola_haalufa",
+    "title": "תמיד עולה האלופה",
+    "artist": "דורי בן זאב ורותי נבון",
+    "image": "/images/example6.png"
+  },
+  {
+    "id": "otcha_ohev_yoter",
+    "title": "אותך אוהב יותר מכל דבר אחר",
+    "artist": "שיר האוהדים",
+    "image": "/images/example6.png"
+  },
+
+  {
     "id": "hey_jude",
     "title": "Hey Jude",
     "artist": "The Beatles",
-    "image": "/images/veech-shelo.png"
+    "image": "/images/example4.png"
   },
   {
     "id": "veech_shelo",
     "title": "ואיך שלא",
     "artist": "עידן רייכל",
-    "image": "/images/veech-shelo.png"
+    "image": "/images/example4.png"
+  },
+  {
+    "id": "tozeret_haaretz",
+    "title": "תוצרת הארץ",
+    "artist": "אריק איינשטיין",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "im_telech",
+    "title": "אם תלך",
+    "artist": "הפרויקט של עידן רייכל",
+    "image": "/images/example4.png"
+  },
+  {
+    "id": "et_hamachar_sheli",
+    "title": "את המחר שלי",
+    "artist": "שמעון בוסקילה",
+    "image": "/images/example2.png"
+  },
+  {
+    "id": "at_lo_kmo_kulam",
+    "title": "את לא כמו כולם",
+    "artist": "משינה",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "haperach_begani",
+    "title": "הפרח בגני",
+    "artist": "זוהר ארגוב",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "hamalka_sheli",
+    "title": "המלכה שלי",
+    "artist": "ליאור נרקיס",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "yareach_bashamayim",
+    "title": "ירח בשמיים",
+    "artist": "לאה שבת",
+    "image": "/images/example5.png"
+  },
+  {
+    "id": "chutz_mimech_klum",
+    "title": "חוץ ממך כלום",
+    "artist": "רמי קלינשטיין",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "lo_yachol_lehorid_mimcha",
+    "title": "לא יכול להוריד ממך את העיניים",
+    "artist": "מאיר אריאל",
+    "image": "/images/example5.png"
+  },
+  {
+    "id": "zraei_kayitz",
+    "title": "זרעי קיץ",
+    "artist": "מאיר אריאל",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "lichvod_hakayitz",
+    "title": "לכבוד הקיץ",
+    "artist": "גזוז",
+    "image": "/images/example1.png"
+  },
+  {
+    "id": "yamim_shel_kayitz",
+    "title": "ימים של קיץ",
+    "artist": "עילי בוטנר וכפיר בן ליש",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "surf_mac_miller",
+    "title": "Surf",
+    "artist": "Mac Miller",
+    "image": "/images/example3.png"
+  },
+  {
+    "id": "good_news_mac_miller",
+    "title": "Good News",
+    "artist": "Mac Miller",
+    "image": "/images/example2.png"
+  },
+  {
+    "id": "mac_miller_2009",
+    "title": "2009",
+    "artist": "Mac Miller",
+    "image": "/images/example4.png"
+  },
+  {
+    "id": "self_care_mac_miller",
+    "title": "Self Care",
+    "artist": "Mac Miller",
+    "image": "/images/example1.png"
+  },
+  {
+    "id": "killing_me_softly_fugees",
+    "title": "Killing Me Softly With His Song",
+    "artist": "Fugees",
+    "image": "/images/example4.png"
+  },
+  {
+    "id": "ex_factor_lauryn_hill",
+    "title": "Ex-Factor",
+    "artist": "Lauryn Hill",
+    "image": "/images/example5.png"
+  },
+  {
+    "id": "cant_take_my_eyes_lauryn_hill",
+    "title": "Can’t Take My Eyes Off of You",
+    "artist": "Lauryn Hill",
+    "image": "/images/example4.png"
+  },
+  {
+    "id": "let_it_be_beatles",
+    "title": "Let It Be",
+    "artist": "The Beatles",
+    "image": "/images/example2.png"
+  },
+  {
+    "id": "yesterday_beatles",
+    "title": "Yesterday",
+    "artist": "The Beatles",
+    "image": "/images/example1.png"
+  },
+  {
+    "id": "here_comes_the_sun",
+    "title": "Here Comes the Sun",
+    "artist": "The Beatles",
+    "image": "/images/example1.png"
+  },
+  {
+    "id": "essence_wizkid",
+    "title": "Essence",
+    "artist": "Wizkid ft. Tems",
+    "image": "/images/example1.png"
+  },
+  {
+    "id": "soco_starboy",
+    "title": "Soco",
+    "artist": "StarBoy ft. Wizkid, Terri, Spotless, Ceeza Milli",
+    "image": "/images/example2.png"
+  },
+  {
+    "id": "blessed_wizkid",
+    "title": "Blessed",
+    "artist": "Wizkid ft. Damian Marley",
+    "image": "/images/example5.png"
   }
 ]
