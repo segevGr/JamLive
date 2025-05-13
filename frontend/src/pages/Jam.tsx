@@ -138,7 +138,7 @@ export default function Jam() {
         {!currentSong && !error && <p className="text-lg">Loading song...</p>}
 
         {currentSong && (
-          <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 md:px-40 py-8 text-center">
+          <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 py-8 text-center max-w-6xl w-full">
             <h2 className="text-5xl font-bold text-gold mb-2">
               {currentSong.title}
             </h2>

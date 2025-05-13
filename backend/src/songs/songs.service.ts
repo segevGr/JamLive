@@ -9,7 +9,6 @@ export class SongsService {
   private songs: SongData[] = index as SongData[];
 
   search(query?: string, limit: number = 15): SongData[] {
-    // ללא query – החזר את הראשונים
     if (!query || query.trim() === '') {
       return this.songs.slice(0, limit);
     }
