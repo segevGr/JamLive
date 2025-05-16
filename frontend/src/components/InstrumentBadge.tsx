@@ -1,4 +1,4 @@
-import { Music, Mic, Guitar, Drumstick, Keyboard, Music2 } from "lucide-react";
+import { Music, Mic, Guitar, Drum, Keyboard, Music2 } from "lucide-react";
 import { JSX } from "react";
 
 interface InstrumentBadgeProps {
@@ -11,7 +11,7 @@ const iconMap: Record<string, JSX.Element> = {
   vocals: <Mic className={iconClass} />,
   guitar: <Guitar className={iconClass} />,
   bass: <Guitar className={`${iconClass} rotate-180`} />,
-  drums: <Drumstick className={iconClass} />,
+  drums: <Drum className={iconClass} />,
   keyboards: <Keyboard className={iconClass} />,
   saxophone: <Music2 className={iconClass} />,
 };
@@ -22,7 +22,7 @@ export default function InstrumentBadge({ instrument }: InstrumentBadgeProps) {
   );
 
   return (
-    <div className="flex items-center text-lg text-white bg-primary rounded-full px-4 py-2 mb-4 shadow-sm max-w-fit mx-auto">
+    <div className="inline-flex items-center text-lg bg-primary text-white rounded-full px-5 py-2 shadow-md">
       {icon}
       <span className="capitalize font-semibold">{instrument}</span>
     </div>

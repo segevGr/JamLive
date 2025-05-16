@@ -1,4 +1,3 @@
-// src/pages/WaitingRoom.tsx
 import { useEffect, useState } from "react";
 import { Music } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -48,7 +47,7 @@ const WaitingRoom = () => {
       socket.off("connect", handleConnect);
       socket.off("startSong");
     };
-  }, [socket]);
+  }, [socket, dispatch, navigate]);
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-background">
@@ -88,7 +87,7 @@ const WaitingRoom = () => {
             <Music className="text-gold w-20 h-20 mb-4" />
             <p className="text-4xl text-primary font-medium">
               Waiting for next song
-              <span className="inline-block w-6 text-left">...</span>
+              <span className="inline-block w-6 text-left">{dots}</span>
             </p>
           </div>
         </div>

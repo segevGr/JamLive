@@ -58,7 +58,7 @@ export default function Register({ isAdmin = false }: Props) {
         userName: form.userName.toLowerCase(),
       };
 
-      const res = isAdmin
+      isAdmin
         ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
         : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
