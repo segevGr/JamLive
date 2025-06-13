@@ -42,7 +42,7 @@ const Navbar = () => {
     <header className="bg-primary text-textOnDark flex items-center justify-between px-6 py-4 shadow-md relative">
       <div className="flex items-center gap-2">
         <Music className="text-gold" />
-        <span className="font-bold text-lg text-gold">JAMOVEO</span>
+        <span className="font-bold text-lg text-gold">JamLive</span>
       </div>
 
       <div className="relative">

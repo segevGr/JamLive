@@ -1,11 +1,11 @@
-# 🎸 JaMoveo – Real-Time Rehearsal Web App
+# 🎸 JamLive – Real-Time Rehearsal Web App
 
-JaMoveo is a full-stack web application that enables musicians to join live rehearsal sessions directly from their mobile phones. Users register with their instrument, and an admin leads the session by selecting a song. Lyrics and chords are displayed in real time, with role-based views and synchronized scrolling.
+JamLive is a full-stack web application that enables musicians to join live rehearsal sessions directly from their mobile phones. Users register with their instrument, and an admin leads the session by selecting a song. Lyrics and chords are displayed in real time, with role-based views and synchronized scrolling.
 
 ## 🌐 Live Demo
 
-- **Frontend**: [https://jamoveo-macabi.vercel.app](https://jamoveo-macabi.vercel.app)
-- **Backend**: [https://jamoveo-server.up.railway.app](https://jamoveo-server.up.railway.app)
+- **Frontend**: [https://jamlive-macabi.vercel.app](https://jamlive-macabi.vercel.app)
+- **Backend**: [https://jamlive-server.up.railway.app](https://jamlive-server.up.railway.app)
 
 ## 🚪 Signup Routes
 
@@ -50,8 +50,8 @@ JaMoveo is a full-stack web application that enables musicians to join live rehe
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/JaMoveo.git
-cd JaMoveo
+git clone https://github.com/your-username/JamLive.git
+cd JamLive
 ```
 
 2. **Frontend setup**
@@ -107,7 +107,7 @@ FRONTEND_ORIGIN=http://localhost:3000
 
 You can test the backend API using the Postman collection provided in this repository:
 
-👉 [Download JaMoveo.postman_collection.json](./postman/JaMoveo.postman_collection.json)
+👉 [Download JamLive.postman_collection.json](./postman/JamLive.postman_collection.json)
 
 The collection includes all available endpoints:
 
@@ -116,7 +116,7 @@ The collection includes all available endpoints:
 - Song search
 - Auth-protected routes
 
-> Make sure to set the `url` environment variable in Postman to match your local or deployed server (e.g., `http://localhost:8000` or `https://jamoveo-api.up.railway.app`).
+> Make sure to set the `url` environment variable in Postman to match your local or deployed server (e.g., `http://localhost:8000` or `https://jamlive-api.up.railway.app`).
 
 ## 📸 Screenshots
 

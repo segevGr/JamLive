@@ -27,14 +27,14 @@ export default function AuthFormLayout({
     <div className="min-h-[100dvh] flex flex-col md:flex-row font-sans bg-background">
       <div className="w-full flex-1 md:w-1/2 flex flex-col md:justify-center items-center">
         <img
-          src="/jamoveo-logo.png"
-          alt="Jamoveo Logo"
+          src="/jamlive-logo.png"
+          alt="JamLive Logo"
           className="block md:hidden w-64 h-28 object-cover mx-auto self-start ml-0 mb-3"
         />
         <div className="w-full max-w-sm">
           <div className="flex flex-col self-start md:self-center md:ml-0">
             <h1 className="text-xl md:text-3xl text-gold mb-2">
-              Welcome to JaMoveo
+              Welcome to JamLive
             </h1>
             {isAdmin && (
               <p className="text-sm text-primary font-medium uppercase tracking-wide">
