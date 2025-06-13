@@ -132,7 +132,7 @@ export default function Register({ isAdmin = false }: Props) {
         <ModalDialog
           isOpen={showSuccessModal}
           title="Registered Successfully!"
-          message="Welcome to the Moveo Family. You can now log in."
+          message="Welcome to the JamLive Family. You can now log in."
           confirmText="Go to Login"
           onConfirm={() => navigate(ROUTES.LOGIN)}
           confirmColor="green"
