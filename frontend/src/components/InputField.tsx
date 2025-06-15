@@ -72,20 +72,20 @@ const InputField: React.FC<InputFieldProps> = ({
             </select>
 
             {!trailingIcon && (
-              <ChevronDown className="w-4 h-4 text-textMuted absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              <ChevronDown className="w-4 h-4 text-textSubtle absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
             )}
           </>
         )}
 
         {!isPasswordField && trailingIcon && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textMuted">
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle">
             {trailingIcon}
           </div>
         )}
 
         {isPasswordField && (
           <div
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textMuted"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

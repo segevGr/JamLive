@@ -4,8 +4,8 @@ JamLive is a full-stack web application that enables musicians to join live rehe
 
 ## 🌐 Live Demo
 
-- **Frontend**: [https://jamlive-macabi.vercel.app](https://jamlive-macabi.vercel.app)
-- **Backend**: [https://jamlive-server.up.railway.app](https://jamlive-server.up.railway.app)
+- **Frontend**: [https://jamlive.vercel.app/](https://jamlive.vercel.app/)
+- **Backend**: [https://dashboard.render.com/](https://dashboard.render.com/)
 
 ## 🚪 Signup Routes
 

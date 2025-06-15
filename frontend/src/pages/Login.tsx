@@ -71,7 +71,7 @@ export default function Login() {
     <form onSubmit={handleSubmit}>
       <AuthFormLayout
         title="Log In"
-        imageSrc="/macabi-login.png"
+        imageSrc="/login-img.png"
         formContent={
           <>
             <InputField

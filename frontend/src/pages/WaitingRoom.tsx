@@ -84,7 +84,7 @@ const WaitingRoom = () => {
           </svg>
 
           <div className="z-10 flex flex-col items-center">
-            <Music className="text-gold w-20 h-20 mb-4" />
+            <Music className="text-accent w-20 h-20 mb-4" />
             <p className="text-4xl text-primary font-medium">
               Waiting for next song
               <span className="inline-block w-6 text-left">{dots}</span>

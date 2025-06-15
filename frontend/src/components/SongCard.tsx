@@ -13,7 +13,7 @@ interface Props {
 export default function SongCard({ song, onSelect }: Props) {
   return (
     <div
-      className="bg-gray-100 hover:bg-gray-200 transition rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer"
+      className="border border-borderCard hover:bg-hoverCard hover:shadow-md transition rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer"
       onClick={() => onSelect(song.id)}
     >
       <div className="flex items-center gap-4">

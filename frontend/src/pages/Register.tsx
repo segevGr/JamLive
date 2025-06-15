@@ -80,7 +80,7 @@ export default function Register({ isAdmin = false }: Props) {
       <form onSubmit={handleSubmit}>
         <AuthFormLayout
           title="Register"
-          imageSrc="/macabi-register.png"
+          imageSrc="/register-img.png"
           isAdmin={isAdmin}
           formContent={
             <>

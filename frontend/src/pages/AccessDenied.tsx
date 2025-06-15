@@ -6,7 +6,7 @@ export default function AccessDenied() {
     <ErrorPage
       title="Access Denied"
       description="Looks like you're out of key..."
-      imageSrc="/access-denied-graphic.png"
+      imageSrc="/access-denied-img.png"
       redirectTo={ROUTES.HOME}
     />
   );

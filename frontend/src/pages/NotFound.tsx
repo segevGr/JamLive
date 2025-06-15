@@ -6,7 +6,7 @@ export default function NotFound() {
     <ErrorPage
       title="404 - Page Not Found"
       description="This page doesn’t exist in our harmony..."
-      imageSrc="/not-found-graphic.png"
+      imageSrc="/not-found-img.png"
       redirectTo={ROUTES.HOME}
     />
   );

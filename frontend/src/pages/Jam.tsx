@@ -113,7 +113,7 @@ export default function Jam() {
       <ErrorPage
         title="Access Denied"
         description="You're off tempo – no song has started yet!"
-        imageSrc="/access-denied-graphic.png"
+        imageSrc="/access-denied-img.png"
         buttonText={role === "admin" ? "Select a song" : "Back to Waiting Room"}
         redirectTo={
           role === "admin" ? ROUTES.ADMIN_SEARCH : ROUTES.WAITING_ROOM
@@ -129,9 +129,7 @@ export default function Jam() {
     >
       <Navbar />
       <div className="flex flex-col items-center justify-center mt-10">
-        <h1 className="text-4xl font-bold text-primaryLight mb-6">
-          Live Session
-        </h1>
+        <h1 className="text-4xl font-bold text-accent mb-6">Live Session</h1>
 
         {error && <p className="text-errorText">{error}</p>}
 
@@ -139,12 +137,10 @@ export default function Jam() {
 
         {currentSong && (
           <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 py-8 text-center max-w-6xl w-full">
-            <h2 className="text-5xl font-bold text-gold mb-2">
+            <h2 className="text-5xl font-bold text-primaryDark mb-2">
               {currentSong.title}
             </h2>
-            <p className="text-xl text-primaryLight mb-4 mt-1">
-              {currentSong.artist}
-            </p>
+            <p className="text-xl text-black mb-4 mt-1">{currentSong.artist}</p>
             <InstrumentBadge instrument={instrument!} />
             <SongDisplay
               song={currentSong.lyrics}

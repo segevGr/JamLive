@@ -25,7 +25,7 @@ export default function SongDisplay({ song, isSinger }: SongDisplayProps) {
               >
                 <div className="h-[1.8rem]">
                   {!isSinger && part.chords && (
-                    <span className="text-gold text-3xl font-semibold">
+                    <span className="text-textMain text-3xl font-semibold">
                       {part.chords}
                     </span>
                   )}

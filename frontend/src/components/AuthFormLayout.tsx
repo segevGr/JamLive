@@ -26,14 +26,9 @@ export default function AuthFormLayout({
   return (
     <div className="min-h-[100dvh] flex flex-col md:flex-row font-sans bg-background">
       <div className="w-full flex-1 md:w-1/2 flex flex-col md:justify-center items-center">
-        <img
-          src="/jamlive-logo.png"
-          alt="JamLive Logo"
-          className="block md:hidden w-64 h-28 object-cover mx-auto self-start ml-0 mb-3"
-        />
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-sm mt-24 md:mt-0">
           <div className="flex flex-col self-start md:self-center md:ml-0">
-            <h1 className="text-xl md:text-3xl text-gold mb-2">
+            <h1 className="text-xl md:text-3xl text-accent mb-2">
               Welcome to JamLive
             </h1>
             {isAdmin && (

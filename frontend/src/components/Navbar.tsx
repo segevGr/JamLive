@@ -41,13 +41,13 @@ const Navbar = () => {
   return (
     <header className="bg-primary text-textOnDark flex items-center justify-between px-6 py-4 shadow-md relative">
       <div className="flex items-center gap-2">
-        <Music className="text-gold" />
-        <span className="font-bold text-lg text-gold">JamLive</span>
+        <Music className="text-white" />
+        <span className="font-bold text-lg text-white">JamLive</span>
       </div>
 
       <div className="relative">
         <button
-          className="w-8 h-8 rounded-full bg-gold flex items-center justify-center"
+          className="w-8 h-8 rounded-full bg-white flex items-center justify-center"
           onClick={() => setOpen(!open)}
         >
           <User className="text-primary" />
