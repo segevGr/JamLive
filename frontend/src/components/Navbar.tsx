@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Music, User, LogOut, Users } from "lucide-react";
 import { logout } from "../store/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import ModalDialog from "./ModalDialog";
+import { useSocket } from "../context/SocketProvider";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,13 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { role } = useAppSelector((state) => state.auth);
+  const { socket } = useSocket();
+  const location = useLocation();
+
   const confirmLogout = () => {
+    if (role === "admin" && location.pathname === "/jam") {
+      socket?.emit("quitSession");
+    }
     dispatch(logout());
     navigate(ROUTES.HOME);
   };
@@ -20,19 +27,26 @@ const Navbar = () => {
   const listButtons = [
     {
       label: "my profile",
-      onClick: () => {},
+      onClick: () => {
+        setOpen(false);
+      },
       icon: <User />,
       role: ["user", "admin"],
     },
     {
       label: "manage users",
-      onClick: () => {},
+      onClick: () => {
+        setOpen(false);
+      },
       icon: <Users />,
       role: ["admin"],
     },
     {
       label: "Logout",
-      onClick: () => setShowLogoutModal(true),
+      onClick: () => {
+        setShowLogoutModal(true);
+        setOpen(false);
+      },
       icon: <LogOut />,
       role: ["user", "admin"],
     },
