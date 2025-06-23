@@ -1,4 +1,5 @@
 import React from "react";
+import PrimaryButton from "./PrimaryButton";
 
 interface ModalDialogProps {
   isOpen: boolean;
@@ -10,6 +11,8 @@ interface ModalDialogProps {
   onCancel?: () => void;
   showButtons?: boolean;
   confirmColor?: "green" | "red";
+  confirmDisabled?: boolean;
+  children?: React.ReactNode;
 }
 
 export default function ModalDialog({
@@ -22,13 +25,10 @@ export default function ModalDialog({
   onCancel,
   showButtons = true,
   confirmColor = "red",
+  confirmDisabled = false,
+  children,
 }: ModalDialogProps) {
   if (!isOpen) return null;
-
-  const confirmButtonClass =
-    confirmColor === "green"
-      ? "bg-primary hover:bg-primaryLight"
-      : "bg-red-600 hover:bg-red-700";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -38,23 +38,28 @@ export default function ModalDialog({
         )}
         {message && <p className="text-gray-600 mb-6">{message}</p>}
 
+        {children && <div className="mb-6">{children}</div>}
+
         {showButtons && (
           <div className="flex justify-center gap-4">
             {onConfirm && (
-              <button
+              <PrimaryButton
+                text={confirmText}
                 onClick={onConfirm}
-                className={`${confirmButtonClass} text-white font-semibold px-4 py-2 rounded-lg`}
-              >
-                {confirmText}
-              </button>
+                disabled={confirmDisabled}
+                color={confirmColor === "green" ? "primary" : "red"}
+                fullWidth={false}
+                size="sm"
+              />
             )}
             {onCancel && (
-              <button
+              <PrimaryButton
+                text={cancelText}
                 onClick={onCancel}
-                className="bg-gray-200 text-gray-800 font-semibold px-4 py-2 rounded-lg hover:bg-gray-300"
-              >
-                {cancelText}
-              </button>
+                color="gray"
+                fullWidth={false}
+                size="sm"
+              />
             )}
           </div>
         )}

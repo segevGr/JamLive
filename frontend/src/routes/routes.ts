@@ -7,4 +7,5 @@ export const ROUTES = {
   ADMIN_SEARCH: "/search-song",
   ACCESS_DENIED: "/access-denied",
   JAM: "/jam",
+  PROFILE: "/profile",
 };

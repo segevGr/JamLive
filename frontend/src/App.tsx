@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ROUTES } from "./routes/routes";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import "./index.css";
@@ -7,9 +8,9 @@ import AdminSearch from "./pages/AdminSearch";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AccessDenied from "./pages/AccessDenied";
 import HomeRedirect from "./pages/HomeRedirect";
-import { ROUTES } from "./constants/routes";
 import Jam from "./pages/Jam";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -40,6 +41,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin", "user"]}>
               <Jam />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.PROFILE}
+          element={
+            <ProtectedRoute allowedRoles={["admin", "user"]}>
+              <Profile />
             </ProtectedRoute>
           }
         />

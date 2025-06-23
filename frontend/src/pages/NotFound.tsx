@@ -1,5 +1,5 @@
 import ErrorPage from "../components/ErrorPage";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "../routes/routes";
 
 export default function NotFound() {
   return (

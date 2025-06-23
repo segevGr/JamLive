@@ -2,12 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/storeHooks";
 import { login } from "../store/authSlice";
 import InputField from "../components/InputField";
-import AuthFormLayout from "../components/AuthFormLayout";
+import FormPageLayout from "../components/FormPageLayout";
+import FormSection from "../components/FormSection";
 import { API } from "../constants/api";
 import { useAuthForm } from "../hooks/useAuthForm";
 import { validateLoginForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "../routes/routes";
 import { axiosInstance } from "../constants/axios";
 
 export default function Login() {
@@ -32,7 +33,6 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
-
     if (!validateForm()) return;
 
     const formToSend = {
@@ -44,6 +44,7 @@ export default function Login() {
       const res = await axiosInstance.post(API.AUTH.LOGIN, formToSend);
       dispatch(
         login({
+          userName: res.data.user.userName,
           userId: res.data.user.id,
           role: res.data.user.role,
           token: res.data.access_token,
@@ -61,44 +62,43 @@ export default function Login() {
           password: "Incorrect username or password, please try again",
         });
       } else {
-        console.log(err.response?.data);
         alert("Something went wrong\nPlease try again later");
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <AuthFormLayout
-        title="Log In"
-        imageSrc="/login-img.png"
-        formContent={
-          <>
-            <InputField
-              label="Enter your Username*"
-              name="userName"
-              placeholder="Username"
-              value={form.userName}
-              onChange={handleChange}
-              errorMessage={errors.userName}
-            />
-            <InputField
-              label="Enter your Password*"
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              errorMessage={errors.password}
-            />
-          </>
-        }
+    <FormPageLayout
+      title="Log In"
+      subtitle="Welcome to JamLive"
+      imageSrc="/login-img.png"
+      bottomText="Don’t have an account?"
+      bottomLinkText="Register"
+      onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
+    >
+      <FormSection
         buttonText="Log in"
         isDisabled={!isFormValid}
-        bottomText="Don’t have an account?"
-        bottomLinkText="Register"
-        onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
-      />
-    </form>
+        onSubmit={handleSubmit}
+      >
+        <InputField
+          label="Enter your Username*"
+          name="userName"
+          placeholder="Username"
+          value={form.userName}
+          onChange={handleChange}
+          errorMessage={errors.userName}
+        />
+        <InputField
+          label="Enter your Password*"
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          errorMessage={errors.password}
+        />
+      </FormSection>
+    </FormPageLayout>
   );
 }

@@ -8,7 +8,7 @@ import QuitButton from "../components/QuitButton";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
 import { clearSession } from "../store/songSessionSlice";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "../routes/routes";
 import ErrorPage from "../components/ErrorPage";
 import ModalDialog from "../components/ModalDialog";
 

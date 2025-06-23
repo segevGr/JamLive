@@ -8,4 +8,9 @@ export const API = {
     SEARCH: "/songs/search",
     GET_BY_ID: (id: string) => `/songs/${id}`,
   },
+  USERS: {
+    CHANGE_INSTRUMENT: "/users/me/instrument",
+    CHANGE_PASSWORD: "/users/me/password",
+    DELETE_USER: "/users/me",
+  },
 };

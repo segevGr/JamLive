@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Music, User, LogOut, Users } from "lucide-react";
 import { logout } from "../store/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "../routes/routes";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import ModalDialog from "./ModalDialog";
 import { useSocket } from "../context/SocketProvider";
@@ -29,6 +29,7 @@ const Navbar = () => {
       label: "my profile",
       onClick: () => {
         setOpen(false);
+        navigate(ROUTES.PROFILE);
       },
       icon: <User />,
       role: ["user", "admin"],

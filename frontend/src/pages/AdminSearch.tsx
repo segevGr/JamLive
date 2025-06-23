@@ -6,7 +6,7 @@ import { API } from "../constants/api";
 import { axiosInstance } from "../constants/axios";
 import Navbar from "../components/Navbar";
 import SongList from "../components/songsList";
-import { ROUTES } from "../constants/routes";
+import { ROUTES } from "../routes/routes";
 import { setCurrentSong } from "../store/songSessionSlice";
 import { useSocket } from "../context/SocketProvider";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
