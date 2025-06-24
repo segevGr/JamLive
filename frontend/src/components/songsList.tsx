@@ -1,3 +1,4 @@
+import LoadingSpinner from "./LoadingSpinner";
 import SongCard from "./SongCard";
 
 interface Song {
@@ -55,9 +56,7 @@ export default function SongList({
 
         <div className="flex flex-col items-center" ref={loadMoreRef}>
           {isLoading && (
-            <span className="text-sm text-gray-500 animate-pulse mt-5">
-              Loading...
-            </span>
+            <LoadingSpinner size="sm" text="Loading more songs..." />
           )}
         </div>
       </div>

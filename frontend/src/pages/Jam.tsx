@@ -11,6 +11,7 @@ import { clearSession } from "../store/songSessionSlice";
 import { ROUTES } from "../routes/routes";
 import ErrorPage from "../components/ErrorPage";
 import ModalDialog from "../components/ModalDialog";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);
@@ -133,7 +134,9 @@ export default function Jam() {
 
         {error && <p className="text-errorText">{error}</p>}
 
-        {!currentSong && !error && <p className="text-lg">Loading song...</p>}
+        {!currentSong && !error && (
+          <LoadingSpinner size="lg" text="Loading song..." />
+        )}
 
         {currentSong && (
           <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 py-8 text-center max-w-6xl w-full">

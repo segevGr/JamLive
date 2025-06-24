@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { SocketProvider } from "./context/SocketProvider";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +16,10 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <SocketProvider>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate
+          loading={<LoadingSpinner size="lg" text="Loading session..." />}
+          persistor={persistor}
+        >
           <App />
         </PersistGate>
       </SocketProvider>
