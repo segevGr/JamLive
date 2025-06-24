@@ -29,14 +29,24 @@ export default function AdminSearch() {
   const [query, setQuery] = useState("");
   const [songs, setSongs] = useState<Song[]>([]);
   const [offset, setOffset] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const LIMIT = 10;
 
   const fetchSongs = useCallback(
-    async (searchTerm?: string, newOffset = 0, append = false) => {
-      setIsLoading(true);
+    async (
+      searchTerm?: string,
+      newOffset = 0,
+      append = false,
+      showSpinner = false
+    ) => {
+      if (showSpinner) {
+        setIsLoading(true);
+      } else {
+        setIsSearching(true);
+      }
 
       try {
         const url =
@@ -45,7 +55,10 @@ export default function AdminSearch() {
             ? `&query=${encodeURIComponent(searchTerm)}`
             : "");
 
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        if (showSpinner) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+
         const res = await axiosInstance.get<Song[]>(url);
         const newSongs = res.data;
 
@@ -60,23 +73,23 @@ export default function AdminSearch() {
       } catch (err) {
         console.error("Failed to fetch songs", err);
       } finally {
-        setIsLoading(false);
+        if (showSpinner) setIsLoading(false);
+        else setIsSearching(false);
       }
     },
     []
   );
 
   useEffect(() => {
-    fetchSongs();
+    fetchSongs(undefined, 0, false, false);
   }, [fetchSongs]);
 
-  // ✅ חיפוש עם debounce
   useEffect(() => {
     const trimmedQuery = query.trim();
     setOffset(0);
 
     const delayDebounce = setTimeout(() => {
-      fetchSongs(trimmedQuery, 0, false);
+      fetchSongs(trimmedQuery, 0, false, false);
     }, 500);
 
     return () => clearTimeout(delayDebounce);
@@ -85,7 +98,7 @@ export default function AdminSearch() {
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && hasMore && !isLoading) {
-        fetchSongs(query.trim(), offset, true);
+        fetchSongs(query.trim(), offset, true, true);
       }
     });
 
@@ -136,6 +149,7 @@ export default function AdminSearch() {
             onSelect={handleSelectSong}
             loadMoreRef={loadMoreRef}
             isLoading={isLoading}
+            isSearching={isSearching}
           />
         </div>
       </div>

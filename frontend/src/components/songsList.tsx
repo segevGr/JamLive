@@ -14,6 +14,7 @@ interface SongListProps {
   onSelect: (id: string) => void;
   loadMoreRef?: React.RefObject<HTMLDivElement | null>;
   isLoading?: boolean;
+  isSearching?: boolean;
 }
 
 export default function SongList({
@@ -22,11 +23,16 @@ export default function SongList({
   onSelect,
   loadMoreRef,
   isLoading = false,
+  isSearching = false,
 }: SongListProps) {
   const trimmedQuery = query.trim();
 
   if (!trimmedQuery && songs.length === 0) {
-    return (
+    return isSearching ? (
+      <div className="text-center mt-10">
+        <LoadingSpinner size="sm" text="Loading songs..." />
+      </div>
+    ) : (
       <div className="text-center mt-6">
         <h2 className="text-xl font-semibold text-gray-700 mb-2">
           No results found
@@ -44,7 +50,7 @@ export default function SongList({
         {trimmedQuery ? "Search Results" : "Song List"}
       </h2>
       <div className="space-y-3">
-        {songs.length === 0 ? (
+        {songs.length === 0 && !isSearching ? (
           <div className="text-center">
             <p>No songs found, try a different search.</p>
           </div>
