@@ -11,12 +11,19 @@ interface SongListProps {
   songs: Song[];
   query: string;
   onSelect: (id: string) => void;
+  loadMoreRef?: React.RefObject<HTMLDivElement | null>;
+  isLoading?: boolean;
 }
 
-export default function SongList({ songs, query, onSelect }: SongListProps) {
+export default function SongList({
+  songs,
+  query,
+  onSelect,
+  loadMoreRef,
+  isLoading = false,
+}: SongListProps) {
   const trimmedQuery = query.trim();
 
-  // אם אין חיפוש, להציג את כל השירים
   if (!trimmedQuery && songs.length === 0) {
     return (
       <div className="text-center mt-6">
@@ -45,6 +52,14 @@ export default function SongList({ songs, query, onSelect }: SongListProps) {
             <SongCard key={song.id} song={song} onSelect={onSelect} />
           ))
         )}
+
+        <div className="flex flex-col items-center" ref={loadMoreRef}>
+          {isLoading && (
+            <span className="text-sm text-gray-500 animate-pulse mt-5">
+              Loading...
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

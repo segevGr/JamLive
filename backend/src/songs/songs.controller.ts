@@ -9,9 +9,14 @@ export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
   @Get('search')
-  search(@Query('query') query?: string, @Query('limit') limit: string = '15') {
+  search(
+    @Query('query') query?: string,
+    @Query('limit') limit: string = '10',
+    @Query('offset') offset: string = '0',
+  ) {
     const parsedLimit = parseInt(limit, 10);
-    return this.songsService.search(query, parsedLimit);
+    const parsedOffset = parseInt(offset, 10);
+    return this.songsService.search(query, parsedLimit, parsedOffset);
   }
 
   @Get(':id')

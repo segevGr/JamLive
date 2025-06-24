@@ -8,9 +8,9 @@ import * as path from 'path';
 export class SongsService {
   private songs: SongData[] = index as SongData[];
 
-  search(query?: string, limit: number = 15): SongData[] {
+  search(query?: string, limit: number = 10, offset: number = 0): SongData[] {
     if (!query || query.trim() === '') {
-      return this.songs.slice(0, limit);
+      return this.songs.slice(offset, offset + limit);
     }
 
     const lowerQuery = query.toLowerCase();
@@ -36,7 +36,7 @@ export class SongsService {
       })
       .filter((entry) => entry.score > 0)
       .sort((a, b) => b.score - a.score)
-      .slice(0, limit);
+      .slice(offset, offset + limit);
 
     return ranked.map((entry) => entry.song);
   }

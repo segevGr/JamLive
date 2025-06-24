@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
 import { usePageTitle } from "../hooks/usePageTitle";
@@ -21,58 +21,90 @@ interface Song {
 
 export default function AdminSearch() {
   usePageTitle("Admin Search");
-
-  const [query, setQuery] = useState("");
-  const [songs, setSongs] = useState<Song[]>([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
   const { socket } = useSocket();
 
-  const fetchSongs = async (searchTerm?: string) => {
-    try {
-      const url = searchTerm?.trim()
-        ? `${API.SONGS.SEARCH}?query=${encodeURIComponent(searchTerm)}`
-        : `${API.SONGS.SEARCH}?limit=15`;
-      const res = await axiosInstance.get(url);
-      setSongs(res.data);
-    } catch (err) {
-      console.error("Failed to fetch songs", err);
-    }
-  };
+  const [query, setQuery] = useState("");
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [offset, setOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const LIMIT = 10;
+
+  const fetchSongs = useCallback(
+    async (searchTerm?: string, newOffset = 0, append = false) => {
+      setIsLoading(true);
+
+      try {
+        const url =
+          `${API.SONGS.SEARCH}?limit=${LIMIT}&offset=${newOffset}` +
+          (searchTerm?.trim()
+            ? `&query=${encodeURIComponent(searchTerm)}`
+            : "");
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const res = await axiosInstance.get<Song[]>(url);
+        const newSongs = res.data;
+
+        if (append) {
+          setSongs((prev) => [...prev, ...newSongs]);
+        } else {
+          setSongs(newSongs);
+        }
+
+        setHasMore(newSongs.length === LIMIT);
+        setOffset(newOffset + newSongs.length);
+      } catch (err) {
+        console.error("Failed to fetch songs", err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     fetchSongs();
-  }, []);
+  }, [fetchSongs]);
 
+  // ✅ חיפוש עם debounce
   useEffect(() => {
     const trimmedQuery = query.trim();
-    if (trimmedQuery.length === 0) {
-      fetchSongs();
-      return;
-    }
+    setOffset(0);
 
     const delayDebounce = setTimeout(() => {
-      fetchSongs(trimmedQuery);
+      fetchSongs(trimmedQuery, 0, false);
     }, 500);
 
     return () => clearTimeout(delayDebounce);
-  }, [query]);
+  }, [query, fetchSongs]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && hasMore && !isLoading) {
+        fetchSongs(query.trim(), offset, true);
+      }
+    });
+
+    const currentRef = loadMoreRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, [offset, query, hasMore, isLoading, fetchSongs]);
 
   const handleSelectSong = async (songId: string) => {
     const selected = songs.find((s) => s.id === songId);
-    if (!selected) {
-      return;
-    }
+    if (!selected) return;
 
     const res = await axiosInstance.get<SongData>(API.SONGS.GET_BY_ID(songId));
     const fullSong = res.data;
 
-    socket?.emit("startSong", {
-      song: fullSong,
-      token,
-    });
-
+    socket?.emit("startSong", { song: fullSong, token });
     dispatch(setCurrentSong(fullSong));
     navigate(ROUTES.JAM);
   };
@@ -98,7 +130,13 @@ export default function AdminSearch() {
               )
             }
           />
-          <SongList songs={songs} query={query} onSelect={handleSelectSong} />
+          <SongList
+            songs={songs}
+            query={query}
+            onSelect={handleSelectSong}
+            loadMoreRef={loadMoreRef}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>
