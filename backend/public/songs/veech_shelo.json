@@ -1,115 +1,351 @@
 [
-    [
-        {
-            "lyrics": "ואיך"
-        },
-        {
-            "lyrics": "שלא",
-            "chords": "Em"
-        },
-        {
-            "lyrics": "אפנה"
-        },
-        {
-            "lyrics": "לראות",
-            "chords": "Em/D"
-        }
-    ],
-    [
-        {
-            "lyrics": "תמיד"
-        },
-        {
-            "lyrics": "איתה",
-            "chords": "Cmaj7"
-        },
-        {
-            "lyrics": "ארצה"
-        },
-        {
-            "lyrics": "להיות",
-            "chords": "G"
-        }
-    ],
-    [
-        {
-            "lyrics": "שומרת"
-        },
-        {
-            "lyrics": "לי",
-            "chords": "Em"
-        },
-        {
-            "lyrics": "היא"
-        },
-        {
-            "lyrics": "אמונים",
-            "chords": "Em/D"
-        }
-    ],
-    [
-        {
-            "lyrics": "לא"
-        },
-        {
-            "lyrics": "מתרוצצת",
-            "chords": "Cmaj7"
-        },
-        {
-            "lyrics": "בגנים",
-            "chords": "G"
-        }
-    ],
-    [
-        {
-            "lyrics": "ובלילות",
-            "chords": "E"
-        },
-        {
-            "lyrics": "ובלילות",
-            "chords": "Em/D"
-        }
-    ],
-    [
-        {
-            "lyrics": "עולות"
-        },
-        {
-            "lyrics": "עולות",
-            "chords": "Cmaj7"
-        },
-        {
-            "lyrics": "בי"
-        },
-        {
-            "lyrics": "מנגינות",
-            "chords": "G"
-        }
-    ],
-    [
-        {
-            "lyrics": "וזרם"
-        },
-        {
-            "lyrics": "דק",
-            "chords": "E"
-        },
-        {
-            "lyrics": "קולח",
-            "chords": "Em/D"
-        }
-    ],
-    [
-        {
-            "lyrics": "ותפילותי",
-            "chords": "Cmaj7"
-        },
-        {
-            "lyrics": "לרוח"
-        },
-        {
-            "lyrics": "נענות",
-            "chords": "G"
-        }
-    ]
+  [
+    {
+      "lyrics": "ואיך",
+      "chords": "E"
+    },
+    {
+      "lyrics": "שלא"
+    },
+    {
+      "lyrics": "אפנה"
+    },
+    {
+      "lyrics": "לראות"
+    },
+    {
+      "lyrics": "תמיד"
+    },
+    {
+      "lyrics": "איתה"
+    },
+    {
+      "lyrics": "ארצה"
+    },
+    {
+      "lyrics": "להיות"
+    }
+  ],
+  [
+    {
+      "lyrics": "שומרת"
+    },
+    {
+      "lyrics": "לי"
+    },
+    {
+      "lyrics": "היא",
+      "chords": "C"
+    },
+    {
+      "lyrics": "אמונים"
+    },
+    {
+      "lyrics": "לא"
+    },
+    {
+      "lyrics": "מתרוצצת",
+      "chords": "Bm"
+    },
+    {
+      "lyrics": "בגנים"
+    }
+  ],
+  [
+    {
+      "lyrics": "וגם"
+    },
+    {
+      "lyrics": "אני"
+    },
+    {
+      "lyrics": "בין",
+      "chords": "Em"
+    },
+    {
+      "lyrics": "הבריות"
+    },
+    {
+      "lyrics": "לא"
+    },
+    {
+      "lyrics": "מתפתה"
+    },
+    {
+      "lyrics": "לאחרות"
+    }
+  ],
+  [
+    {
+      "lyrics": "גלים"
+    },
+    {
+      "lyrics": "עולים"
+    },
+    {
+      "lyrics": "חולות"
+    },
+    {
+      "lyrics": "נעים"
+    },
+    {
+      "lyrics": "איוושת"
+    },
+    {
+      "lyrics": "הרוח"
+    },
+    {
+      "lyrics": "בעלים",
+      "chords": "D"
+    }
+  ],
+  [
+    {
+      "lyrics": "ובלילות"
+    },
+    {
+      "lyrics": "ובלילות"
+    }
+  ],
+  [
+    {
+      "lyrics": "עולות"
+    },
+    {
+      "lyrics": "עולות",
+      "chords": "Em"
+    },
+    {
+      "lyrics": "בי"
+    },
+    {
+      "lyrics": "מנגינות"
+    }
+  ],
+  [
+    {
+      "lyrics": "וזרם"
+    },
+    {
+      "lyrics": "דק"
+    },
+    {
+      "lyrics": "קולח"
+    }
+  ],
+  [
+    {
+      "lyrics": "ותפילותי"
+    },
+    {
+      "lyrics": "לרוח"
+    },
+    {
+      "lyrics": "נענות"
+    }
+  ],
+  [
+    {
+      "lyrics": "שקט",
+      "chords": "F"
+    },
+    {
+      "lyrics": "עכשיו"
+    },
+    {
+      "lyrics": "וכל"
+    },
+    {
+      "lyrics": "אחד"
+    },
+    {
+      "lyrics": "עסוק"
+    },
+    {
+      "lyrics": "בענייניו"
+    }
+  ],
+  [
+    {
+      "lyrics": "אל"
+    },
+    {
+      "lyrics": "הרופא",
+      "chords": "Am"
+    },
+    {
+      "lyrics": "הכי"
+    },
+    {
+      "lyrics": "טוב"
+    },
+    {
+      "lyrics": "במדינה",
+      "chords": "F"
+    }
+  ],
+  [
+    {
+      "lyrics": "בכדי"
+    },
+    {
+      "lyrics": "לחשוף"
+    },
+    {
+      "lyrics": "עד"
+    },
+    {
+      "lyrics": "הסוף"
+    }
+  ],
+  [
+    {
+      "lyrics": "אך",
+      "chords": "Bb"
+    },
+    {
+      "lyrics": "התמונה",
+      "chords": "Em"
+    },
+    {
+      "lyrics": "לא"
+    },
+    {
+      "lyrics": "משתנה"
+    }
+  ],
+  [
+    {
+      "lyrics": "מילים"
+    },
+    {
+      "lyrics": "מילים"
+    },
+    {
+      "lyrics": "ואת"
+    },
+    {
+      "lyrics": "משמעותן",
+      "chords": "E"
+    },
+    {
+      "lyrics": "יבוא"
+    },
+    {
+      "lyrics": "לו"
+    },
+    {
+      "lyrics": "גל"
+    },
+    {
+      "lyrics": "לשטוף"
+    },
+    {
+      "lyrics": "אותן",
+      "chords": "E"
+    }
+  ],
+  [
+    {
+      "lyrics": "אבל"
+    },
+    {
+      "lyrics": "אני"
+    },
+    {
+      "lyrics": "כרוך"
+    },
+    {
+      "lyrics": "אחריה"
+    },
+    {
+      "lyrics": "מחכה"
+    },
+    {
+      "lyrics": "לי",
+      "chords": "F#m"
+    },
+    {
+      "lyrics": "בלילות"
+    }
+  ],
+  [
+    {
+      "lyrics": "ללכת"
+    },
+    {
+      "lyrics": "שבי"
+    },
+    {
+      "lyrics": "אחריה",
+      "chords": "Bm"
+    },
+    {
+      "lyrics": "לשמוע",
+      "chords": "F#m"
+    },
+    {
+      "lyrics": "את"
+    },
+    {
+      "lyrics": "הציפורים"
+    },
+    {
+      "lyrics": "שרות"
+    }
+  ],
+  [
+    {
+      "lyrics": "גלים",
+      "chords": "C4/7"
+    },
+    {
+      "lyrics": "עולים",
+      "chords": "Bm"
+    },
+    {
+      "lyrics": "חולות",
+      "chords": "Dm"
+    },
+    {
+      "lyrics": "נעים"
+    },
+    {
+      "lyrics": "איוושת"
+    },
+    {
+      "lyrics": "הרוח"
+    },
+    {
+      "lyrics": "בעלים",
+      "chords": "F"
+    }
+  ],
+  [
+    {
+      "lyrics": "ואיך"
+    },
+    {
+      "lyrics": "שלא"
+    },
+    {
+      "lyrics": "אפנה"
+    },
+    {
+      "lyrics": "לראות"
+    },
+    {
+      "lyrics": "תמיד"
+    },
+    {
+      "lyrics": "איתה"
+    },
+    {
+      "lyrics": "ארצה",
+      "chords": "C4/7"
+    },
+    {
+      "lyrics": "להיות"
+    }
+  ]
 ]
