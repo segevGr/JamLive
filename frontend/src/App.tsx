@@ -11,10 +11,12 @@ import HomeRedirect from "./pages/HomeRedirect";
 import Jam from "./pages/Jam";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import GlobalLoader from "./components/GlobalLoader";
 
 function App() {
   return (
     <Router>
+      <GlobalLoader />
       <Routes>
         <Route path={ROUTES.HOME} element={<HomeRedirect />} />
         <Route path={ROUTES.REGISTER} element={<Register />} />

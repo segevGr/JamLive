@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Music, User, LogOut, Users } from "lucide-react";
-import { logout } from "../store/authSlice";
+import { logout } from "../store/reducers/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "../routes/routes";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";

@@ -7,10 +7,10 @@ import { axiosInstance } from "../constants/axios";
 import Navbar from "../components/Navbar";
 import SongList from "../components/songsList";
 import { ROUTES } from "../routes/routes";
-import { setCurrentSong } from "../store/songSessionSlice";
+import { setCurrentSong } from "../store/reducers/songSessionSlice";
 import { useSocket } from "../context/SocketProvider";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import type { SongData } from "../store/songSessionSlice";
+import type { SongData } from "../store/reducers/songSessionSlice";
 
 interface Song {
   id: string;

@@ -15,7 +15,11 @@ import {
 } from "../utils/validation";
 import { axiosInstance } from "../constants/axios";
 import { API } from "../constants/api";
-import { changeInstrument, changeToken, logout } from "../store/authSlice";
+import {
+  changeInstrument,
+  changeToken,
+  logout,
+} from "../store/reducers/authSlice";
 import Navbar from "../components/Navbar";
 
 const instruments = [

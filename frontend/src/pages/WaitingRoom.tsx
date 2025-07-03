@@ -5,7 +5,7 @@ import { usePageTitle } from "../hooks/usePageTitle";
 import { useSocket } from "../context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/storeHooks";
-import { setCurrentSong } from "../store/songSessionSlice";
+import { setCurrentSong } from "../store/reducers/songSessionSlice";
 import { ROUTES } from "../routes/routes";
 
 const WaitingRoom = () => {

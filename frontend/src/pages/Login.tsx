@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/storeHooks";
-import { login } from "../store/authSlice";
+import { login } from "../store/reducers/authSlice";
 import InputField from "../components/InputField";
 import FormPageLayout from "../components/FormPageLayout";
 import FormSection from "../components/FormSection";

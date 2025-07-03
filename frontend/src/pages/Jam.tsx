@@ -7,7 +7,7 @@ import AutoScrollToggle from "../components/AutoScrollToggle";
 import QuitButton from "../components/QuitButton";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
-import { clearSession } from "../store/songSessionSlice";
+import { clearSession } from "../store/reducers/songSessionSlice";
 import { ROUTES } from "../routes/routes";
 import ErrorPage from "../components/ErrorPage";
 import ModalDialog from "../components/ModalDialog";
