@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Music } from "lucide-react";
-import Navbar from "../components/Navbar";
-import { usePageTitle } from "../hooks/usePageTitle";
-import { useSocket } from "../context/SocketProvider";
+import Navbar from "components/Navbar";
+import { usePageTitle } from "hooks/usePageTitle";
+import { useSocket } from "context/SocketProvider";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../store/storeHooks";
-import { setCurrentSong } from "../store/reducers/songSessionSlice";
-import { ROUTES } from "../routes/routes";
+import { useAppDispatch } from "store/storeHooks";
+import { setCurrentSong } from "store/reducers/songSessionSlice";
+import { ROUTES } from "routes/routes";
 
 const WaitingRoom = () => {
   usePageTitle("Waiting Room");

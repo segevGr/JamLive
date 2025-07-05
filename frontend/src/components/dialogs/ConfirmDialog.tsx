@@ -1,5 +1,5 @@
 import BaseDialog from "./BaseDialog";
-import PrimaryButton from "../PrimaryButton";
+import PrimaryButton from "components/PrimaryButton";
 
 interface ConfirmDialogProps {
   isOpen: boolean;

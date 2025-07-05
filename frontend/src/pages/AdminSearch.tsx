@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import InputField from "../components/InputField";
+import InputField from "components/InputField";
 import { useNavigate } from "react-router-dom";
-import { usePageTitle } from "../hooks/usePageTitle";
-import { API } from "../constants/api";
-import { axiosInstance } from "../constants/axios";
-import Navbar from "../components/Navbar";
-import SongList from "../components/songsList";
-import { ROUTES } from "../routes/routes";
-import { setCurrentSong } from "../store/reducers/songSessionSlice";
-import { useSocket } from "../context/SocketProvider";
-import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import type { SongData } from "../store/reducers/songSessionSlice";
+import { usePageTitle } from "hooks/usePageTitle";
+import { API } from "constants/api";
+import { axiosInstance } from "constants/axios";
+import Navbar from "components/Navbar";
+import SongList from "components/songsList";
+import { ROUTES } from "routes/routes";
+import { setCurrentSong } from "store/reducers/songSessionSlice";
+import { useSocket } from "context/SocketProvider";
+import { useAppDispatch, useAppSelector } from "store/storeHooks";
+import type { SongData } from "store/reducers/songSessionSlice";
 
 interface Song {
   id: string;

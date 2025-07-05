@@ -1,7 +1,7 @@
 // frontend/src/constants/axios.ts
 import axios from "axios";
-import { store } from "../store/store";
-import { start, stop } from "../store/reducers/loadingSlice";
+import { store } from "store/store";
+import { start, stop } from "store/reducers/loadingSlice";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL!,

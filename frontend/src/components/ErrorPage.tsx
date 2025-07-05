@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import FooterLogos from "../components/FooterLogos";
-import { usePageTitle } from "../hooks/usePageTitle";
+import FooterLogos from "components/FooterLogos";
+import { usePageTitle } from "hooks/usePageTitle";
 
 interface ErrorPageProps {
   title: string;

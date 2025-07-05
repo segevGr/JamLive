@@ -1,26 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
-import FormPageLayout from "../components/FormPageLayout";
-import FormSection from "../components/FormSection";
-import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import { ROUTES } from "../routes/routes";
-import { useAuthForm } from "../hooks/useAuthForm";
-import { usePageTitle } from "../hooks/usePageTitle";
-import PrimaryButton from "../components/PrimaryButton";
-import {
-  validateInstrument,
-  validatePasswordChange,
-} from "../utils/validation";
-import { axiosInstance } from "../constants/axios";
-import { API } from "../constants/api";
+import InputField from "components/InputField";
+import FormPageLayout from "components/FormPageLayout";
+import FormSection from "components/FormSection";
+import { useAppDispatch, useAppSelector } from "store/storeHooks";
+import { ROUTES } from "routes/routes";
+import { useAuthForm } from "hooks/useAuthForm";
+import { usePageTitle } from "hooks/usePageTitle";
+import PrimaryButton from "components/PrimaryButton";
+import { validateInstrument, validatePasswordChange } from "utils/validation";
+import { axiosInstance } from "constants/axios";
+import { API } from "constants/api";
 import {
   changeInstrument,
   changeToken,
   logout,
-} from "../store/reducers/authSlice";
-import Navbar from "../components/Navbar";
-import { useModal } from "../hooks/useModal";
-import { ConfirmDialog, SuccessDialog } from "../components/dialogs";
+} from "store/reducers/authSlice";
+import Navbar from "components/Navbar";
+import { useModal } from "hooks/useModal";
+import { ConfirmDialog, SuccessDialog } from "components/dialogs";
 
 const instruments = [
   "Drums",

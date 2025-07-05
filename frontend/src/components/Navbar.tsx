@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Music, User, LogOut, Users } from "lucide-react";
-import { logout } from "../store/reducers/authSlice";
+import { logout } from "store/reducers/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ROUTES } from "../routes/routes";
-import { useAppDispatch, useAppSelector } from "../store/storeHooks";
+import { ROUTES } from "routes/routes";
+import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import { ConfirmDialog } from "./dialogs";
-import { useSocket } from "../context/SocketProvider";
-import { useModal } from "../hooks/useModal";
+import { useSocket } from "context/SocketProvider";
+import { useModal } from "hooks/useModal";
 
 const Navbar = () => {
   const [isLogoutOpen, openLogout, closeLogout] = useModal();

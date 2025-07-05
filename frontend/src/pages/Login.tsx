@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../store/storeHooks";
-import { login } from "../store/reducers/authSlice";
-import InputField from "../components/InputField";
-import FormPageLayout from "../components/FormPageLayout";
-import FormSection from "../components/FormSection";
-import { API } from "../constants/api";
-import { useAuthForm } from "../hooks/useAuthForm";
-import { validateLoginForm } from "../utils/validation";
-import { usePageTitle } from "../hooks/usePageTitle";
-import { ROUTES } from "../routes/routes";
-import { axiosInstance } from "../constants/axios";
+import { useAppDispatch } from "store/storeHooks";
+import { login } from "store/reducers/authSlice";
+import InputField from "components/InputField";
+import FormPageLayout from "components/FormPageLayout";
+import FormSection from "components/FormSection";
+import { API } from "constants/api";
+import { useAuthForm } from "hooks/useAuthForm";
+import { validateLoginForm } from "utils/validation";
+import { usePageTitle } from "hooks/usePageTitle";
+import { ROUTES } from "routes/routes";
+import { axiosInstance } from "constants/axios";
 
 export default function Login() {
   usePageTitle("Login");

@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
-import FormPageLayout from "../components/FormPageLayout";
-import FormSection from "../components/FormSection";
-import { API } from "../constants/api";
-import { useAuthForm } from "../hooks/useAuthForm";
-import { validateRegisterForm } from "../utils/validation";
-import { usePageTitle } from "../hooks/usePageTitle";
-import { ROUTES } from "../routes/routes";
-import { axiosInstance } from "../constants/axios";
-import { useModal } from "../hooks/useModal";
-import { SuccessDialog } from "../components/dialogs";
+import InputField from "components/InputField";
+import FormPageLayout from "components/FormPageLayout";
+import FormSection from "components/FormSection";
+import { API } from "constants/api";
+import { useAuthForm } from "hooks/useAuthForm";
+import { validateRegisterForm } from "utils/validation";
+import { usePageTitle } from "hooks/usePageTitle";
+import { ROUTES } from "routes/routes";
+import { axiosInstance } from "constants/axios";
+import { useModal } from "hooks/useModal";
+import { SuccessDialog } from "components/dialogs";
 
 interface Props {
   isAdmin?: boolean;

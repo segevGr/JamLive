@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import Navbar from "../components/Navbar";
-import SongDisplay from "../components/SongDisplay";
-import { useAppSelector, useAppDispatch } from "../store/storeHooks";
-import InstrumentBadge from "../components/InstrumentBadge";
-import AutoScrollToggle from "../components/AutoScrollToggle";
-import QuitButton from "../components/QuitButton";
+import Navbar from "components/Navbar";
+import SongDisplay from "components/SongDisplay";
+import { useAppSelector, useAppDispatch } from "store/storeHooks";
+import InstrumentBadge from "components/InstrumentBadge";
+import AutoScrollToggle from "components/AutoScrollToggle";
+import QuitButton from "components/QuitButton";
 import { useNavigate } from "react-router-dom";
-import { useSocket } from "../context/SocketProvider";
-import { clearSession } from "../store/reducers/songSessionSlice";
-import { ROUTES } from "../routes/routes";
-import ErrorPage from "../components/ErrorPage";
-import { ConfirmDialog, InfoDialog } from "../components/dialogs";
-import LoadingSpinner from "../components/LoadingSpinner";
-import { useModal } from "../hooks/useModal";
+import { useSocket } from "context/SocketProvider";
+import { clearSession } from "store/reducers/songSessionSlice";
+import { ROUTES } from "routes/routes";
+import ErrorPage from "components/ErrorPage";
+import { ConfirmDialog, InfoDialog } from "components/dialogs";
+import LoadingSpinner from "components/LoadingSpinner";
+import { useModal } from "hooks/useModal";
 
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);

@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { Navigate } from "react-router-dom";
-import { useAppSelector } from "../store/storeHooks";
+import { useAppSelector } from "store/storeHooks";
 import { ROUTES } from "./routes";
 
 interface Props {

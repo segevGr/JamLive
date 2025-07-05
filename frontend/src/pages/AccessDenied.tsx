@@ -1,5 +1,5 @@
-import ErrorPage from "../components/ErrorPage";
-import { ROUTES } from "../routes/routes";
+import ErrorPage from "components/ErrorPage";
+import { ROUTES } from "routes/routes";
 
 export default function AccessDenied() {
   return (
