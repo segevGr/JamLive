@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import InputField from "../components/InputField";
 import FormPageLayout from "../components/FormPageLayout";
 import FormSection from "../components/FormSection";
@@ -21,6 +20,7 @@ import {
   logout,
 } from "../store/reducers/authSlice";
 import Navbar from "../components/Navbar";
+import { useModal } from "../hooks/useModal";
 
 const instruments = [
   "Drums",
@@ -48,6 +48,8 @@ export default function Profile() {
   usePageTitle("Profile");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [isDeleteOpen, openDelete, closeDelete] = useModal();
+  const [isSuccessOpen, openSuccess] = useModal();
 
   const { instrument, userName } = useAppSelector((state) => state.auth);
   const currentInstrument = instrument
@@ -69,9 +71,6 @@ export default function Profile() {
 
   const deleteForm = useAuthForm({ deletePassword: "" });
 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
   const handleSaveInstrument = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validateInstrument(
@@ -89,7 +88,7 @@ export default function Profile() {
       };
       await axiosInstance.put(API.USERS.CHANGE_INSTRUMENT, reqBody);
       dispatch(changeInstrument({ instrument }));
-      setShowSuccessModal(true);
+      openSuccess();
     } catch (err: any) {
       if (
         err.response?.data.message === "The new instrument must be different"
@@ -118,7 +117,7 @@ export default function Profile() {
       );
       const { token } = response.data;
       dispatch(changeToken({ token }));
-      setShowSuccessModal(true);
+      openSuccess();
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         passwordForm.setErrors({
@@ -139,7 +138,7 @@ export default function Profile() {
       await axiosInstance.delete(API.USERS.DELETE_USER, {
         data: { password: deleteForm.form.deletePassword },
       });
-      setShowSuccessModal(true);
+      openSuccess();
       dispatch(logout());
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
@@ -229,7 +228,7 @@ export default function Profile() {
               text="Delete my account"
               color="red"
               size="sm"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={openDelete}
               fullWidth={false}
             />
           </SectionBorder>
@@ -238,7 +237,7 @@ export default function Profile() {
 
       {/* Delete account dialog*/}
       <ModalDialog
-        isOpen={showDeleteModal}
+        isOpen={isDeleteOpen}
         title="Delete Account"
         message="Enter your password to confirm account deletion. This action cannot be undone."
         showButtons={true}
@@ -246,7 +245,7 @@ export default function Profile() {
         confirmColor="red"
         confirmDisabled={deleteForm.form.deletePassword.trim() === ""}
         onConfirm={handleDeleteAccount}
-        onCancel={() => setShowDeleteModal(false)}
+        onCancel={closeDelete}
       >
         <InputField
           name="deletePassword"
@@ -260,7 +259,7 @@ export default function Profile() {
 
       {/* Changes saved dialog*/}
       <ModalDialog
-        isOpen={showSuccessModal}
+        isOpen={isSuccessOpen}
         title="Changes saved!"
         message="Your changes have been saved. Let’s start jamming!"
         confirmText="Back to session"

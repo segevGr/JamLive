@@ -6,10 +6,12 @@ import { ROUTES } from "../routes/routes";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import ModalDialog from "./ModalDialog";
 import { useSocket } from "../context/SocketProvider";
+import { useModal } from "../hooks/useModal";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isOpen, open, close] = useModal();
+  const [openNavbar, setOpenNavbar] = useState(false);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { role } = useAppSelector((state) => state.auth);
@@ -28,7 +30,7 @@ const Navbar = () => {
     {
       label: "my profile",
       onClick: () => {
-        setOpen(false);
+        setOpenNavbar(false);
         navigate(ROUTES.PROFILE);
       },
       icon: <User />,
@@ -37,7 +39,7 @@ const Navbar = () => {
     {
       label: "manage users",
       onClick: () => {
-        setOpen(false);
+        setOpenNavbar(false);
       },
       icon: <Users />,
       role: ["admin"],
@@ -45,8 +47,8 @@ const Navbar = () => {
     {
       label: "Logout",
       onClick: () => {
-        setShowLogoutModal(true);
-        setOpen(false);
+        setOpenNavbar(false);
+        open();
       },
       icon: <LogOut />,
       role: ["user", "admin"],
@@ -63,12 +65,12 @@ const Navbar = () => {
       <div className="relative">
         <button
           className="w-8 h-8 rounded-full bg-white flex items-center justify-center"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpenNavbar(!openNavbar)}
         >
           <User className="text-primary" />
         </button>
 
-        {open && (
+        {openNavbar && (
           <div className="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg z-50">
             {listButtons
               .filter((button) => button.role.includes(role || ""))
@@ -94,15 +96,15 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      {showLogoutModal && (
+      {isOpen && (
         <ModalDialog
-          isOpen={showLogoutModal}
+          isOpen={isOpen}
           title="Log Out"
           message="Are you sure you want to log out?"
           confirmText="Yes, Logout"
           cancelText="Cancel"
           onConfirm={confirmLogout}
-          onCancel={() => setShowLogoutModal(false)}
+          onCancel={close}
         />
       )}
     </header>

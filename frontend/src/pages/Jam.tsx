@@ -12,17 +12,19 @@ import { ROUTES } from "../routes/routes";
 import ErrorPage from "../components/ErrorPage";
 import ModalDialog from "../components/ModalDialog";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useModal } from "../hooks/useModal";
 
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);
   const { currentSong } = useAppSelector((state) => state.songSession);
+
+  const [isConfirmOpen, openConfirm, closeConfirm] = useModal();
 
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [autoScroll, setAutoScroll] = useState(false);
   const scrollInterval = useRef<NodeJS.Timeout | null>(null);
 
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
 
   const { socket } = useSocket();
@@ -91,13 +93,13 @@ export default function Jam() {
 
   const handleQuit = () => {
     socket?.emit("quitSession");
-    setShowConfirmModal(false);
+    closeConfirm();
   };
 
   if (sessionEnded) {
     return (
       <ModalDialog
-        isOpen={true}
+        isOpen={sessionEnded}
         title="Session Ended"
         message={
           role === "admin"
@@ -156,18 +158,16 @@ export default function Jam() {
         isScrolling={autoScroll}
         toggle={() => setAutoScroll(!autoScroll)}
       />
-      {role === "admin" && (
-        <QuitButton onQuit={() => setShowConfirmModal(true)} />
-      )}
-      {showConfirmModal && (
+      {role === "admin" && <QuitButton onQuit={openConfirm} />}
+      {isConfirmOpen && (
         <ModalDialog
-          isOpen={showConfirmModal}
+          isOpen={isConfirmOpen}
           title="End Session?"
           message="Are you sure you want to end the session for all players?"
           confirmText="Yes, Quit"
           cancelText="Cancel"
           onConfirm={handleQuit}
-          onCancel={() => setShowConfirmModal(false)}
+          onCancel={closeConfirm}
         />
       )}
     </div>

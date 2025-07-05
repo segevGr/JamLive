@@ -4,12 +4,12 @@ import FormPageLayout from "../components/FormPageLayout";
 import FormSection from "../components/FormSection";
 import { API } from "../constants/api";
 import { useAuthForm } from "../hooks/useAuthForm";
-import { useState } from "react";
 import { validateRegisterForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../routes/routes";
 import { axiosInstance } from "../constants/axios";
 import ModalDialog from "../components/ModalDialog";
+import { useModal } from "../hooks/useModal";
 
 interface Props {
   isAdmin?: boolean;
@@ -27,7 +27,7 @@ const instruments = [
 export default function Register({ isAdmin = false }: Props) {
   usePageTitle("Register");
   const navigate = useNavigate();
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isSuccessOpen, openSuccess] = useModal();
 
   const { form, errors, setErrors, handleChange } = useAuthForm({
     userName: "",
@@ -62,7 +62,7 @@ export default function Register({ isAdmin = false }: Props) {
         ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
         : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
-      setShowSuccessModal(true);
+      openSuccess();
     } catch (err: any) {
       if (err.response?.data.message === "User already exists") {
         setErrors({
@@ -126,7 +126,7 @@ export default function Register({ isAdmin = false }: Props) {
       </FormPageLayout>
 
       <ModalDialog
-        isOpen={showSuccessModal}
+        isOpen={isSuccessOpen}
         title="Registered Successfully!"
         message="Welcome to the JamLive Family. You can now log in."
         confirmText="Go to Login"
