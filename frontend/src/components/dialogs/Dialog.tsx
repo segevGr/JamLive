@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import PrimaryButton from "components/buttons/PrimaryButton";
-import { ButtonColor } from "../buttons/buttonTypes";
+import { PrimaryButton } from "components/buttons";
+import { ButtonColor } from "../buttons";
 import { DialogType, DialogProps } from "./dialogTypes";
 
 export default function Dialog({

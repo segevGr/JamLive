@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import { ROUTES } from "routes/routes";
 import { useAuthForm } from "hooks/useAuthForm";
 import { usePageTitle } from "hooks/usePageTitle";
-import PrimaryButton from "components/buttons/PrimaryButton";
+import { PrimaryButton } from "components/buttons";
 import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
