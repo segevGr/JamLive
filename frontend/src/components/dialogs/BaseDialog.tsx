@@ -1,5 +1,6 @@
 import React, { useEffect, ReactNode } from "react";
 import ReactDOM from "react-dom";
+import { useLockBodyScroll } from "hooks/useLockBodyScroll";
 
 interface BaseDialogProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ export default function BaseDialog({
   canDismiss = false,
   children,
 }: BaseDialogProps) {
+  useLockBodyScroll(isOpen);
   useEffect(() => {
     if (!canDismiss) return;
     const handleKey = (e: KeyboardEvent) => e.key === "Escape" && onClose?.();
