@@ -1,11 +1,13 @@
+import { ButtonColor, ButtonSize } from "./buttonTypes";
+
 interface PrimaryButtonProps {
   text: string;
   onClick?: () => void;
   type?: "button" | "submit";
   disabled?: boolean;
   fullWidth?: boolean;
-  color?: "primary" | "red" | "gray";
-  size?: "sm" | "md" | "lg";
+  color?: ButtonColor;
+  size?: ButtonSize;
 }
 
 export default function PrimaryButton({

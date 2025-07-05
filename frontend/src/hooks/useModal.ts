@@ -1,12 +1,22 @@
-import { useCallback, useState } from "react";
+// src/hooks/useModal.ts
+import { useState, useCallback } from "react";
+import type { DialogProps } from "components/dialogs";
 
-export function useModal(
-  initialState: boolean = false
-): [boolean, () => void, () => void] {
-  const [isOpen, setIsOpen] = useState(initialState);
+type DialogData = Omit<DialogProps, "isOpen">;
 
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
+export function useModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState<DialogData | null>(null);
 
-  return [isOpen, open, close];
+  const open = useCallback((newData?: DialogData) => {
+    setData(newData ?? null);
+    setIsOpen(true);
+  }, []);
+
+  const close = useCallback(() => {
+    setIsOpen(false);
+    setData(null);
+  }, []);
+
+  return [isOpen, open, close, data] as const;
 }

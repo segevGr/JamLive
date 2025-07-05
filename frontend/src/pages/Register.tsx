@@ -9,7 +9,7 @@ import { usePageTitle } from "hooks/usePageTitle";
 import { ROUTES } from "routes/routes";
 import { axiosInstance } from "constants/axios";
 import { useModal } from "hooks/useModal";
-import { SuccessDialog } from "components/dialogs";
+import { Dialog } from "components/dialogs";
 
 interface Props {
   isAdmin?: boolean;
@@ -27,7 +27,7 @@ const instruments = [
 export default function Register({ isAdmin = false }: Props) {
   usePageTitle("Register");
   const navigate = useNavigate();
-  const [isSuccessOpen, openSuccess] = useModal();
+  const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
   const { form, errors, setErrors, handleChange } = useAuthForm({
     userName: "",
@@ -62,7 +62,16 @@ export default function Register({ isAdmin = false }: Props) {
         ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
         : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
-      openSuccess();
+      openDialog({
+        type: "success",
+        title: "Registered Successfully!",
+        message: "Welcome to the JamLive Family. You can now log in.",
+        confirmLabel: "Go to Login",
+        onConfirm: () => {
+          closeDialog();
+          navigate(ROUTES.LOGIN);
+        },
+      });
     } catch (err: any) {
       if (err.response?.data.message === "User already exists") {
         setErrors({
@@ -125,13 +134,7 @@ export default function Register({ isAdmin = false }: Props) {
         </FormSection>
       </FormPageLayout>
 
-      <SuccessDialog
-        isOpen={isSuccessOpen}
-        title="Registered Successfully!"
-        message="Welcome to the JamLive Family. You can now log in."
-        closeLabel="Go to Login"
-        onClose={() => navigate(ROUTES.LOGIN)}
-      />
+      <Dialog isOpen={isDialogOpen} {...dialogData} />
     </>
   );
 }

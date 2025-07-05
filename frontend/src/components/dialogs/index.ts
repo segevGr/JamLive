@@ -1,4 +1,2 @@
-export { default as BaseDialog } from "./BaseDialog";
-export { ConfirmDialog } from "./ConfirmDialog";
-export { SuccessDialog } from "./SuccessDialog";
-export { InfoDialog } from "./InfoDialog";
+export { default as Dialog } from "./Dialog";
+export * from "./dialogTypes";

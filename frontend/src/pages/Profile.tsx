@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import { ROUTES } from "routes/routes";
 import { useAuthForm } from "hooks/useAuthForm";
 import { usePageTitle } from "hooks/usePageTitle";
-import PrimaryButton from "components/PrimaryButton";
+import PrimaryButton from "components/buttons/PrimaryButton";
 import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
@@ -17,7 +17,7 @@ import {
 } from "store/reducers/authSlice";
 import Navbar from "components/Navbar";
 import { useModal } from "hooks/useModal";
-import { ConfirmDialog, SuccessDialog } from "components/dialogs";
+import { Dialog } from "components/dialogs";
 
 const instruments = [
   "Drums",
@@ -45,8 +45,7 @@ export default function Profile() {
   usePageTitle("Profile");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isDeleteOpen, openDelete, closeDelete] = useModal();
-  const [isSuccessOpen, openSuccess] = useModal();
+  const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
   const { instrument, userName } = useAppSelector((state) => state.auth);
   const currentInstrument = instrument
@@ -85,7 +84,16 @@ export default function Profile() {
       };
       await axiosInstance.put(API.USERS.CHANGE_INSTRUMENT, reqBody);
       dispatch(changeInstrument({ instrument }));
-      openSuccess();
+      openDialog({
+        type: "success",
+        title: "Changes saved!",
+        message: "Your instrument has been changed. Let’s start jamming!",
+        confirmLabel: "Back to session",
+        onConfirm: () => {
+          closeDialog();
+          navigate(ROUTES.HOME);
+        },
+      });
     } catch (err: any) {
       if (
         err.response?.data.message === "The new instrument must be different"
@@ -114,7 +122,16 @@ export default function Profile() {
       );
       const { token } = response.data;
       dispatch(changeToken({ token }));
-      openSuccess();
+      openDialog({
+        type: "success",
+        title: "Changes saved!",
+        message: "Your password has been changed. Let’s start jamming!",
+        confirmLabel: "Back to session",
+        onConfirm: () => {
+          closeDialog();
+          navigate(ROUTES.HOME);
+        },
+      });
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         passwordForm.setErrors({
@@ -127,16 +144,31 @@ export default function Profile() {
   };
 
   const handleDeleteAccount = async () => {
-    if (!deleteForm.form.deletePassword.trim()) {
-      alert("Please enter your password to delete your account");
+    const password = deleteForm.form.deletePassword.trim();
+
+    if (!password) {
+      deleteForm.setErrors({
+        deletePassword: "Please enter your password to delete your account",
+      });
       return;
     }
     try {
       await axiosInstance.delete(API.USERS.DELETE_USER, {
-        data: { password: deleteForm.form.deletePassword },
+        data: { password },
       });
-      openSuccess();
-      dispatch(logout());
+      closeDialog();
+      openDialog({
+        type: "success",
+        title: "Goodbye!",
+        message:
+          "Your user has been successfully deleted. We hope you will be back soon!",
+        confirmLabel: "End session",
+        onConfirm: () => {
+          closeDialog();
+          navigate(ROUTES.LOGIN);
+          dispatch(logout());
+        },
+      });
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         deleteForm.setErrors({
@@ -148,6 +180,17 @@ export default function Profile() {
     }
   };
 
+  const openDeleteDialog = () => {
+    openDialog({
+      type: "warn",
+      title: "Delete Account",
+      message:
+        "Enter your password to confirm account deletion. This action cannot be undone.",
+      confirmLabel: "Delete",
+      onClose: closeDialog,
+    });
+  };
+  const isDeleteDialog = dialogData?.title === "Delete Account";
   return (
     <>
       <Navbar />
@@ -225,43 +268,32 @@ export default function Profile() {
               text="Delete my account"
               color="red"
               size="sm"
-              onClick={openDelete}
+              onClick={openDeleteDialog}
               fullWidth={false}
             />
           </SectionBorder>
         </div>
       </FormPageLayout>
 
-      {/* Delete account dialog*/}
-      <ConfirmDialog
-        isOpen={isDeleteOpen}
-        title="Delete Account"
-        message="Enter your password to confirm account deletion. This action cannot be undone."
-        confirmLabel="Delete"
-        confirmColor="red"
-        confirmDisabled={deleteForm.form.deletePassword.trim() === ""}
-        cancelLabel="Cancel"
-        onConfirm={handleDeleteAccount}
-        onCancel={closeDelete}
+      <Dialog
+        isOpen={isDialogOpen}
+        {...dialogData}
+        confirmDisabled={
+          isDeleteDialog && deleteForm.form.deletePassword.trim() === ""
+        }
+        onConfirm={isDeleteDialog ? handleDeleteAccount : dialogData?.onConfirm}
       >
-        <InputField
-          name="deletePassword"
-          type="password"
-          placeholder="Password"
-          value={deleteForm.form.deletePassword}
-          onChange={deleteForm.handleChange}
-          errorMessage={deleteForm.errors.deletePassword}
-        />
-      </ConfirmDialog>
-
-      {/* Changes saved dialog*/}
-      <SuccessDialog
-        isOpen={isSuccessOpen}
-        title="Changes saved!"
-        message="Your changes have been saved. Let’s start jamming!"
-        closeLabel="Back to session"
-        onClose={() => navigate(ROUTES.HOME)}
-      />
+        {isDeleteDialog && (
+          <InputField
+            name="deletePassword"
+            type="password"
+            placeholder="Password"
+            value={deleteForm.form.deletePassword}
+            onChange={deleteForm.handleChange}
+            errorMessage={deleteForm.errors.deletePassword}
+          />
+        )}
+      </Dialog>
     </>
   );
 }

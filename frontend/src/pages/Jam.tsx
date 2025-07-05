@@ -10,15 +10,15 @@ import { useSocket } from "context/SocketProvider";
 import { clearSession } from "store/reducers/songSessionSlice";
 import { ROUTES } from "routes/routes";
 import ErrorPage from "components/ErrorPage";
-import { ConfirmDialog, InfoDialog } from "components/dialogs";
 import LoadingSpinner from "components/LoadingSpinner";
 import { useModal } from "hooks/useModal";
+import { Dialog } from "components/dialogs";
 
 export default function Jam() {
   const { role, instrument } = useAppSelector((state) => state.auth);
   const { currentSong } = useAppSelector((state) => state.songSession);
 
-  const [isConfirmOpen, openConfirm, closeConfirm] = useModal();
+  const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -93,12 +93,12 @@ export default function Jam() {
 
   const handleQuit = () => {
     socket?.emit("quitSession");
-    closeConfirm();
+    closeDialog();
   };
 
   if (sessionEnded) {
     return (
-      <InfoDialog
+      <Dialog
         isOpen={sessionEnded}
         title="Session Ended"
         message={
@@ -123,6 +123,17 @@ export default function Jam() {
       />
     );
   }
+
+  const openDialogFunc = () => {
+    openDialog({
+      type: "warn",
+      title: "End Session?",
+      message: "Are you sure you want to end the session for all players?",
+      confirmLabel: "Yes, Quit",
+      onConfirm: handleQuit,
+      onClose: closeDialog,
+    });
+  };
 
   return (
     <div
@@ -157,19 +168,8 @@ export default function Jam() {
         isScrolling={autoScroll}
         toggle={() => setAutoScroll(!autoScroll)}
       />
-      {role === "admin" && <QuitButton onQuit={openConfirm} />}
-      {isConfirmOpen && (
-        <ConfirmDialog
-          isOpen={isConfirmOpen}
-          title="End Session?"
-          message="Are you sure you want to end the session for all players?"
-          confirmLabel="Yes, Quit"
-          confirmColor="red"
-          cancelLabel="Cancel"
-          onConfirm={handleQuit}
-          onCancel={closeConfirm}
-        />
-      )}
+      {role === "admin" && <QuitButton onQuit={openDialogFunc} />}
+      <Dialog isOpen={isDialogOpen} {...dialogData} />
     </div>
   );
 }
