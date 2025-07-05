@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import FormPageLayout from "../components/FormPageLayout";
 import FormSection from "../components/FormSection";
-import ModalDialog from "../components/ModalDialog";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import { ROUTES } from "../routes/routes";
 import { useAuthForm } from "../hooks/useAuthForm";
@@ -21,6 +20,7 @@ import {
 } from "../store/reducers/authSlice";
 import Navbar from "../components/Navbar";
 import { useModal } from "../hooks/useModal";
+import { ConfirmDialog, SuccessDialog } from "../components/dialogs";
 
 const instruments = [
   "Drums",
@@ -236,14 +236,14 @@ export default function Profile() {
       </FormPageLayout>
 
       {/* Delete account dialog*/}
-      <ModalDialog
+      <ConfirmDialog
         isOpen={isDeleteOpen}
         title="Delete Account"
         message="Enter your password to confirm account deletion. This action cannot be undone."
-        showButtons={true}
-        confirmText="Delete"
+        confirmLabel="Delete"
         confirmColor="red"
         confirmDisabled={deleteForm.form.deletePassword.trim() === ""}
+        cancelLabel="Cancel"
         onConfirm={handleDeleteAccount}
         onCancel={closeDelete}
       >
@@ -255,17 +255,15 @@ export default function Profile() {
           onChange={deleteForm.handleChange}
           errorMessage={deleteForm.errors.deletePassword}
         />
-      </ModalDialog>
+      </ConfirmDialog>
 
       {/* Changes saved dialog*/}
-      <ModalDialog
+      <SuccessDialog
         isOpen={isSuccessOpen}
         title="Changes saved!"
         message="Your changes have been saved. Let’s start jamming!"
-        confirmText="Back to session"
-        onConfirm={() => navigate(ROUTES.HOME)}
-        confirmColor="green"
-        showButtons={true}
+        closeLabel="Back to session"
+        onClose={() => navigate(ROUTES.HOME)}
       />
     </>
   );

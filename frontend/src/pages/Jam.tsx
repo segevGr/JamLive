@@ -10,7 +10,7 @@ import { useSocket } from "../context/SocketProvider";
 import { clearSession } from "../store/reducers/songSessionSlice";
 import { ROUTES } from "../routes/routes";
 import ErrorPage from "../components/ErrorPage";
-import ModalDialog from "../components/ModalDialog";
+import { ConfirmDialog, InfoDialog } from "../components/dialogs";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useModal } from "../hooks/useModal";
 
@@ -98,7 +98,7 @@ export default function Jam() {
 
   if (sessionEnded) {
     return (
-      <ModalDialog
+      <InfoDialog
         isOpen={sessionEnded}
         title="Session Ended"
         message={
@@ -106,7 +106,6 @@ export default function Jam() {
             ? "The session has ended. Back to song selection..."
             : "The session has ended. Waiting for the next song..."
         }
-        showButtons={false}
       />
     );
   }
@@ -160,12 +159,13 @@ export default function Jam() {
       />
       {role === "admin" && <QuitButton onQuit={openConfirm} />}
       {isConfirmOpen && (
-        <ModalDialog
+        <ConfirmDialog
           isOpen={isConfirmOpen}
           title="End Session?"
           message="Are you sure you want to end the session for all players?"
-          confirmText="Yes, Quit"
-          cancelText="Cancel"
+          confirmLabel="Yes, Quit"
+          confirmColor="red"
+          cancelLabel="Cancel"
           onConfirm={handleQuit}
           onCancel={closeConfirm}
         />

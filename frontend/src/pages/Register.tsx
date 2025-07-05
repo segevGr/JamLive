@@ -8,8 +8,8 @@ import { validateRegisterForm } from "../utils/validation";
 import { usePageTitle } from "../hooks/usePageTitle";
 import { ROUTES } from "../routes/routes";
 import { axiosInstance } from "../constants/axios";
-import ModalDialog from "../components/ModalDialog";
 import { useModal } from "../hooks/useModal";
+import { SuccessDialog } from "../components/dialogs";
 
 interface Props {
   isAdmin?: boolean;
@@ -125,14 +125,12 @@ export default function Register({ isAdmin = false }: Props) {
         </FormSection>
       </FormPageLayout>
 
-      <ModalDialog
+      <SuccessDialog
         isOpen={isSuccessOpen}
         title="Registered Successfully!"
         message="Welcome to the JamLive Family. You can now log in."
-        confirmText="Go to Login"
-        onConfirm={() => navigate(ROUTES.LOGIN)}
-        confirmColor="green"
-        showButtons={true}
+        closeLabel="Go to Login"
+        onClose={() => navigate(ROUTES.LOGIN)}
       />
     </>
   );

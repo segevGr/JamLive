@@ -4,12 +4,12 @@ import { logout } from "../store/reducers/authSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "../routes/routes";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import ModalDialog from "./ModalDialog";
+import { ConfirmDialog } from "./dialogs";
 import { useSocket } from "../context/SocketProvider";
 import { useModal } from "../hooks/useModal";
 
 const Navbar = () => {
-  const [isOpen, open, close] = useModal();
+  const [isLogoutOpen, openLogout, closeLogout] = useModal();
   const [openNavbar, setOpenNavbar] = useState(false);
 
   const dispatch = useAppDispatch();
@@ -48,7 +48,7 @@ const Navbar = () => {
       label: "Logout",
       onClick: () => {
         setOpenNavbar(false);
-        open();
+        openLogout();
       },
       icon: <LogOut />,
       role: ["user", "admin"],
@@ -96,15 +96,16 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      {isOpen && (
-        <ModalDialog
-          isOpen={isOpen}
+      {isLogoutOpen && (
+        <ConfirmDialog
+          isOpen={isLogoutOpen}
           title="Log Out"
           message="Are you sure you want to log out?"
-          confirmText="Yes, Logout"
-          cancelText="Cancel"
+          confirmLabel="Yes, Logout"
+          confirmColor="red"
+          cancelLabel="Cancel"
           onConfirm={confirmLogout}
-          onCancel={close}
+          onCancel={closeLogout}
         />
       )}
     </header>
