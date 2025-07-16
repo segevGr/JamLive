@@ -4,7 +4,7 @@ import { InputField, FormPageLayout, FormSection } from "components";
 import { API } from "constants/api";
 import { useAuthForm, usePageTitle } from "hooks";
 import { validateLoginForm } from "utils/validation";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 import { axiosInstance } from "constants/axios";
 
 export default function Login() {

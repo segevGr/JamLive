@@ -14,7 +14,7 @@ import {
   changeToken,
   logout,
 } from "store";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";

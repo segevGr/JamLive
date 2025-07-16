@@ -1,5 +1,5 @@
 import ErrorPageTemplate from "utils/errorsHandler/ErrorPageTemplate";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 
 export default function AccessDenied() {
   return (

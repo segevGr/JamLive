@@ -1,4 +1,4 @@
-export const ROUTES = {
+export default {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",

@@ -3,7 +3,7 @@ import { InputField, FormPageLayout, FormSection, Dialog } from "components";
 import { API } from "constants/api";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateRegisterForm } from "utils/validation";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 import { axiosInstance } from "constants/axios";
 import { instruments } from "types/instruments.types";
 

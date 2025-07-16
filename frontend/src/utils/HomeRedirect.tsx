@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "store";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 
 export default function HomeRedirect() {
   const { isAuthenticated, role } = useAppSelector((state) => state.auth);

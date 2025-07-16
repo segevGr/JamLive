@@ -5,7 +5,7 @@ import { usePageTitle } from "hooks";
 import { useSocket } from "context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, setCurrentSong } from "store";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 
 const WaitingRoom = () => {
   usePageTitle("Waiting Room");

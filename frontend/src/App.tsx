@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ROUTES } from "./routes/routes";
+import { ROUTES, ProtectedRoute } from "./routes";
 import "./index.css";
 import { Register, Login, WaitingRoom, AdminSearch, Jam, Profile } from "pages";
 import { AccessDenied, HomeRedirect, NotFound } from "utils";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import { GlobalLoader } from "components";
 
 function App() {

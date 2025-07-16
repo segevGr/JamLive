@@ -11,7 +11,7 @@ import {
 } from "components";
 import { useAppSelector, useAppDispatch, clearSession } from "store";
 import { useSocket } from "context/SocketProvider";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 import { ErrorPageTemplate } from "utils";
 import { useModal, usePageTitle } from "hooks";
 

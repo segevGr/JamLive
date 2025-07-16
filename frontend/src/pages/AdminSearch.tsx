@@ -4,7 +4,7 @@ import { InputField, Navbar, SongList } from "components";
 import { usePageTitle } from "hooks";
 import { API } from "constants/api";
 import { axiosInstance } from "constants/axios";
-import { ROUTES } from "routes/routes";
+import { ROUTES } from "routes";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
 import type { Song } from "types/song.types";
