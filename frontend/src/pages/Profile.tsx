@@ -18,15 +18,7 @@ import {
 import Navbar from "components/Navbar";
 import { useModal } from "hooks/useModal";
 import { Dialog } from "components/dialogs";
-
-const instruments = [
-  "Drums",
-  "Guitar",
-  "Bass",
-  "Saxophone",
-  "Keyboard",
-  "Vocals",
-];
+import { instruments, Instrument } from "types/instruments.types";
 
 const SectionBorder = ({
   children,
@@ -48,11 +40,11 @@ export default function Profile() {
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
   const { instrument, userName } = useAppSelector((state) => state.auth);
-  const currentInstrument = instrument
-    ? instrument[0].toUpperCase() + instrument.slice(1).toLowerCase()
-    : "";
+  const currentInstrument = instrument || "";
 
-  const instrumentForm = useAuthForm({ instrument: currentInstrument });
+  const instrumentForm = useAuthForm({
+    instrument: currentInstrument,
+  });
 
   const passwordForm = useAuthForm({
     currentPassword: "",
@@ -78,12 +70,13 @@ export default function Profile() {
       return;
     }
     try {
-      const instrument = instrumentForm.form.instrument.toLowerCase();
-      const reqBody = {
-        instrument,
-      };
-      await axiosInstance.put(API.USERS.CHANGE_INSTRUMENT, reqBody);
-      dispatch(changeInstrument({ instrument }));
+      const selectedInstrument = instrumentForm.form.instrument as Instrument;
+
+      await axiosInstance.put(API.USERS.CHANGE_INSTRUMENT, {
+        instrument: selectedInstrument.toLowerCase(),
+      });
+
+      dispatch(changeInstrument({ instrument: selectedInstrument }));
       openDialog({
         type: "success",
         title: "Changes saved!",

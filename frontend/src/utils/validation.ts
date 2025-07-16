@@ -1,5 +1,11 @@
+import { instruments, Instrument } from "types/instruments.types";
+
 function isEmpty(value: string): boolean {
   return !value.trim();
+}
+
+function isValidInstrument(value: string): value is Instrument {
+  return instruments.includes(value as Instrument);
 }
 
 export function validateInstrument(
@@ -9,6 +15,8 @@ export function validateInstrument(
   const errors: { instrument?: string } = {};
   if (isEmpty(instrument)) {
     errors.instrument = "Please select an instrument";
+  } else if (!isValidInstrument(instrument)) {
+    errors.instrument = "Selected instrument is not valid";
   } else if (prevInstrument && prevInstrument === instrument) {
     errors.instrument =
       "The new instrument should be different from the current instrument";

@@ -10,19 +10,11 @@ import { ROUTES } from "routes/routes";
 import { axiosInstance } from "constants/axios";
 import { useModal } from "hooks/useModal";
 import { Dialog } from "components/dialogs";
+import { instruments } from "types/instruments.types";
 
 interface Props {
   isAdmin?: boolean;
 }
-
-const instruments = [
-  "Drums",
-  "Guitar",
-  "Bass",
-  "Saxophone",
-  "Keyboard",
-  "Vocals",
-];
 
 export default function Register({ isAdmin = false }: Props) {
   usePageTitle("Register");

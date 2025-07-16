@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Instrument } from "types/instruments.types";
 
 type UserRole = "admin" | "user" | null;
 
@@ -8,7 +9,7 @@ interface AuthState {
   userId: string | null;
   role: UserRole;
   token: string | null;
-  instrument: string | null;
+  instrument: Instrument | null;
 }
 
 const initialState: AuthState = {
@@ -31,7 +32,7 @@ const authSlice = createSlice({
         userId: string;
         role: UserRole;
         token: string;
-        instrument: string;
+        instrument: Instrument;
       }>
     ) {
       state.userName = action.payload.userName;
@@ -52,7 +53,7 @@ const authSlice = createSlice({
     changeInstrument(
       state,
       action: PayloadAction<{
-        instrument: string;
+        instrument: Instrument;
       }>
     ) {
       state.instrument = action.payload.instrument;
