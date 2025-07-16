@@ -1,20 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { Song } from "types/song.types";
 
-export interface SongLine {
-  lyrics: string;
-  chords?: string;
-}
-
-export interface SongData {
-  id: string;
-  title: string;
-  artist: string;
-  image: string;
-  lyrics: SongLine[][];
-}
-
-interface SongSessionState {
-  currentSong: SongData | null;
+export interface SongSessionState {
+  currentSong: Song | null;
   sessionId: string | null;
 }
 
@@ -27,7 +15,7 @@ const songSessionSlice = createSlice({
   name: "songSession",
   initialState,
   reducers: {
-    setCurrentSong: (state, action) => {
+    setCurrentSong: (state, action: PayloadAction<Song>) => {
       state.currentSong = action.payload;
     },
     clearSession: (state) => {

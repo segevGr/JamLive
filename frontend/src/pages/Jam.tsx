@@ -156,10 +156,14 @@ export default function Jam() {
             </h2>
             <p className="text-xl text-black mb-4 mt-1">{currentSong.artist}</p>
             <InstrumentBadge instrument={instrument!} />
-            <SongDisplay
-              song={currentSong.lyrics}
-              isSinger={instrument?.toLowerCase() === "vocals"}
-            />
+            {currentSong.lyrics ? (
+              <SongDisplay
+                song={currentSong.lyrics}
+                isSinger={instrument?.toLowerCase() === "vocals"}
+              />
+            ) : (
+              <LoadingSpinner size="md" text="Loading lyrics..." />
+            )}
           </div>
         )}
       </div>

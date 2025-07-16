@@ -10,14 +10,7 @@ import { ROUTES } from "routes/routes";
 import { setCurrentSong } from "store/reducers/songSessionSlice";
 import { useSocket } from "context/SocketProvider";
 import { useAppDispatch, useAppSelector } from "store/storeHooks";
-import type { SongData } from "store/reducers/songSessionSlice";
-
-interface Song {
-  id: string;
-  title: string;
-  artist: string;
-  image?: string;
-}
+import type { Song } from "types/song.types";
 
 export default function AdminSearch() {
   usePageTitle("Admin Search");
@@ -114,7 +107,7 @@ export default function AdminSearch() {
     const selected = songs.find((s) => s.id === songId);
     if (!selected) return;
 
-    const res = await axiosInstance.get<SongData>(API.SONGS.GET_BY_ID(songId));
+    const res = await axiosInstance.get<Song>(API.SONGS.GET_BY_ID(songId));
     const fullSong = res.data;
 
     socket?.emit("startSong", { song: fullSong, token });
