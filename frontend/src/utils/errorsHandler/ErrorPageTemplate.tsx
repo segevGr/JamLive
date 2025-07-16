@@ -10,7 +10,7 @@ interface ErrorPageProps {
   redirectTo?: string;
 }
 
-export default function ErrorPage({
+export default function ErrorPageTemplate({
   title,
   description,
   imageSrc,

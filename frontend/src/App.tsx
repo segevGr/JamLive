@@ -6,10 +6,10 @@ import "./index.css";
 import WaitingRoom from "./pages/WaitingRoom";
 import AdminSearch from "./pages/AdminSearch";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AccessDenied from "./pages/AccessDenied";
+import AccessDenied from "./utils/errorsHandler/AccessDenied";
 import HomeRedirect from "./pages/HomeRedirect";
 import Jam from "./pages/Jam";
-import NotFound from "./pages/NotFound";
+import NotFound from "./utils/errorsHandler/NotFound";
 import Profile from "./pages/Profile";
 import GlobalLoader from "./components/GlobalLoader";
 

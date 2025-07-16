@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSocket } from "context/SocketProvider";
 import { clearSession } from "store/reducers/songSessionSlice";
 import { ROUTES } from "routes/routes";
-import ErrorPage from "components/ErrorPage";
+import ErrorPageTemplate from "utils/errorsHandler/ErrorPageTemplate";
 import LoadingSpinner from "components/LoadingSpinner";
 import { useModal } from "hooks/useModal";
 import { Dialog } from "components/dialogs";
@@ -111,7 +111,7 @@ export default function Jam() {
 
   if (!currentSong) {
     return (
-      <ErrorPage
+      <ErrorPageTemplate
         title="Access Denied"
         description="You're off tempo – no song has started yet!"
         imageSrc="/access-denied-img.png"

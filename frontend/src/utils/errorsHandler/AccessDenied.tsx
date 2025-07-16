@@ -1,9 +1,9 @@
-import ErrorPage from "components/ErrorPage";
+import ErrorPageTemplate from "utils/errorsHandler/ErrorPageTemplate";
 import { ROUTES } from "routes/routes";
 
 export default function AccessDenied() {
   return (
-    <ErrorPage
+    <ErrorPageTemplate
       title="Access Denied"
       description="Looks like you're out of key..."
       imageSrc="/access-denied-img.png"
