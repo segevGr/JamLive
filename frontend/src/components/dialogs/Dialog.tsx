@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { PrimaryButton } from "components/buttons";
 import { ButtonColor } from "../buttons";
 import { DialogType, DialogProps } from "./dialogTypes";
+import { useLockBodyScroll } from "hooks/useLockBodyScroll";
 
 export default function Dialog({
   isOpen,
@@ -16,6 +17,7 @@ export default function Dialog({
   children,
 }: DialogProps) {
   const formDialog = ["confirm", "warn"].includes(type);
+  useLockBodyScroll(isOpen);
 
   useEffect(() => {
     if (!formDialog) return;
