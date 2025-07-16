@@ -7,7 +7,7 @@ import WaitingRoom from "./pages/WaitingRoom";
 import AdminSearch from "./pages/AdminSearch";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AccessDenied from "./utils/errorsHandler/AccessDenied";
-import HomeRedirect from "./pages/HomeRedirect";
+import HomeRedirect from "./utils/HomeRedirect";
 import Jam from "./pages/Jam";
 import NotFound from "./utils/errorsHandler/NotFound";
 import Profile from "./pages/Profile";
