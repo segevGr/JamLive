@@ -1,19 +1,23 @@
 import { useEffect, useRef, useState } from "react";
-import Navbar from "components/Navbar";
-import SongDisplay from "components/SongDisplay";
-import { useAppSelector, useAppDispatch } from "store/storeHooks";
-import InstrumentBadge from "components/InstrumentBadge";
-import { QuitButton, AutoScrollToggle } from "components/buttons";
 import { useNavigate } from "react-router-dom";
+import {
+  Navbar,
+  SongDisplay,
+  InstrumentBadge,
+  QuitButton,
+  AutoScrollToggle,
+  LoadingSpinner,
+  Dialog,
+} from "components";
+import { useAppSelector, useAppDispatch } from "store/storeHooks";
 import { useSocket } from "context/SocketProvider";
 import { clearSession } from "store/reducers/songSessionSlice";
 import { ROUTES } from "routes/routes";
-import ErrorPageTemplate from "utils/errorsHandler/ErrorPageTemplate";
-import LoadingSpinner from "components/LoadingSpinner";
-import { useModal } from "hooks/useModal";
-import { Dialog } from "components/dialogs";
+import { ErrorPageTemplate } from "utils";
+import { useModal, usePageTitle } from "hooks";
 
 export default function Jam() {
+  usePageTitle("Jam Session");
   const { role, instrument } = useAppSelector((state) => state.auth);
   const { currentSong } = useAppSelector((state) => state.songSession);
 

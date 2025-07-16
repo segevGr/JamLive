@@ -1,12 +1,5 @@
-import LoadingSpinner from "./LoadingSpinner";
-import SongCard from "./SongCard";
-
-interface Song {
-  id: string;
-  title: string;
-  artist: string;
-  image?: string;
-}
+import { LoadingSpinner, SongCard } from "components";
+import type { Song } from "types/song.types";
 
 interface SongListProps {
   songs: Song[];

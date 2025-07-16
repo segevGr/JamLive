@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "store/storeHooks";
 import { login } from "store/reducers/authSlice";
-import InputField from "components/InputField";
-import FormPageLayout from "components/FormPageLayout";
-import FormSection from "components/FormSection";
+import { InputField, FormPageLayout, FormSection } from "components";
 import { API } from "constants/api";
-import { useAuthForm } from "hooks/useAuthForm";
+import { useAuthForm, usePageTitle } from "hooks";
 import { validateLoginForm } from "utils/validation";
-import { usePageTitle } from "hooks/usePageTitle";
 import { ROUTES } from "routes/routes";
 import { axiosInstance } from "constants/axios";
 

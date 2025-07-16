@@ -1,15 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import InputField from "components/InputField";
-import FormPageLayout from "components/FormPageLayout";
-import FormSection from "components/FormSection";
+import { InputField, FormPageLayout, FormSection, Dialog } from "components";
 import { API } from "constants/api";
-import { useAuthForm } from "hooks/useAuthForm";
+import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateRegisterForm } from "utils/validation";
-import { usePageTitle } from "hooks/usePageTitle";
 import { ROUTES } from "routes/routes";
 import { axiosInstance } from "constants/axios";
-import { useModal } from "hooks/useModal";
-import { Dialog } from "components/dialogs";
 import { instruments } from "types/instruments.types";
 
 interface Props {

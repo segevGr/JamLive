@@ -1,4 +1,4 @@
-import FooterLogos from "./FooterLogos";
+import FooterLogos from "../layout/FooterLogos";
 
 interface FormPageLayoutProps {
   title: string;

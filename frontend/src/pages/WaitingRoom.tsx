@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Music } from "lucide-react";
-import Navbar from "components/Navbar";
-import { usePageTitle } from "hooks/usePageTitle";
+import { Navbar } from "components";
+import { usePageTitle } from "hooks";
 import { useSocket } from "context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "store/storeHooks";

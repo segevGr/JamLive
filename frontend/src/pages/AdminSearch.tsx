@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import InputField from "components/InputField";
 import { useNavigate } from "react-router-dom";
-import { usePageTitle } from "hooks/usePageTitle";
+import { InputField, Navbar, SongList } from "components";
+import { usePageTitle } from "hooks";
 import { API } from "constants/api";
 import { axiosInstance } from "constants/axios";
-import Navbar from "components/Navbar";
-import SongList from "components/songsList";
 import { ROUTES } from "routes/routes";
 import { setCurrentSong } from "store/reducers/songSessionSlice";
 import { useSocket } from "context/SocketProvider";

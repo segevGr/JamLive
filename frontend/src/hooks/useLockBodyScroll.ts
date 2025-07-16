@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useLockBodyScroll(locked: boolean): void {
+export default function useLockBodyScroll(locked: boolean): void {
   useEffect(() => {
     if (!locked) return;
 

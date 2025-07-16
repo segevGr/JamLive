@@ -1,5 +1,5 @@
 import { useAppSelector } from "store/storeHooks";
-import LoadingSpinner from "./LoadingSpinner";
+import { LoadingSpinner } from "components";
 
 export default function GlobalLoader() {
   const isLoading = useAppSelector((s) => s.loading);

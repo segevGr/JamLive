@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { PrimaryButton } from "components/buttons";
-import { ButtonColor } from "../buttons";
-import { DialogType, DialogProps } from "./dialogTypes";
-import { useLockBodyScroll } from "hooks/useLockBodyScroll";
+import {
+  PrimaryButton,
+  ButtonColor,
+  DialogType,
+  DialogProps,
+} from "components";
+import { useLockBodyScroll } from "hooks";
 
 export default function Dialog({
   isOpen,

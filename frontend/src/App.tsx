@@ -1,17 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ROUTES } from "./routes/routes";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import "./index.css";
-import WaitingRoom from "./pages/WaitingRoom";
-import AdminSearch from "./pages/AdminSearch";
+import { Register, Login, WaitingRoom, AdminSearch, Jam, Profile } from "pages";
+import { AccessDenied, HomeRedirect, NotFound } from "utils";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AccessDenied from "./utils/errorsHandler/AccessDenied";
-import HomeRedirect from "./utils/HomeRedirect";
-import Jam from "./pages/Jam";
-import NotFound from "./utils/errorsHandler/NotFound";
-import Profile from "./pages/Profile";
-import GlobalLoader from "./components/GlobalLoader";
+import { GlobalLoader } from "components";
 
 function App() {
   return (

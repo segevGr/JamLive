@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import InputField from "components/InputField";
-import FormPageLayout from "components/FormPageLayout";
-import FormSection from "components/FormSection";
+import {
+  InputField,
+  FormPageLayout,
+  FormSection,
+  PrimaryButton,
+  Navbar,
+  Dialog,
+} from "components";
 import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import { ROUTES } from "routes/routes";
-import { useAuthForm } from "hooks/useAuthForm";
-import { usePageTitle } from "hooks/usePageTitle";
-import { PrimaryButton } from "components/buttons";
+import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
@@ -15,9 +18,6 @@ import {
   changeToken,
   logout,
 } from "store/reducers/authSlice";
-import Navbar from "components/Navbar";
-import { useModal } from "hooks/useModal";
-import { Dialog } from "components/dialogs";
 import { instruments, Instrument } from "types/instruments.types";
 
 const SectionBorder = ({

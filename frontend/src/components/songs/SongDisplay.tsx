@@ -1,4 +1,4 @@
-type SongLine = { lyrics: string; chords?: string };
+import { SongLine } from "types/song.types";
 
 interface SongDisplayProps {
   song: SongLine[][];

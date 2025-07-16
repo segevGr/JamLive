@@ -20,7 +20,7 @@ interface InputFieldProps {
 const inputFieldStyles =
   "appearance-none w-full bg-white text-textMain border border-borderGray rounded-xl px-4 py-4 md:py-3 placeholder-placeholderGray focus:outline-none focus:ring-2 focus:ring-primary";
 
-const InputField: React.FC<InputFieldProps> = ({
+export default function InputField({
   label,
   name,
   placeholder,
@@ -32,7 +32,7 @@ const InputField: React.FC<InputFieldProps> = ({
   children,
   errorMessage,
   trailingIcon,
-}) => {
+}: InputFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === "password";
   const computedType = isPasswordField && showPassword ? "text" : type;
@@ -100,6 +100,4 @@ const InputField: React.FC<InputFieldProps> = ({
       )}
     </div>
   );
-};
-
-export default InputField;
+}

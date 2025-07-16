@@ -1,4 +1,4 @@
-import { PrimaryButton } from "./buttons";
+import { PrimaryButton } from "../buttons";
 
 interface FormSectionProps {
   children: React.ReactNode;

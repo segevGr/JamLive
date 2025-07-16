@@ -5,8 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "routes/routes";
 import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import { useSocket } from "context/SocketProvider";
-import { useModal } from "hooks/useModal";
-import { Dialog } from "./dialogs";
+import { useModal } from "hooks";
+import { Dialog } from "../dialogs";
 
 const Navbar = () => {
   const [isLogoutOpen, openLogout, closeLogout, logoutData] = useModal();

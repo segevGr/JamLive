@@ -1,10 +1,10 @@
 // src/hooks/useModal.ts
 import { useState, useCallback } from "react";
-import type { DialogProps } from "components/dialogs";
+import type { DialogProps } from "components";
 
 type DialogData = Omit<DialogProps, "isOpen">;
 
-export function useModal() {
+export default function useModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<DialogData | null>(null);
 
