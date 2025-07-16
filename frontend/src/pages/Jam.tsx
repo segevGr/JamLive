@@ -9,9 +9,8 @@ import {
   LoadingSpinner,
   Dialog,
 } from "components";
-import { useAppSelector, useAppDispatch } from "store/storeHooks";
+import { useAppSelector, useAppDispatch, clearSession } from "store";
 import { useSocket } from "context/SocketProvider";
-import { clearSession } from "store/reducers/songSessionSlice";
 import { ROUTES } from "routes/routes";
 import { ErrorPageTemplate } from "utils";
 import { useModal, usePageTitle } from "hooks";

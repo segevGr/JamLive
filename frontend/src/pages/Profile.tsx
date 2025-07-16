@@ -7,17 +7,18 @@ import {
   Navbar,
   Dialog,
 } from "components";
-import { useAppDispatch, useAppSelector } from "store/storeHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  changeInstrument,
+  changeToken,
+  logout,
+} from "store";
 import { ROUTES } from "routes/routes";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
-import {
-  changeInstrument,
-  changeToken,
-  logout,
-} from "store/reducers/authSlice";
 import { instruments, Instrument } from "types/instruments.types";
 
 const SectionBorder = ({

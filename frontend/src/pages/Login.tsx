@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "store/storeHooks";
-import { login } from "store/reducers/authSlice";
+import { useAppDispatch, login } from "store";
 import { InputField, FormPageLayout, FormSection } from "components";
 import { API } from "constants/api";
 import { useAuthForm, usePageTitle } from "hooks";

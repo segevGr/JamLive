@@ -5,9 +5,8 @@ import { usePageTitle } from "hooks";
 import { API } from "constants/api";
 import { axiosInstance } from "constants/axios";
 import { ROUTES } from "routes/routes";
-import { setCurrentSong } from "store/reducers/songSessionSlice";
+import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
-import { useAppDispatch, useAppSelector } from "store/storeHooks";
 import type { Song } from "types/song.types";
 
 export default function AdminSearch() {

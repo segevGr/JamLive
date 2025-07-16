@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "store/storeHooks";
+import { useAppSelector } from "store";
 import { ROUTES } from "routes/routes";
 
 export default function HomeRedirect() {

@@ -9,4 +9,4 @@ const loadingSlice = createSlice({
   },
 });
 export const { start, stop } = loadingSlice.actions;
-export default loadingSlice.reducer;
+export const loadingReducer = loadingSlice.reducer;

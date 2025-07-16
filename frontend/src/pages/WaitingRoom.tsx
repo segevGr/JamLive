@@ -4,8 +4,7 @@ import { Navbar } from "components";
 import { usePageTitle } from "hooks";
 import { useSocket } from "context/SocketProvider";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "store/storeHooks";
-import { setCurrentSong } from "store/reducers/songSessionSlice";
+import { useAppDispatch, setCurrentSong } from "store";
 import { ROUTES } from "routes/routes";
 
 const WaitingRoom = () => {

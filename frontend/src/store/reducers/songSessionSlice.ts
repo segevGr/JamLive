@@ -26,4 +26,4 @@ const songSessionSlice = createSlice({
 });
 
 export const { setCurrentSong, clearSession } = songSessionSlice.actions;
-export default songSessionSlice.reducer;
+export const songSessionReducer = songSessionSlice.reducer;

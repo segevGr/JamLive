@@ -1,4 +1,4 @@
-import { useAppSelector } from "store/storeHooks";
+import { useAppSelector } from "store";
 import { LoadingSpinner } from "components";
 
 export default function GlobalLoader() {
