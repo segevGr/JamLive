@@ -1,14 +1,17 @@
 import { SongLine } from "types/song.types";
 
 interface SongDisplayProps {
-  song: SongLine[][];
+  songLyrics: SongLine[][];
   isSinger: boolean;
 }
 
-export default function SongDisplay({ song, isSinger }: SongDisplayProps) {
+export default function SongDisplay({
+  songLyrics,
+  isSinger,
+}: SongDisplayProps) {
   return (
     <div className="flex flex-col gap-8 items-center w-full px-4">
-      {song.map((line, index) => {
+      {songLyrics.map((line, index) => {
         const isHebrew = isRTL(line.map((p) => p.lyrics).join(" "));
         return (
           <div

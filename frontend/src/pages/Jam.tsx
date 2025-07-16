@@ -162,7 +162,7 @@ export default function Jam() {
             <InstrumentBadge instrument={instrument!} />
             {currentSong.lyrics ? (
               <SongDisplay
-                song={currentSong.lyrics}
+                songLyrics={currentSong.lyrics}
                 isSinger={instrument?.toLowerCase() === "vocals"}
               />
             ) : (

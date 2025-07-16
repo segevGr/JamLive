@@ -1,12 +1,8 @@
 import { Music } from "lucide-react";
+import { Song } from "types/song.types";
 
 interface Props {
-  song: {
-    id: string;
-    title: string;
-    artist: string;
-    image?: string;
-  };
+  song: Song;
   onSelect: (id: string) => void;
 }
 
