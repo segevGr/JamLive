@@ -32,7 +32,7 @@ const SectionBorder = ({
   title: string;
 }) => (
   <div className="border border-borderGray rounded-xl p-4">
-    <h3 className="text-xl font-semibold text-primary mb-5">{title}</h3>
+    <h3 className="text-xl font-semibold text-primary mb-2">{title}</h3>
     {children}
   </div>
 );
@@ -136,7 +136,7 @@ export default function Profile() {
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         passwordForm.setErrors({
-          currentPassword: t("profile.passwordIncorrect"),
+          currentPassword: t("profile.currentPasswordIncorrect"),
         });
       } else {
         alert(t("profile.generalError"));
@@ -189,7 +189,7 @@ export default function Profile() {
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         deleteForm.setErrors({
-          deletePassword: t("profile.passwordIncorrect"),
+          deletePassword: t("profile.incorrectPassword"),
         });
       } else {
         alert(t("profile.generalError"));
@@ -235,7 +235,7 @@ export default function Profile() {
               >
                 {instruments.map((inst) => (
                   <option key={inst} value={inst}>
-                    {inst}
+                    {t(`instruments.${inst}`)}
                   </option>
                 ))}
               </InputField>
@@ -302,16 +302,20 @@ export default function Profile() {
           </SectionBorder>
 
           <SectionBorder title={t("profile.deleteSection.title")}>
-            <p className="text-sm text-red-500 mb-2">
-              {t("profile.deleteSection.warning")}
-            </p>
-            <PrimaryButton
-              text={t("profile.deleteSection.button")}
-              color="red"
-              size="sm"
-              onClick={openDeleteDialog}
-              fullWidth={false}
-            />
+            <div className="flex flex-col gap-4">
+              <p className="text-sm text-red-500 self-start">
+                {t("profile.deleteSection.warning")}
+              </p>
+              <div className="self-end">
+                <PrimaryButton
+                  text={t("profile.deleteSection.button")}
+                  color="red"
+                  size="sm"
+                  onClick={openDeleteDialog}
+                  fullWidth={false}
+                />
+              </div>
+            </div>
           </SectionBorder>
         </div>
       </FormPageLayout>

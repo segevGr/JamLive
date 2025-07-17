@@ -81,7 +81,12 @@ const Navbar = () => {
         </button>
 
         {openNavbar && (
-          <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-50 min-w-[11rem] w-fit px-1">
+          <div
+            className={clsx(
+              "absolute mt-2 bg-white rounded-md shadow-lg z-50 min-w-[11rem] w-fit px-1",
+              isRtl() ? "left-0" : "right-0"
+            )}
+          >
             {listButtons
               .filter((button) => button.role.includes(role || ""))
               .map((button, index, array) => (

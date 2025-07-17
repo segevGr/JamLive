@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { ChevronDown, Eye, EyeOff } from "lucide-react";
+import clsx from "clsx";
+import { isRtl } from "i18n/getDirection";
 
 interface InputFieldProps {
   label?: string;
@@ -63,7 +65,11 @@ export default function InputField({
               name={name}
               value={value}
               onChange={onChange}
-              className={`${inputFieldStyles} pr-10 appearance-none`}
+              className={clsx(
+                " appearance-none",
+                inputFieldStyles,
+                isRtl() ? "pl-10" : "pr-10"
+              )}
             >
               <option className="text-placeholderGray" value="" disabled hidden>
                 {listPlaceholder}
@@ -72,20 +78,33 @@ export default function InputField({
             </select>
 
             {!trailingIcon && (
-              <ChevronDown className="w-4 h-4 text-textSubtle absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+              <ChevronDown
+                className={clsx(
+                  "w-4 h-4 text-textSubtle absolute top-1/2 transform -translate-y-1/2 pointer-events-none",
+                  isRtl() ? "left-3" : "right-3"
+                )}
+              />
             )}
           </>
         )}
 
         {!isPasswordField && trailingIcon && (
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle">
+          <div
+            className={clsx(
+              "absolute top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle",
+              isRtl() ? "left-3" : "right-3"
+            )}
+          >
             {trailingIcon}
           </div>
         )}
 
         {isPasswordField && (
           <div
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle"
+            className={clsx(
+              "absolute  top-1/2 transform -translate-y-1/2 cursor-pointer text-textSubtle",
+              isRtl() ? "left-3" : "right-3"
+            )}
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

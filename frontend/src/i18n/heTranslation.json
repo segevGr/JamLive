@@ -15,13 +15,13 @@
     "pageTitle": "סשן נגינה",
     "noSongError": "לא נבחר שיר. חזור לחדר ההמתנה.",
     "sessionEndedTitle": "הסשן הסתיים",
-    "sessionEndedAdmin": "הסשן הסתיים. חוזרים לבחירת שיר...",
-    "sessionEndedUser": "הסשן הסתיים. מחכים לשיר הבא...",
+    "sessionEndedAdmin": "חוזרים לבחירת שיר...",
+    "sessionEndedUser": "מחכים לשיר הבא...",
     "accessDeniedTitle": "הגישה נדחתה",
     "accessDeniedDesc": "יצאת מקצב – לא התחיל שיר עדיין!",
     "selectSongButton": "בחר שיר",
     "backToWaitingRoomButton": "חזרה לחדר ההמתנה",
-    "confirmEndTitle": "לסיים סשן?",
+    "confirmEndTitle": "לסיים את הסשן?",
     "confirmEndMessage": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
     "confirmEndConfirmLabel": "כן, סיים",
     "liveSessionTitle": "סשן פעיל",
@@ -30,14 +30,14 @@
   },
   "login": {
     "pageTitle": "התחברות",
-    "title": "התחבר",
+    "title": "התחברות",
     "subtitle": "ברוך הבא ל־JamLive",
     "noAccountText": "אין לך חשבון?",
     "registerLinkText": "הרשמה",
-    "buttonText": "התחבר",
-    "usernameLabel": "הזן שם משתמש*",
+    "buttonText": "התחברות",
+    "usernameLabel": "שם משתמש*",
     "usernamePlaceholder": "שם משתמש",
-    "passwordLabel": "הזן סיסמה*",
+    "passwordLabel": "סיסמה*",
     "passwordPlaceholder": "סיסמה",
     "invalidCredentials": "שם משתמש או סיסמה שגויים, נסה שוב",
     "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
@@ -52,9 +52,9 @@
     "buttonText": "הירשם",
     "usernameLabel": "שם משתמש*",
     "usernamePlaceholder": "בחר שם משתמש",
-    "instrumentLabel": "הכלי שלך*",
-    "instrumentPlaceholder": "בחר את הכלי שלך",
-    "passwordLabel": "צור סיסמה*",
+    "instrumentLabel": "כלי נגינה*",
+    "instrumentPlaceholder": "בחר את כלי הנגינה שלך",
+    "passwordLabel": "סיסמה*",
     "passwordPlaceholder": "הסיסמה שלך",
     "successTitle": "נרשמת בהצלחה!",
     "successMessage": "ברוך הבא למשפחת JamLive. כעת תוכל להתחבר.",
@@ -64,13 +64,13 @@
   },
   "profile": {
     "pageTitle": "פרופיל",
-    "title": "ערוך את הפרטים שלך",
+    "title": "ערוך את הפרופיל שלך",
     "subtitle": "שלום {{userName}}!",
     "backButton": "חזרה לסשן",
     "languageSection": {
-      "title": "שפה",
+      "title": "שינוי שפה",
       "selectLabel": "בחר שפה",
-      "save": "שמור שפה",
+      "save": "שמירה",
       "successTitle": "השפה עודכנה",
       "successMessage": "השפה שונתה בהצלחה.",
       "confirmLabel": "חזרה לסשן",
@@ -80,12 +80,12 @@
       }
     },
     "instrumentSection": {
-      "title": "החלף כלי נגינה",
-      "save": "שמור כלי נגינה",
+      "title": "החלפת כלי נגינה",
+      "save": "שמירה",
       "label": "בחר כלי נגינה חדש"
     },
     "passwordSection": {
-      "title": "שנה סיסמה",
+      "title": "שינוי סיסמה",
       "save": "עדכן סיסמה",
       "currentLabel": "סיסמה נוכחית",
       "currentPlaceholder": "הזן סיסמה נוכחית",
@@ -96,22 +96,24 @@
     },
     "deleteSection": {
       "title": "מחק חשבון",
-      "warning": "מחיקת חשבון היא פעולה בלתי הפיכה.",
+      "warning": "מחיקת החשבון היא פעולה בלתי הפיכה.",
       "button": "מחק את החשבון שלי"
     },
     "deleteDialog": {
-      "message": "הזן סיסמה כדי לאשר את המחיקה. פעולה זו לא ניתנת לביטול.",
+      "message": "הזן סיסמה כדי לאשר את המחיקה. פעולה זו אינה ניתנת לביטול.",
       "confirm": "מחק",
       "placeholder": "סיסמה",
       "error": "יש להזין סיסמה למחיקת החשבון"
     },
-    "passwordIncorrect": "הסיסמה הנוכחית שגויה",
+    "currentPasswordIncorrect": "הסיסמה הנוכחית שגויה",
+    "incorrectPassword": "הסיסמה שהזנת שגויה",
     "sameInstrumentError": "הכלי החדש חייב להיות שונה מהקיים",
     "dialog": {
       "title": "השינויים נשמרו!",
       "instrumentMessage": "הכלי שלך עודכן. אפשר להתחיל לנגן!",
       "passwordMessage": "הסיסמה עודכנה. אפשר להתחיל לנגן!",
-      "confirmLabel": "חזרה לסשן"
+      "confirmLabel": "חזרה לסשן",
+      "cancel": "ביטול"
     },
     "deleted": {
       "title": "להתראות!",
@@ -121,7 +123,7 @@
     "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
   },
   "adminSearch": {
-    "pageTitle": "חיפוש אדמין",
+    "pageTitle": "בחירת שיר",
     "searchPlaceholder": "חפש שיר כלשהו..."
   },
   "songList": {
@@ -129,7 +131,7 @@
     "noResultsTitle": "לא נמצאו תוצאות",
     "noResultsSubtitle": "נסה לחפש שיר או אמן אחר.",
     "searchResultsTitle": "תוצאות חיפוש",
-    "songListTitle": "רשימת שירים",
+    "songListTitle": "רשימת השירים",
     "noSongsFallback": "לא נמצאו שירים, נסה חיפוש אחר.",
     "loadingMore": "טוען שירים נוספים..."
   },
@@ -148,5 +150,13 @@
   },
   "errorPage": {
     "backButton": "חזרה לדף הבית"
+  },
+  "instruments": {
+    "Drums": "תופים",
+    "Guitar": "גיטרה",
+    "Bass": "בס",
+    "Saxophone": "סקסופון",
+    "Keyboard": "אורגן",
+    "Vocals": "שירה"
   }
 }

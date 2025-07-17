@@ -107,7 +107,7 @@ export default function Register({ isAdmin = false }: Props) {
           >
             {instruments.map((inst) => (
               <option key={inst} value={inst}>
-                {inst}
+                {t(`instruments.${inst}`)}
               </option>
             ))}
           </InputField>

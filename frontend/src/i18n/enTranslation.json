@@ -15,8 +15,8 @@
     "pageTitle": "Jam Session",
     "noSongError": "No song selected. Please go back to the waiting room.",
     "sessionEndedTitle": "Session Ended",
-    "sessionEndedAdmin": "The session has ended. Back to song selection...",
-    "sessionEndedUser": "The session has ended. Waiting for the next song...",
+    "sessionEndedAdmin": "Back to song selection...",
+    "sessionEndedUser": "Waiting for the next song...",
     "accessDeniedTitle": "Access Denied",
     "accessDeniedDesc": "You're off tempo – no song has started yet!",
     "selectSongButton": "Select a song",
@@ -64,13 +64,13 @@
   },
   "profile": {
     "pageTitle": "Profile",
-    "title": "Edit your details",
+    "title": "Edit your profile",
     "subtitle": "Hello {{userName}}!",
     "backButton": "Back to session",
     "languageSection": {
-      "title": "Language",
+      "title": "Change Language",
       "selectLabel": "Choose your language",
-      "save": "Save language",
+      "save": "Save",
       "successTitle": "Language updated",
       "successMessage": "Language has been changed successfully.",
       "confirmLabel": "Back to session",
@@ -81,7 +81,7 @@
     },
     "instrumentSection": {
       "title": "Change Instrument",
-      "save": "Save instrument",
+      "save": "Save",
       "label": "Choose a new instrument"
     },
     "passwordSection": {
@@ -105,13 +105,15 @@
       "placeholder": "Password",
       "error": "Please enter your password to delete your account"
     },
-    "passwordIncorrect": "Current password is incorrect",
+    "currentPasswordIncorrect": "Current password is incorrect",
+    "incorrectPassword": "password is incorrect",
     "sameInstrumentError": "The new instrument must be different",
     "dialog": {
       "title": "Changes saved!",
       "instrumentMessage": "Your instrument has been changed. Let’s start jamming!",
       "passwordMessage": "Your password has been changed. Let’s start jamming!",
-      "confirmLabel": "Back to session"
+      "confirmLabel": "Back to session",
+      "cancel": "Cancel"
     },
     "deleted": {
       "title": "Goodbye!",
@@ -148,5 +150,13 @@
   },
   "errorPage": {
     "backButton": "Back to Home"
+  },
+  "instruments": {
+    "Drums": "Drums",
+    "Guitar": "Guitar",
+    "Bass": "Bass",
+    "Saxophone": "Saxophone",
+    "Keyboard": "Keyboard",
+    "Vocals": "Vocals"
   }
 }

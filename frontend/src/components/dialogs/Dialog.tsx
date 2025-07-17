@@ -7,6 +7,9 @@ import {
   DialogProps,
 } from "components";
 import { useLockBodyScroll } from "hooks";
+import { useTranslation } from "react-i18next";
+import { isRtl } from "i18n/getDirection";
+import clsx from "clsx";
 
 export default function Dialog({
   isOpen,
@@ -20,6 +23,7 @@ export default function Dialog({
   children,
 }: DialogProps) {
   const formDialog = ["confirm", "warn"].includes(type);
+  const { t } = useTranslation();
   useLockBodyScroll(isOpen);
 
   useEffect(() => {
@@ -58,19 +62,32 @@ export default function Dialog({
       aria-modal="true"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white rounded-xl shadow-lg p-6 max-w-sm text-center">
+      <div
+        className="bg-white rounded-xl shadow-lg p-6 max-w-sm"
+        dir={isRtl() ? "rtl" : "ltr"}
+      >
         {title && (
           <h2
-            className={`text-xl font-semibold mb-4 ${paletteClass[type] ?? ""}`}
+            className={clsx(
+              "text-xl font-semibold mb-4 text-center",
+              paletteClass[type] ?? ""
+            )}
           >
             {title}
           </h2>
         )}
 
-        {message && <p className="text-gray-600 mb-6">{message}</p>}
+        {message && (
+          <p className={clsx("text-gray-600 mb-6", "text-center")}>{message}</p>
+        )}
         {children && <div className="mb-6">{children}</div>}
 
-        <div className="flex justify-center gap-4">
+        <div
+          className={clsx(
+            "flex justify-center gap-4",
+            isRtl() && "flex-row-reverse"
+          )}
+        >
           {type !== "info" && (
             <>
               <PrimaryButton
@@ -83,7 +100,7 @@ export default function Dialog({
               />
               {formDialog && (
                 <PrimaryButton
-                  text="Cancel"
+                  text={t("profile.dialog.cancel")}
                   onClick={onClose}
                   color="gray"
                   fullWidth={false}
