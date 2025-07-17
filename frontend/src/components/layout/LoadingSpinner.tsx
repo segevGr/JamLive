@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface LoadingSpinnerProps {
   size?: "sm" | "md" | "lg";
   text?: string;
@@ -16,7 +18,10 @@ export default function LoadingSpinner({
   return (
     <div className="flex flex-col items-center justify-center py-4">
       <div
-        className={`rounded-full animate-spin border-primaryLight border-t-transparent ${sizeClasses[size]}`}
+        className={clsx(
+          "rounded-full animate-spin border-primaryLight border-t-transparent",
+          sizeClasses[size]
+        )}
       />
       {text && (
         <p className="mt-3 text-sm font-sans text-textSubtle animate-pulse">

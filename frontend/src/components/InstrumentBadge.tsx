@@ -2,13 +2,14 @@ import { Mic, Guitar, Drum, Keyboard, Music2, Music } from "lucide-react";
 import { JSX } from "react";
 import { Instrument } from "types/instruments.types";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 const iconClass = "h-5 w-5 mr-2";
 
 const iconMap: Record<Instrument, JSX.Element> = {
   Vocals: <Mic className={iconClass} />,
   Guitar: <Guitar className={iconClass} />,
-  Bass: <Guitar className={`${iconClass} rotate-180`} />,
+  Bass: <Guitar className={clsx("rotate-180", iconClass)} />,
   Drums: <Drum className={iconClass} />,
   Keyboard: <Keyboard className={iconClass} />,
   Saxophone: <Music2 className={iconClass} />,

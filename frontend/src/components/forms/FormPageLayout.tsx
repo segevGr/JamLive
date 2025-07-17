@@ -1,5 +1,6 @@
 import FooterLogos from "../layout/FooterLogos";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 interface FormPageLayoutProps {
   title: string;
@@ -28,9 +29,10 @@ export default function FormPageLayout({
     <div className="min-h-[100dvh] flex flex-col md:flex-row font-sans bg-background">
       <div className="w-full flex-1 md:w-1/2 flex flex-col md:justify-center items-center">
         <div
-          className={`w-full max-w-sm mt-24 ${
+          className={clsx(
+            "w-full max-w-sm mt-24",
             imageSrc ? "md:mt-0" : "md:mt-5"
-          } `}
+          )}
         >
           <div className="flex flex-col self-start md:self-center md:ml-0">
             <h1 className="text-xl md:text-3xl text-accent mb-2">{subtitle}</h1>

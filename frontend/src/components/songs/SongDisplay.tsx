@@ -1,4 +1,5 @@
 import { SongLine } from "types/song.types";
+import clsx from "clsx";
 
 interface SongDisplayProps {
   songLyrics: SongLine[][];
@@ -16,9 +17,10 @@ export default function SongDisplay({
         return (
           <div
             key={index}
-            className={`flex flex-wrap justify-center gap-x-2 leading-snug ${
+            className={clsx(
+              "flex flex-wrap justify-center gap-x-2 leading-snug",
               isHebrew ? "text-right" : "text-left"
-            }`}
+            )}
             dir={isHebrew ? "rtl" : "ltr"}
           >
             {line.map((part, i) => (
