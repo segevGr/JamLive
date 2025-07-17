@@ -7,6 +7,8 @@ import { useSocket } from "context/SocketProvider";
 import { useModal } from "hooks";
 import { Dialog } from "../dialogs";
 import { useTranslation } from "react-i18next";
+import { isRtl } from "i18n/getDirection";
+import clsx from "clsx";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -86,14 +88,18 @@ const Navbar = () => {
                 <div key={button.label}>
                   <button
                     onClick={button.onClick}
-                    className={`w-full flex items-center gap-2 px-4 py-2 text-md font-medium hover:opacity-50 whitespace-nowrap min-w-full ${
+                    className={clsx(
+                      "w-full flex items-center gap-2 px-4 py-2 text-md font-medium hover:opacity-50 whitespace-nowrap min-w-full",
+                      isRtl()
+                        ? "flex-row-reverse text-right"
+                        : "flex-row text-left",
                       button.label === t("navbar.logout")
                         ? "text-errorText"
                         : "text-primary"
-                    }`}
+                    )}
                   >
                     {button.icon}
-                    {button.label}
+                    <span>{button.label}</span>
                   </button>
 
                   {index < array.length - 1 && (
