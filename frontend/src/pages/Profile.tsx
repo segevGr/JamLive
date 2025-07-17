@@ -144,6 +144,23 @@ export default function Profile() {
     }
   };
 
+  const handleChangeLanguage = (e: React.FormEvent) => {
+    e.preventDefault();
+    i18n.changeLanguage(selectedLanguage);
+    document.documentElement.dir = selectedLanguage === "he" ? "rtl" : "ltr";
+    openDialog({
+      type: "success",
+      title: t("profile.languageSection.successTitle"),
+      message: t("profile.languageSection.successMessage"),
+      confirmLabel: t("profile.languageSection.confirmLabel"),
+      onConfirm: () => {
+        closeDialog();
+        navigate(ROUTES.HOME);
+        window.location.reload();
+      },
+    });
+  };
+
   const handleDeleteAccount = async () => {
     const password = deleteForm.form.deletePassword.trim();
 
@@ -263,22 +280,7 @@ export default function Profile() {
 
           <SectionBorder title={t("profile.languageSection.title")}>
             <FormSection
-              onSubmit={(e) => {
-                e.preventDefault();
-                i18n.changeLanguage(selectedLanguage);
-                document.documentElement.dir =
-                  selectedLanguage === "he" ? "rtl" : "ltr";
-                openDialog({
-                  type: "success",
-                  title: t("profile.languageSection.successTitle"),
-                  message: t("profile.languageSection.successMessage"),
-                  confirmLabel: t("profile.languageSection.confirmLabel"),
-                  onConfirm: () => {
-                    closeDialog();
-                    navigate(ROUTES.HOME);
-                  },
-                });
-              }}
+              onSubmit={handleChangeLanguage}
               buttonText={t("profile.languageSection.save")}
               isDisabled={selectedLanguage === i18n.language}
             >

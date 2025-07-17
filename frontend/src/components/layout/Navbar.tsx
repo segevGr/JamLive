@@ -79,14 +79,14 @@ const Navbar = () => {
         </button>
 
         {openNavbar && (
-          <div className="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg z-50">
+          <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-50 min-w-[11rem] w-fit px-1">
             {listButtons
               .filter((button) => button.role.includes(role || ""))
               .map((button, index, array) => (
                 <div key={button.label}>
                   <button
                     onClick={button.onClick}
-                    className={`w-full flex items-center gap-2 px-4 py-2 text-md font-medium hover:opacity-50 ${
+                    className={`w-full flex items-center gap-2 px-4 py-2 text-md font-medium hover:opacity-50 whitespace-nowrap min-w-full ${
                       button.label === t("navbar.logout")
                         ? "text-errorText"
                         : "text-primary"
