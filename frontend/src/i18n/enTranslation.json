@@ -67,6 +67,18 @@
     "title": "Edit your details",
     "subtitle": "Hello {{userName}}!",
     "backButton": "Back to session",
+    "languageSection": {
+      "title": "Language",
+      "selectLabel": "Choose your language",
+      "save": "Save language",
+      "successTitle": "Language updated",
+      "successMessage": "Language has been changed successfully.",
+      "confirmLabel": "Back to session",
+      "options": {
+        "en": "English",
+        "he": "עברית"
+      }
+    },
     "instrumentSection": {
       "title": "Change Instrument",
       "save": "Save instrument",

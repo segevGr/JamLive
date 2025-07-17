@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   InputField,
@@ -21,6 +22,7 @@ import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
 import { instruments, Instrument } from "types/instruments.types";
 import { useTranslation } from "react-i18next";
+import i18n from "i18n";
 
 const SectionBorder = ({
   children,
@@ -42,6 +44,8 @@ export default function Profile() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
+
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
   const { instrument, userName } = useAppSelector((state) => state.auth);
   const currentInstrument = instrument || "";
@@ -254,6 +258,44 @@ export default function Profile() {
                 onChange={passwordForm.handleChange}
                 errorMessage={passwordForm.errors.confirmNewPassword}
               />
+            </FormSection>
+          </SectionBorder>
+
+          <SectionBorder title={t("profile.languageSection.title")}>
+            <FormSection
+              onSubmit={(e) => {
+                e.preventDefault();
+                i18n.changeLanguage(selectedLanguage);
+                document.documentElement.dir =
+                  selectedLanguage === "he" ? "rtl" : "ltr";
+                openDialog({
+                  type: "success",
+                  title: t("profile.languageSection.successTitle"),
+                  message: t("profile.languageSection.successMessage"),
+                  confirmLabel: t("profile.languageSection.confirmLabel"),
+                  onConfirm: () => {
+                    closeDialog();
+                    navigate(ROUTES.HOME);
+                  },
+                });
+              }}
+              buttonText={t("profile.languageSection.save")}
+              isDisabled={selectedLanguage === i18n.language}
+            >
+              <InputField
+                label={t("profile.languageSection.selectLabel")}
+                name="language"
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                as="select"
+              >
+                <option value="en">
+                  {t("profile.languageSection.options.en")}
+                </option>
+                <option value="he">
+                  {t("profile.languageSection.options.he")}
+                </option>
+              </InputField>
             </FormSection>
           </SectionBorder>
 

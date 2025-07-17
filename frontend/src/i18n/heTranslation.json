@@ -24,7 +24,7 @@
     "confirmEndTitle": "לסיים סשן?",
     "confirmEndMessage": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
     "confirmEndConfirmLabel": "כן, סיים",
-    "liveSessionTitle": "סשן חי",
+    "liveSessionTitle": "סשן פעיל",
     "loadingSong": "טוען שיר...",
     "loadingLyrics": "טוען מילים..."
   },
@@ -67,6 +67,18 @@
     "title": "ערוך את הפרטים שלך",
     "subtitle": "שלום {{userName}}!",
     "backButton": "חזרה לסשן",
+    "languageSection": {
+      "title": "שפה",
+      "selectLabel": "בחר שפה",
+      "save": "שמור שפה",
+      "successTitle": "השפה עודכנה",
+      "successMessage": "השפה שונתה בהצלחה.",
+      "confirmLabel": "חזרה לסשן",
+      "options": {
+        "en": "English",
+        "he": "עברית"
+      }
+    },
     "instrumentSection": {
       "title": "החלף כלי נגינה",
       "save": "שמור כלי נגינה",
