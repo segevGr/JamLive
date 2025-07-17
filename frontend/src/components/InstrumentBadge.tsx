@@ -22,10 +22,13 @@ export default function InstrumentBadge({
   const { t } = useTranslation();
   const icon = iconMap[instrument] || <Music className={iconClass} />;
 
+  const normalized =
+    instrument.charAt(0).toUpperCase() + instrument.slice(1).toLowerCase();
+
   return (
     <div className="inline-flex items-center text-lg bg-primary text-white rounded-full px-5 py-2 shadow-md">
       {icon}
-      <span className="font-semibold">{t(`instruments.${instrument}`)}</span>
+      {t(`instruments.${normalized}`, { defaultValue: normalized })}
     </div>
   );
 }
