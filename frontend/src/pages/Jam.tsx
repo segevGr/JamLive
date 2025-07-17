@@ -14,9 +14,12 @@ import { useSocket } from "context/SocketProvider";
 import { ROUTES } from "routes";
 import { ErrorPageTemplate } from "utils";
 import { useModal, usePageTitle } from "hooks";
+import { useTranslation } from "react-i18next";
 
 export default function Jam() {
-  usePageTitle("Jam Session");
+  const { t } = useTranslation();
+  usePageTitle(t("jam.pageTitle"));
+
   const { role, instrument } = useAppSelector((state) => state.auth);
   const { currentSong } = useAppSelector((state) => state.songSession);
 
@@ -35,9 +38,9 @@ export default function Jam() {
 
   useEffect(() => {
     if (!currentSong && !sessionEnded) {
-      setError("No song selected. Please go back to the waiting room.");
+      setError(t("jam.noSongError"));
     }
-  }, [currentSong, sessionEnded]);
+  }, [currentSong, sessionEnded, t]);
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -102,11 +105,11 @@ export default function Jam() {
     return (
       <Dialog
         isOpen={sessionEnded}
-        title="Session Ended"
+        title={t("jam.sessionEndedTitle")}
         message={
           role === "admin"
-            ? "The session has ended. Back to song selection..."
-            : "The session has ended. Waiting for the next song..."
+            ? t("jam.sessionEndedAdmin")
+            : t("jam.sessionEndedUser")
         }
       />
     );
@@ -115,10 +118,14 @@ export default function Jam() {
   if (!currentSong) {
     return (
       <ErrorPageTemplate
-        title="Access Denied"
-        description="You're off tempo – no song has started yet!"
+        title={t("jam.accessDeniedTitle")}
+        description={t("jam.accessDeniedDesc")}
         imageSrc="/access-denied-img.png"
-        buttonText={role === "admin" ? "Select a song" : "Back to Waiting Room"}
+        buttonText={
+          role === "admin"
+            ? t("jam.selectSongButton")
+            : t("jam.backToWaitingRoomButton")
+        }
         redirectTo={
           role === "admin" ? ROUTES.ADMIN_SEARCH : ROUTES.WAITING_ROOM
         }
@@ -129,9 +136,9 @@ export default function Jam() {
   const openDialogFunc = () => {
     openDialog({
       type: "warn",
-      title: "End Session?",
-      message: "Are you sure you want to end the session for all players?",
-      confirmLabel: "Yes, Quit",
+      title: t("jam.confirmEndTitle"),
+      message: t("jam.confirmEndMessage"),
+      confirmLabel: t("jam.confirmEndConfirmLabel"),
       onConfirm: handleQuit,
       onClose: closeDialog,
     });
@@ -144,12 +151,14 @@ export default function Jam() {
     >
       <Navbar />
       <div className="flex flex-col items-center justify-center mt-10">
-        <h1 className="text-4xl font-bold text-accent mb-6">Live Session</h1>
+        <h1 className="text-4xl font-bold text-accent mb-6">
+          {t("jam.liveSessionTitle")}
+        </h1>
 
         {error && <p className="text-errorText">{error}</p>}
 
         {!currentSong && !error && (
-          <LoadingSpinner size="lg" text="Loading song..." />
+          <LoadingSpinner size="lg" text={t("jam.loadingSong")} />
         )}
 
         {currentSong && (
@@ -165,7 +174,7 @@ export default function Jam() {
                 isSinger={instrument?.toLowerCase() === "vocals"}
               />
             ) : (
-              <LoadingSpinner size="md" text="Loading lyrics..." />
+              <LoadingSpinner size="md" text={t("jam.loadingLyrics")} />
             )}
           </div>
         )}

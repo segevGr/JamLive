@@ -1,0 +1,140 @@
+{
+  "navbar": {
+    "profile": "הפרופיל שלי",
+    "manageUsers": "ניהול משתמשים",
+    "logout": "התנתק",
+    "logoutTitle": "התנתקות",
+    "logoutMessage": "האם אתה בטוח שברצונך להתנתק?",
+    "logoutConfirm": "כן, התנתק"
+  },
+  "waitingRoom": {
+    "title": "מחכה שהאדמין יתחיל שיר",
+    "pageTitle": "חדר המתנה"
+  },
+  "jam": {
+    "pageTitle": "סשן נגינה",
+    "noSongError": "לא נבחר שיר. חזור לחדר ההמתנה.",
+    "sessionEndedTitle": "הסשן הסתיים",
+    "sessionEndedAdmin": "הסשן הסתיים. חוזרים לבחירת שיר...",
+    "sessionEndedUser": "הסשן הסתיים. מחכים לשיר הבא...",
+    "accessDeniedTitle": "הגישה נדחתה",
+    "accessDeniedDesc": "יצאת מקצב – לא התחיל שיר עדיין!",
+    "selectSongButton": "בחר שיר",
+    "backToWaitingRoomButton": "חזרה לחדר ההמתנה",
+    "confirmEndTitle": "לסיים סשן?",
+    "confirmEndMessage": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
+    "confirmEndConfirmLabel": "כן, סיים",
+    "liveSessionTitle": "סשן חי",
+    "loadingSong": "טוען שיר...",
+    "loadingLyrics": "טוען מילים..."
+  },
+  "login": {
+    "pageTitle": "התחברות",
+    "title": "התחבר",
+    "subtitle": "ברוך הבא ל־JamLive",
+    "noAccountText": "אין לך חשבון?",
+    "registerLinkText": "הרשמה",
+    "buttonText": "התחבר",
+    "usernameLabel": "הזן שם משתמש*",
+    "usernamePlaceholder": "שם משתמש",
+    "passwordLabel": "הזן סיסמה*",
+    "passwordPlaceholder": "סיסמה",
+    "invalidCredentials": "שם משתמש או סיסמה שגויים, נסה שוב",
+    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+  },
+  "register": {
+    "admin-register": "רישום אדמין",
+    "pageTitle": "הרשמה",
+    "title": "הרשמה",
+    "subtitle": "ברוך הבא ל־JamLive",
+    "bottomText": "כבר יש לך חשבון?",
+    "bottomLinkText": "התחברות",
+    "buttonText": "הירשם",
+    "usernameLabel": "שם משתמש*",
+    "usernamePlaceholder": "בחר שם משתמש",
+    "instrumentLabel": "הכלי שלך*",
+    "instrumentPlaceholder": "בחר את הכלי שלך",
+    "passwordLabel": "צור סיסמה*",
+    "passwordPlaceholder": "הסיסמה שלך",
+    "successTitle": "נרשמת בהצלחה!",
+    "successMessage": "ברוך הבא למשפחת JamLive. כעת תוכל להתחבר.",
+    "successConfirm": "עבור להתחברות",
+    "userExistsError": "שם המשתמש כבר קיים, נסה שם אחר",
+    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+  },
+  "profile": {
+    "pageTitle": "פרופיל",
+    "title": "ערוך את הפרטים שלך",
+    "subtitle": "שלום {{userName}}!",
+    "backButton": "חזרה לסשן",
+    "instrumentSection": {
+      "title": "החלף כלי נגינה",
+      "save": "שמור כלי נגינה",
+      "label": "בחר כלי נגינה חדש"
+    },
+    "passwordSection": {
+      "title": "שנה סיסמה",
+      "save": "עדכן סיסמה",
+      "currentLabel": "סיסמה נוכחית",
+      "currentPlaceholder": "הזן סיסמה נוכחית",
+      "newLabel": "סיסמה חדשה",
+      "newPlaceholder": "הזן סיסמה חדשה",
+      "confirmLabel": "אימות סיסמה חדשה",
+      "confirmPlaceholder": "אמת סיסמה חדשה"
+    },
+    "deleteSection": {
+      "title": "מחק חשבון",
+      "warning": "מחיקת חשבון היא פעולה בלתי הפיכה.",
+      "button": "מחק את החשבון שלי"
+    },
+    "deleteDialog": {
+      "message": "הזן סיסמה כדי לאשר את המחיקה. פעולה זו לא ניתנת לביטול.",
+      "confirm": "מחק",
+      "placeholder": "סיסמה",
+      "error": "יש להזין סיסמה למחיקת החשבון"
+    },
+    "passwordIncorrect": "הסיסמה הנוכחית שגויה",
+    "sameInstrumentError": "הכלי החדש חייב להיות שונה מהקיים",
+    "dialog": {
+      "title": "השינויים נשמרו!",
+      "instrumentMessage": "הכלי שלך עודכן. אפשר להתחיל לנגן!",
+      "passwordMessage": "הסיסמה עודכנה. אפשר להתחיל לנגן!",
+      "confirmLabel": "חזרה לסשן"
+    },
+    "deleted": {
+      "title": "להתראות!",
+      "message": "החשבון נמחק בהצלחה. נשמח לראותך שוב!",
+      "confirmLabel": "סיים סשן"
+    },
+    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+  },
+  "adminSearch": {
+    "pageTitle": "חיפוש אדמין",
+    "searchPlaceholder": "חפש שיר כלשהו..."
+  },
+  "songList": {
+    "loading": "טוען שירים...",
+    "noResultsTitle": "לא נמצאו תוצאות",
+    "noResultsSubtitle": "נסה לחפש שיר או אמן אחר.",
+    "searchResultsTitle": "תוצאות חיפוש",
+    "songListTitle": "רשימת שירים",
+    "noSongsFallback": "לא נמצאו שירים, נסה חיפוש אחר.",
+    "loadingMore": "טוען שירים נוספים..."
+  },
+  "buttons": {
+    "start": "התחל גלילה",
+    "stop": "עצור גלילה",
+    "quit": "צא"
+  },
+  "accessDenied": {
+    "title": "הגישה נדחתה",
+    "description": "נראה שיצאת מהסולם..."
+  },
+  "notFound": {
+    "title": "404 - הדף לא נמצא",
+    "description": "הדף הזה לא חלק מההרמוניה שלנו..."
+  },
+  "errorPage": {
+    "backButton": "חזרה לדף הבית"
+  }
+}

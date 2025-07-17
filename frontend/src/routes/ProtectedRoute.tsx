@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { Navigate } from "react-router-dom";
 import { useAppSelector } from "store";
-import { ROUTES } from "./routes";
+import { ROUTES } from "routes";
 
 interface Props {
   allowedRoles: Array<"user" | "admin">;

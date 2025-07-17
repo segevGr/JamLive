@@ -1,5 +1,6 @@
 import { LoadingSpinner, SongCard } from "components";
 import type { Song } from "types/song.types";
+import { useTranslation } from "react-i18next";
 
 interface SongListProps {
   songs: Song[];
@@ -18,21 +19,20 @@ export default function SongList({
   isLoading = false,
   isSearching = false,
 }: SongListProps) {
+  const { t } = useTranslation();
   const trimmedQuery = query.trim();
 
   if (!trimmedQuery && songs.length === 0) {
     return isSearching ? (
       <div className="text-center mt-10">
-        <LoadingSpinner size="sm" text="Loading songs..." />
+        <LoadingSpinner size="sm" text={t("songList.loading")} />
       </div>
     ) : (
       <div className="text-center mt-6">
         <h2 className="text-xl font-semibold text-gray-700 mb-2">
-          No results found
+          {t("songList.noResultsTitle")}
         </h2>
-        <p className="text-sm text-muted">
-          Try searching for a different song or artist.
-        </p>
+        <p className="text-sm text-muted">{t("songList.noResultsSubtitle")}</p>
       </div>
     );
   }
@@ -40,12 +40,14 @@ export default function SongList({
   return (
     <div className="mt-4">
       <h2 className="text-xl font-semibold text-gray-800 mb-4">
-        {trimmedQuery ? "Search Results" : "Song List"}
+        {trimmedQuery
+          ? t("songList.searchResultsTitle")
+          : t("songList.songListTitle")}
       </h2>
       <div className="space-y-3">
         {songs.length === 0 && !isSearching ? (
           <div className="text-center">
-            <p>No songs found, try a different search.</p>
+            <p>{t("songList.noSongsFallback")}</p>
           </div>
         ) : (
           songs.map((song) => (
@@ -55,7 +57,7 @@ export default function SongList({
 
         <div className="flex flex-col items-center" ref={loadMoreRef}>
           {isLoading && (
-            <LoadingSpinner size="sm" text="Loading more songs..." />
+            <LoadingSpinner size="sm" text={t("songList.loadingMore")} />
           )}
         </div>
       </div>

@@ -6,9 +6,11 @@ import { useSocket } from "context/SocketProvider";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, setCurrentSong } from "store";
 import { ROUTES } from "routes";
+import { useTranslation } from "react-i18next";
 
 const WaitingRoom = () => {
   usePageTitle("Waiting Room");
+  const { t } = useTranslation();
 
   const [dots, setDots] = useState("");
   const { socket } = useSocket();
@@ -85,7 +87,7 @@ const WaitingRoom = () => {
           <div className="z-10 flex flex-col items-center">
             <Music className="text-accent w-20 h-20 mb-4" />
             <p className="text-4xl text-primary font-medium">
-              Waiting for the admin to start a song
+              {t("waitingRoom.title")}
               <span className="inline-block w-6 text-left">{dots}</span>
             </p>
           </div>

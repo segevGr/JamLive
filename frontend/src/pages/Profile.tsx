@@ -20,6 +20,7 @@ import { validateInstrument, validatePasswordChange } from "utils/validation";
 import { axiosInstance } from "constants/axios";
 import { API } from "constants/api";
 import { instruments, Instrument } from "types/instruments.types";
+import { useTranslation } from "react-i18next";
 
 const SectionBorder = ({
   children,
@@ -35,7 +36,9 @@ const SectionBorder = ({
 );
 
 export default function Profile() {
-  usePageTitle("Profile");
+  const { t } = useTranslation();
+  usePageTitle(t("profile.pageTitle"));
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
@@ -80,9 +83,9 @@ export default function Profile() {
       dispatch(changeInstrument({ instrument: selectedInstrument }));
       openDialog({
         type: "success",
-        title: "Changes saved!",
-        message: "Your instrument has been changed. Let’s start jamming!",
-        confirmLabel: "Back to session",
+        title: t("profile.dialog.title"),
+        message: t("profile.dialog.instrumentMessage"),
+        confirmLabel: t("profile.dialog.confirmLabel"),
         onConfirm: () => {
           closeDialog();
           navigate(ROUTES.HOME);
@@ -93,10 +96,10 @@ export default function Profile() {
         err.response?.data.message === "The new instrument must be different"
       ) {
         instrumentForm.setErrors({
-          instrument: "The new instrument must be different",
+          instrument: t("profile.sameInstrumentError"),
         });
       } else {
-        alert("Something went wrong\nPlease try again later");
+        alert(t("profile.generalError"));
       }
     }
   };
@@ -118,9 +121,9 @@ export default function Profile() {
       dispatch(changeToken({ token }));
       openDialog({
         type: "success",
-        title: "Changes saved!",
-        message: "Your password has been changed. Let’s start jamming!",
-        confirmLabel: "Back to session",
+        title: t("profile.dialog.title"),
+        message: t("profile.dialog.passwordMessage"),
+        confirmLabel: t("profile.dialog.confirmLabel"),
         onConfirm: () => {
           closeDialog();
           navigate(ROUTES.HOME);
@@ -129,10 +132,10 @@ export default function Profile() {
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         passwordForm.setErrors({
-          currentPassword: "Current password is incorrect",
+          currentPassword: t("profile.passwordIncorrect"),
         });
       } else {
-        alert("Something went wrong\nPlease try again later");
+        alert(t("profile.generalError"));
       }
     }
   };
@@ -142,7 +145,7 @@ export default function Profile() {
 
     if (!password) {
       deleteForm.setErrors({
-        deletePassword: "Please enter your password to delete your account",
+        deletePassword: t("profile.deleteDialog.error"),
       });
       return;
     }
@@ -153,10 +156,9 @@ export default function Profile() {
       closeDialog();
       openDialog({
         type: "success",
-        title: "Goodbye!",
-        message:
-          "Your user has been successfully deleted. We hope you will be back soon!",
-        confirmLabel: "End session",
+        title: t("profile.deleted.title"),
+        message: t("profile.deleted.message"),
+        confirmLabel: t("profile.deleted.confirmLabel"),
         onConfirm: () => {
           closeDialog();
           navigate(ROUTES.LOGIN);
@@ -166,10 +168,10 @@ export default function Profile() {
     } catch (err: any) {
       if (err.response?.data.message === "Current password is incorrect") {
         deleteForm.setErrors({
-          deletePassword: "Current password is incorrect",
+          deletePassword: t("profile.passwordIncorrect"),
         });
       } else {
-        alert("Something went wrong\nPlease try again later");
+        alert(t("profile.generalError"));
       }
     }
   };
@@ -177,32 +179,33 @@ export default function Profile() {
   const openDeleteDialog = () => {
     openDialog({
       type: "warn",
-      title: "Delete Account",
-      message:
-        "Enter your password to confirm account deletion. This action cannot be undone.",
-      confirmLabel: "Delete",
+      title: t("profile.deleteSection.title"),
+      message: t("profile.deleteDialog.message"),
+      confirmLabel: t("profile.deleteDialog.confirm"),
       onClose: closeDialog,
     });
   };
-  const isDeleteDialog = dialogData?.title === "Delete Account";
+
+  const isDeleteDialog = dialogData?.title === t("profile.deleteSection.title");
+
   return (
     <>
       <Navbar />
       <FormPageLayout
-        title="Edit your details"
-        subtitle={`Hello ${userName}!`}
-        bottomLinkText="Back to session"
+        title={t("profile.title")}
+        subtitle={t("profile.subtitle", { userName })}
+        bottomLinkText={t("profile.backButton")}
         onBottomLinkClick={() => navigate(ROUTES.HOME)}
       >
         <div className="space-y-10">
-          <SectionBorder title="Change Instrument" key="instrument-form">
+          <SectionBorder title={t("profile.instrumentSection.title")}>
             <FormSection
               onSubmit={handleSaveInstrument}
-              buttonText="Save instrument"
+              buttonText={t("profile.instrumentSection.save")}
               isDisabled={currentInstrument === instrumentForm.form.instrument}
             >
               <InputField
-                label="Choose a new instrument"
+                label={t("profile.instrumentSection.label")}
                 name="instrument"
                 value={instrumentForm.form.instrument}
                 onChange={instrumentForm.handleChange}
@@ -218,35 +221,35 @@ export default function Profile() {
             </FormSection>
           </SectionBorder>
 
-          <SectionBorder title="Change Password" key="password-form">
+          <SectionBorder title={t("profile.passwordSection.title")}>
             <FormSection
               onSubmit={handleSavePassword}
-              buttonText="Update password"
+              buttonText={t("profile.passwordSection.save")}
               isDisabled={!areAllFieldsFilled}
             >
               <InputField
-                label="Current password"
+                label={t("profile.passwordSection.currentLabel")}
                 name="currentPassword"
                 type="password"
-                placeholder="Enter current password"
+                placeholder={t("profile.passwordSection.currentPlaceholder")}
                 value={passwordForm.form.currentPassword}
                 onChange={passwordForm.handleChange}
                 errorMessage={passwordForm.errors.currentPassword}
               />
               <InputField
-                label="New password"
+                label={t("profile.passwordSection.newLabel")}
                 name="newPassword"
                 type="password"
-                placeholder="Enter new password"
+                placeholder={t("profile.passwordSection.newPlaceholder")}
                 value={passwordForm.form.newPassword}
                 onChange={passwordForm.handleChange}
                 errorMessage={passwordForm.errors.newPassword}
               />
               <InputField
-                label="Confirm new password"
+                label={t("profile.passwordSection.confirmLabel")}
                 name="confirmNewPassword"
                 type="password"
-                placeholder="Confirm new password"
+                placeholder={t("profile.passwordSection.confirmPlaceholder")}
                 value={passwordForm.form.confirmNewPassword}
                 onChange={passwordForm.handleChange}
                 errorMessage={passwordForm.errors.confirmNewPassword}
@@ -254,12 +257,12 @@ export default function Profile() {
             </FormSection>
           </SectionBorder>
 
-          <SectionBorder title="Delete Account" key="Delete-Account-form">
+          <SectionBorder title={t("profile.deleteSection.title")}>
             <p className="text-sm text-red-500 mb-2">
-              Deleting your account is permanent and cannot be undone.
+              {t("profile.deleteSection.warning")}
             </p>
             <PrimaryButton
-              text="Delete my account"
+              text={t("profile.deleteSection.button")}
               color="red"
               size="sm"
               onClick={openDeleteDialog}
@@ -281,7 +284,7 @@ export default function Profile() {
           <InputField
             name="deletePassword"
             type="password"
-            placeholder="Password"
+            placeholder={t("profile.deleteDialog.placeholder")}
             value={deleteForm.form.deletePassword}
             onChange={deleteForm.handleChange}
             errorMessage={deleteForm.errors.deletePassword}

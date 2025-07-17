@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import authReducer from "./reducers/authSlice";
+import { authReducer, songSessionReducer, loadingReducer } from "./reducers";
 import {
   persistStore,
   persistReducer,
@@ -11,8 +11,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import songSessionReducer from "./reducers/songSessionSlice";
-import loadingReducer from "./reducers/loadingSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,

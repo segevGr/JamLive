@@ -8,9 +8,12 @@ import { ROUTES } from "routes";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
 import type { Song } from "types/song.types";
+import { useTranslation } from "react-i18next";
 
 export default function AdminSearch() {
-  usePageTitle("Admin Search");
+  const { t } = useTranslation();
+  usePageTitle(t("adminSearch.pageTitle"));
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
@@ -119,7 +122,7 @@ export default function AdminSearch() {
         <div className="max-w-4xl mx-auto">
           <InputField
             name="search"
-            placeholder="Search any song..."
+            placeholder={t("adminSearch.searchPlaceholder")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             trailingIcon={

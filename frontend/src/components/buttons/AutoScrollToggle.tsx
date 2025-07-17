@@ -1,4 +1,5 @@
 import { BaseButton } from "components";
+import { useTranslation } from "react-i18next";
 
 interface AutoScrollToggleProps {
   isScrolling: boolean;
@@ -9,9 +10,11 @@ export default function AutoScrollToggle({
   isScrolling,
   toggle,
 }: AutoScrollToggleProps) {
+  const { t } = useTranslation();
+
   return (
     <BaseButton
-      text={isScrolling ? "Stop Scroll" : "Start Scroll"}
+      text={isScrolling ? t("buttons.stop") : t("buttons.start")}
       onClick={toggle}
       color={isScrolling ? "error" : "green"}
       fullWidth={false}

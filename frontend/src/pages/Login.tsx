@@ -6,9 +6,12 @@ import { useAuthForm, usePageTitle } from "hooks";
 import { validateLoginForm } from "utils/validation";
 import { ROUTES } from "routes";
 import { axiosInstance } from "constants/axios";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
-  usePageTitle("Login");
+  const { t } = useTranslation();
+  usePageTitle(t("login.pageTitle"));
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -55,41 +58,41 @@ export default function Login() {
     } catch (err: any) {
       if (err.response?.data.message === "Incorrect userName or password") {
         setErrors({
-          password: "Incorrect username or password, please try again",
+          password: t("login.invalidCredentials"),
         });
       } else {
-        alert("Something went wrong\nPlease try again later");
+        alert(t("login.generalError"));
       }
     }
   };
 
   return (
     <FormPageLayout
-      title="Log In"
-      subtitle="Welcome to JamLive"
+      title={t("login.title")}
+      subtitle={t("login.subtitle")}
       imageSrc="/login-img.png"
-      bottomText="Don’t have an account?"
-      bottomLinkText="Register"
+      bottomText={t("login.noAccountText")}
+      bottomLinkText={t("login.registerLinkText")}
       onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
     >
       <FormSection
-        buttonText="Log in"
+        buttonText={t("login.buttonText")}
         isDisabled={!isFormValid}
         onSubmit={handleSubmit}
       >
         <InputField
-          label="Enter your Username*"
+          label={t("login.usernameLabel")}
           name="userName"
-          placeholder="Username"
+          placeholder={t("login.usernamePlaceholder")}
           value={form.userName}
           onChange={handleChange}
           errorMessage={errors.userName}
         />
         <InputField
-          label="Enter your Password*"
+          label={t("login.passwordLabel")}
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder={t("login.passwordPlaceholder")}
           value={form.password}
           onChange={handleChange}
           errorMessage={errors.password}

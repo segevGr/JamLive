@@ -6,8 +6,10 @@ import { ROUTES } from "routes";
 import { useSocket } from "context/SocketProvider";
 import { useModal } from "hooks";
 import { Dialog } from "../dialogs";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [isLogoutOpen, openLogout, closeLogout, logoutData] = useModal();
   const [openNavbar, setOpenNavbar] = useState(false);
 
@@ -27,7 +29,7 @@ const Navbar = () => {
 
   const listButtons = [
     {
-      label: "my profile",
+      label: t("navbar.profile"),
       onClick: () => {
         setOpenNavbar(false);
         navigate(ROUTES.PROFILE);
@@ -36,7 +38,7 @@ const Navbar = () => {
       role: ["user", "admin"],
     },
     {
-      label: "manage users",
+      label: t("navbar.manageUsers"),
       onClick: () => {
         setOpenNavbar(false);
       },
@@ -44,14 +46,14 @@ const Navbar = () => {
       role: ["admin"],
     },
     {
-      label: "Logout",
+      label: t("navbar.logout"),
       onClick: () => {
         setOpenNavbar(false);
         openLogout({
           type: "warn",
-          title: "Log Out",
-          message: "Are you sure you want to log out?",
-          confirmLabel: "Yes, Logout",
+          title: t("navbar.logoutTitle"),
+          message: t("navbar.logoutMessage"),
+          confirmLabel: t("navbar.logoutConfirm"),
           onConfirm: confirmLogout,
           onClose: closeLogout,
         });
@@ -85,7 +87,7 @@ const Navbar = () => {
                   <button
                     onClick={button.onClick}
                     className={`w-full flex items-center gap-2 px-4 py-2 text-md font-medium hover:opacity-50 ${
-                      button.label === "Logout"
+                      button.label === t("navbar.logout")
                         ? "text-errorText"
                         : "text-primary"
                     }`}

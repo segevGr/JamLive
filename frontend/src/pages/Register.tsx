@@ -6,13 +6,15 @@ import { validateRegisterForm } from "utils/validation";
 import { ROUTES } from "routes";
 import { axiosInstance } from "constants/axios";
 import { instruments } from "types/instruments.types";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isAdmin?: boolean;
 }
 
 export default function Register({ isAdmin = false }: Props) {
-  usePageTitle("Register");
+  const { t } = useTranslation();
+  usePageTitle(t("register.pageTitle"));
   const navigate = useNavigate();
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
@@ -51,9 +53,9 @@ export default function Register({ isAdmin = false }: Props) {
 
       openDialog({
         type: "success",
-        title: "Registered Successfully!",
-        message: "Welcome to the JamLive Family. You can now log in.",
-        confirmLabel: "Go to Login",
+        title: t("register.successTitle"),
+        message: t("register.successMessage"),
+        confirmLabel: t("register.successConfirm"),
         onConfirm: () => {
           closeDialog();
           navigate(ROUTES.LOGIN);
@@ -62,10 +64,10 @@ export default function Register({ isAdmin = false }: Props) {
     } catch (err: any) {
       if (err.response?.data.message === "User already exists") {
         setErrors({
-          userName: "Username already exists, please choose another username",
+          userName: t("register.userExistsError"),
         });
       } else {
-        alert("Something went wrong\nPlease try again later");
+        alert(t("register.generalError"));
       }
     }
   };
@@ -73,34 +75,34 @@ export default function Register({ isAdmin = false }: Props) {
   return (
     <>
       <FormPageLayout
-        title="Register"
-        subtitle="Welcome to JamLive"
+        title={t("register.title")}
+        subtitle={t("register.subtitle")}
         imageSrc="/register-img.png"
         isAdmin={isAdmin}
-        bottomText="Already have an account?"
-        bottomLinkText="Log In"
+        bottomText={t("register.bottomText")}
+        bottomLinkText={t("register.bottomLinkText")}
         onBottomLinkClick={() => navigate(ROUTES.LOGIN)}
       >
         <FormSection
-          buttonText="Register"
+          buttonText={t("register.buttonText")}
           isDisabled={!isFormValid}
           onSubmit={handleSubmit}
         >
           <InputField
-            label="Username*"
+            label={t("register.usernameLabel")}
             name="userName"
-            placeholder="Select your username"
+            placeholder={t("register.usernamePlaceholder")}
             value={form.userName}
             onChange={handleChange}
             errorMessage={errors.userName}
           />
           <InputField
-            label="Your instrument*"
+            label={t("register.instrumentLabel")}
             name="instrument"
             value={form.instrument}
             onChange={handleChange}
             as="select"
-            listPlaceholder="Select your instrument"
+            listPlaceholder={t("register.instrumentPlaceholder")}
             errorMessage={errors.instrument}
           >
             {instruments.map((inst) => (
@@ -110,10 +112,10 @@ export default function Register({ isAdmin = false }: Props) {
             ))}
           </InputField>
           <InputField
-            label="Create password*"
+            label={t("register.passwordLabel")}
             name="password"
             type="password"
-            placeholder="Your password"
+            placeholder={t("register.passwordPlaceholder")}
             value={form.password}
             onChange={handleChange}
             errorMessage={errors.password}

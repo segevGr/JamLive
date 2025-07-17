@@ -1,13 +1,16 @@
-import BaseButton from "./BaseButton";
+import { BaseButton } from "components";
+import { useTranslation } from "react-i18next";
 
 interface QuitButtonProps {
   onQuit: () => void;
 }
 
 export default function QuitButton({ onQuit }: QuitButtonProps) {
+  const { t } = useTranslation();
+
   return (
     <BaseButton
-      text="Quit"
+      text={t("buttons.quit")}
       onClick={onQuit}
       color="red"
       fullWidth={false}

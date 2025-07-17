@@ -70,7 +70,6 @@ export default function Dialog({
         {message && <p className="text-gray-600 mb-6">{message}</p>}
         {children && <div className="mb-6">{children}</div>}
 
-        {/* Actions */}
         <div className="flex justify-center gap-4">
           {type !== "info" && (
             <>
