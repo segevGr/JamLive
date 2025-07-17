@@ -1,20 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { Instrument, instruments } from './user.instruments';
 
 export type UserDocument = User & Document;
 
 export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
-}
-
-export enum Instrument {
-  DRUMS = 'drums',
-  GUITAR = 'guitar',
-  BASS = 'bass',
-  SAXOPHONE = 'saxophone',
-  KEYBOARD = 'keyboard',
-  VOCALS = 'vocals',
 }
 
 @Schema({ timestamps: true })
@@ -30,7 +22,7 @@ export class User {
   @Prop({ enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @Prop({ enum: Instrument, required: true })
+  @Prop({ enum: instruments, required: true })
   instrument: Instrument;
 }
 

@@ -9,7 +9,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserRole, Instrument } from './user.schema';
+import { UserRole } from './user.schema';
+import { Instrument, instruments } from './user.instruments';
 import { validateFields } from '../utils/validateFields';
 import { Public } from 'src/common/decorators/public.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -32,7 +33,7 @@ export class UsersController {
       throw new BadRequestException(error);
     }
 
-    if (!Object.values(Instrument).includes(body.instrument as Instrument)) {
+    if (!instruments.includes(body.instrument as Instrument)) {
       throw new BadRequestException('Invalid instrument value');
     }
 
@@ -55,7 +56,7 @@ export class UsersController {
       throw new BadRequestException(error);
     }
 
-    if (!Object.values(Instrument).includes(body.instrument as Instrument)) {
+    if (!instruments.includes(body.instrument as Instrument)) {
       throw new BadRequestException('Invalid instrument value');
     }
 
@@ -75,7 +76,7 @@ export class UsersController {
       throw new BadRequestException('Instrument is required');
     }
 
-    if (!Object.values(Instrument).includes(body.instrument as Instrument)) {
+    if (!instruments.includes(body.instrument as Instrument)) {
       throw new BadRequestException('Invalid instrument value');
     }
 

@@ -81,7 +81,7 @@ export default function Profile() {
       const selectedInstrument = instrumentForm.form.instrument as Instrument;
 
       await axiosInstance.put(API.USERS.CHANGE_INSTRUMENT, {
-        instrument: selectedInstrument.toLowerCase(),
+        instrument: selectedInstrument,
       });
 
       dispatch(changeInstrument({ instrument: selectedInstrument }));

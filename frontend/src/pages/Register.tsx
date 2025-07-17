@@ -43,7 +43,7 @@ export default function Register({ isAdmin = false }: Props) {
     try {
       const formToSend = {
         ...form,
-        instrument: form.instrument.toLowerCase(),
+        instrument: form.instrument,
         userName: form.userName.toLowerCase(),
       };
 

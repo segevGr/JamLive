@@ -6,7 +6,8 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { Instrument, User, UserDocument, UserRole } from './user.schema';
+import { User, UserDocument, UserRole } from './user.schema';
+import { Instrument } from './user.instruments';
 import { UnauthorizedException, NotFoundException } from '@nestjs/common';
 
 @Injectable()
