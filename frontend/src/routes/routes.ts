@@ -1,4 +1,4 @@
-export default {
+const ROUTS = {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",
@@ -9,3 +9,5 @@ export default {
   JAM: "/jam",
   PROFILE: "/profile",
 };
+
+export default ROUTS;
