@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Music, User, LogOut, Users } from "lucide-react";
+import { Music, User, LogOut, Users, Rewind } from "lucide-react";
 import { logout, useAppDispatch, useAppSelector } from "store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "routes";
@@ -29,24 +29,52 @@ const Navbar = () => {
     navigate(ROUTES.HOME);
   };
 
+  const isInProfilePage = location.pathname === ROUTES.PROFILE;
+  const isInManageUsers = false;
+
   const listButtons = [
-    {
-      label: t("navbar.profile"),
-      onClick: () => {
-        setOpenNavbar(false);
-        navigate(ROUTES.PROFILE);
-      },
-      icon: <User />,
-      role: ["user", "admin"],
-    },
-    {
-      label: t("navbar.manageUsers"),
-      onClick: () => {
-        setOpenNavbar(false);
-      },
-      icon: <Users />,
-      role: ["admin"],
-    },
+    ...(isInProfilePage || isInManageUsers
+      ? [
+          {
+            label: t("navbar.backToMain"),
+            onClick: () => {
+              setOpenNavbar(false);
+              navigate(ROUTES.HOME);
+            },
+            icon: <Rewind />,
+            role: ["user", "admin"],
+          },
+        ]
+      : []),
+
+    ...(!isInProfilePage
+      ? [
+          {
+            label: t("navbar.profile"),
+            onClick: () => {
+              setOpenNavbar(false);
+              navigate(ROUTES.PROFILE);
+            },
+            icon: <User />,
+            role: ["user", "admin"],
+          },
+        ]
+      : []),
+
+    ...(role === "admin" && !isInManageUsers
+      ? [
+          {
+            label: t("navbar.manageUsers"),
+            onClick: () => {
+              setOpenNavbar(false);
+              // navigate(ROUTES.MANAGE_USERS);
+            },
+            icon: <Users />,
+            role: ["admin"],
+          },
+        ]
+      : []),
+
     {
       label: t("navbar.logout"),
       onClick: () => {

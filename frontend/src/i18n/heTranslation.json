@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "backToMain": "חזרה לעמוד הראשי",
     "profile": "הפרופיל שלי",
     "manageUsers": "ניהול משתמשים",
     "logout": "התנתק",

@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "backToMain": "Back To Main Page",
     "profile": "My Profile",
     "manageUsers": "Manage Users",
     "logout": "Log Out",
