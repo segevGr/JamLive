@@ -1,4 +1,4 @@
-import FooterLogos from "../layout/FooterLogos";
+import { FooterLogos } from "components";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 

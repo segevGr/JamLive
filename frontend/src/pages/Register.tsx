@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { InputField, FormPageLayout, FormSection, Dialog } from "components";
-import { API } from "constants/api";
+import { API, axiosInstance } from "services";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
-import { validateRegisterForm } from "utils/validation";
+import { validateRegisterForm } from "utils";
 import { ROUTES } from "routes";
-import { axiosInstance } from "constants/axios";
 import { instruments } from "types";
 import { useTranslation } from "react-i18next";
 

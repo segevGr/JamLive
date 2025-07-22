@@ -1,5 +1,5 @@
 import { BaseButton } from "components";
-import { ViewMode } from "types/";
+import { ViewMode } from "types";
 import clsx from "clsx";
 
 interface ModeSwitchProps {

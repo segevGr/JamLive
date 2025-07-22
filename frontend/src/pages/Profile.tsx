@@ -17,9 +17,8 @@ import {
 } from "store";
 import { ROUTES } from "routes";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
-import { validateInstrument, validatePasswordChange } from "utils/validation";
-import { axiosInstance } from "constants/axios";
-import { API } from "constants/api";
+import { validateInstrument, validatePasswordChange } from "utils";
+import { API, axiosInstance } from "services";
 import { instruments, Instrument } from "types";
 import { useTranslation } from "react-i18next";
 import i18n from "i18n";

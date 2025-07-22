@@ -1,4 +1,4 @@
-import ErrorPageTemplate from "utils/errorsHandler/ErrorPageTemplate";
+import { ErrorPageTemplate } from "utils";
 import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
 

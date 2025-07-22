@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, login } from "store";
 import { InputField, FormPageLayout, FormSection } from "components";
-import { API } from "constants/api";
+import { API, axiosInstance } from "services";
 import { useAuthForm, usePageTitle } from "hooks";
 import { validateLoginForm } from "utils/validation";
 import { ROUTES } from "routes";
-import { axiosInstance } from "constants/axios";
 import { useTranslation } from "react-i18next";
 
 export default function Login() {

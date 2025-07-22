@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ROUTES, ProtectedRoute } from "./routes";
+import { ROUTES, ProtectedRoute } from "routes";
 import "./index.css";
 import { Register, Login, UserLobby, AdminLobby, Jam, Profile } from "pages";
 import { AccessDenied, HomeRedirect, NotFound } from "utils";

@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Navbar, SongSearch } from "components";
 import { usePageTitle } from "hooks";
-import { API } from "constants/api";
-import { axiosInstance } from "constants/axios";
+import { API, axiosInstance } from "services";
 import { ROUTES } from "routes";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
