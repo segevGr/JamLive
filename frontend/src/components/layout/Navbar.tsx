@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "routes";
 import { useSocket } from "context/SocketProvider";
 import { useModal } from "hooks";
-import { Dialog } from "../dialogs";
+import { ModeSwitch, type Mode, Dialog } from "components";
 import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 import clsx from "clsx";
@@ -14,6 +14,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const [isLogoutOpen, openLogout, closeLogout, logoutData] = useModal();
   const [openNavbar, setOpenNavbar] = useState(false);
+  const [mode, setMode] = useState<Mode>("live");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -99,6 +100,12 @@ const Navbar = () => {
         <Music className="text-white" />
         <span className="font-bold text-lg text-white">JamLive</span>
       </div>
+
+      <ModeSwitch
+        className="hidden sm:inline-flex"
+        mode={mode}
+        onChange={() => setMode("browse")}
+      />
 
       <div className="relative">
         <button
