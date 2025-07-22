@@ -1,7 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ROUTES, ProtectedRoute } from "./routes";
 import "./index.css";
-import { Register, Login, WaitingRoom, AdminSearch, Jam, Profile } from "pages";
+import {
+  Register,
+  Login,
+  WaitingRoom,
+  AdminHomePage,
+  Jam,
+  Profile,
+} from "pages";
 import { AccessDenied, HomeRedirect, NotFound } from "utils";
 import { GlobalLoader } from "components";
 import { isRtl } from "i18n/getDirection";
@@ -25,10 +32,10 @@ function App() {
             }
           />
           <Route
-            path={ROUTES.ADMIN_SEARCH}
+            path={ROUTES.ADMIN_HOME_PAGE}
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminSearch />
+                <AdminHomePage />
               </ProtectedRoute>
             }
           />

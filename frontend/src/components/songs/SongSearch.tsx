@@ -1,23 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { InputField, Navbar, SongList } from "components";
-import { usePageTitle } from "hooks";
+import { InputField, SongList } from "components";
 import { API } from "constants/api";
 import { axiosInstance } from "constants/axios";
-import { ROUTES } from "routes";
-import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
-import { useSocket } from "context/SocketProvider";
 import type { Song } from "types/song.types";
 import { useTranslation } from "react-i18next";
 
-export default function AdminSearch() {
-  const { t } = useTranslation();
-  usePageTitle(t("adminSearch.pageTitle"));
+interface Props {
+  onSelect: (id: string) => void;
+}
 
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state) => state.auth);
-  const { socket } = useSocket();
+export default function SongSearch({ onSelect }: Props) {
+  const { t } = useTranslation();
 
   const [query, setQuery] = useState("");
   const [songs, setSongs] = useState<Song[]>([]);
@@ -73,10 +66,12 @@ export default function AdminSearch() {
     []
   );
 
+  // Loads the first batch of songs when the component mounts
   useEffect(() => {
     fetchSongs(undefined, 0, false, false);
   }, [fetchSongs]);
 
+  // Triggers a new search after 500ms of no typing, resets offset
   useEffect(() => {
     const trimmedQuery = query.trim();
     setOffset(0);
@@ -88,6 +83,7 @@ export default function AdminSearch() {
     return () => clearTimeout(delayDebounce);
   }, [query, fetchSongs]);
 
+  //Observes the scroll position and loads more songs when the user reaches the bottom of the list
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && hasMore && !isLoading) {
@@ -107,44 +103,36 @@ export default function AdminSearch() {
     const selected = songs.find((s) => s.id === songId);
     if (!selected) return;
 
-    const res = await axiosInstance.get<Song>(API.SONGS.GET_BY_ID(songId));
-    const fullSong = res.data;
-
-    socket?.emit("startSong", { song: fullSong, token });
-    dispatch(setCurrentSong(fullSong));
-    navigate(ROUTES.JAM);
+    onSelect(songId);
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Navbar />
-      <div className="px-6 py-10 text-textPrimary font-sans flex-grow">
-        <div className="max-w-4xl mx-auto">
-          <InputField
-            name="search"
-            placeholder={t("adminSearch.searchPlaceholder")}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            trailingIcon={
-              query && (
-                <button
-                  onClick={() => setQuery("")}
-                  className="text-gray-400 hover:text-textMain"
-                >
-                  ✕
-                </button>
-              )
-            }
-          />
-          <SongList
-            songs={songs}
-            query={query}
-            onSelect={handleSelectSong}
-            loadMoreRef={loadMoreRef}
-            isLoading={isLoading}
-            isSearching={isSearching}
-          />
-        </div>
+    <div className="px-6 py-10 text-textPrimary font-sans flex-grow">
+      <div className="max-w-4xl mx-auto">
+        <InputField
+          name="search"
+          placeholder={t("searchPlaceholder")}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          trailingIcon={
+            query && (
+              <button
+                onClick={() => setQuery("")}
+                className="text-gray-400 hover:text-textMain"
+              >
+                ✕
+              </button>
+            )
+          }
+        />
+        <SongList
+          songs={songs}
+          query={query}
+          onSelect={handleSelectSong}
+          loadMoreRef={loadMoreRef}
+          isLoading={isLoading}
+          isSearching={isSearching}
+        />
       </div>
     </div>
   );

@@ -87,7 +87,7 @@ export default function Jam() {
 
     const timer = setTimeout(() => {
       if (role === "admin") {
-        navigate(ROUTES.ADMIN_SEARCH);
+        navigate(ROUTES.ADMIN_HOME_PAGE);
       } else {
         navigate(ROUTES.WAITING_ROOM);
       }
@@ -127,7 +127,7 @@ export default function Jam() {
             : t("jam.backToWaitingRoomButton")
         }
         redirectTo={
-          role === "admin" ? ROUTES.ADMIN_SEARCH : ROUTES.WAITING_ROOM
+          role === "admin" ? ROUTES.ADMIN_HOME_PAGE : ROUTES.WAITING_ROOM
         }
       />
     );

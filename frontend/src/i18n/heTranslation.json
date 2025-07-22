@@ -123,9 +123,8 @@
     },
     "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
   },
-  "adminSearch": {
-    "pageTitle": "בחירת שיר",
-    "searchPlaceholder": "חפש שיר כלשהו..."
+  "AdminHomePage": {
+    "pageTitle": "דף הבית של האדמין"
   },
   "songList": {
     "loading": "טוען שירים...",
@@ -159,5 +158,6 @@
     "Saxophone": "סקסופון",
     "Keyboard": "אורגן",
     "Vocals": "שירה"
-  }
+  },
+  "searchPlaceholder": "חפש שיר כלשהו..."
 }

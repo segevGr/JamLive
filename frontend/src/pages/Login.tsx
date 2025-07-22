@@ -52,7 +52,7 @@ export default function Login() {
       );
       navigate(
         res.data.user.role === "admin"
-          ? ROUTES.ADMIN_SEARCH
+          ? ROUTES.ADMIN_HOME_PAGE
           : ROUTES.WAITING_ROOM
       );
     } catch (err: any) {

@@ -123,9 +123,8 @@
     },
     "generalError": "Something went wrong\nPlease try again later"
   },
-  "adminSearch": {
-    "pageTitle": "Admin Search",
-    "searchPlaceholder": "Search any song..."
+  "AdminHomePage": {
+    "pageTitle": "Admin Home Page"
   },
   "songList": {
     "loading": "Loading songs...",
@@ -159,5 +158,6 @@
     "Saxophone": "Saxophone",
     "Keyboard": "Keyboard",
     "Vocals": "Vocals"
-  }
+  },
+  "searchPlaceholder": "Search any song..."
 }

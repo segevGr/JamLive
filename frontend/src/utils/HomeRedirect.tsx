@@ -11,7 +11,7 @@ export default function HomeRedirect() {
     if (!isAuthenticated) {
       navigate(ROUTES.LOGIN);
     } else if (role === "admin") {
-      navigate(ROUTES.ADMIN_SEARCH);
+      navigate(ROUTES.ADMIN_HOME_PAGE);
     } else if (role === "user") {
       navigate(ROUTES.WAITING_ROOM);
     }
