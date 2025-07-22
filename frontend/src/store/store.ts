@@ -1,5 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { authReducer, songSessionReducer, loadingReducer } from "./reducers";
+import {
+  authReducer,
+  songSessionReducer,
+  loadingReducer,
+  uiReducer,
+} from "./reducers";
 import {
   persistStore,
   persistReducer,
@@ -16,6 +21,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   songSession: songSessionReducer,
   loading: loadingReducer,
+  ui: uiReducer,
 });
 
 const persistConfig = {
