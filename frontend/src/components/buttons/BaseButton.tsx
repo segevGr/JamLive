@@ -24,7 +24,7 @@ export default function BaseButton({
     : {
         red: "bg-red-600 hover:bg-red-700 text-white",
         gray: "bg-gray-200 hover:bg-gray-300 text-gray-800",
-        primary: "bg-primaryLight hover:bg-primary text-textOnDark",
+        primary: "hover:bg-primaryLight bg-primary text-textOnDark",
         green: "bg-green hover:bg-green-dark text-white",
         error: "bg-errorText text-white",
       }[color];
