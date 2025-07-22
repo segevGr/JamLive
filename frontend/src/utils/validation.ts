@@ -1,4 +1,4 @@
-import { instruments, Instrument } from "types/instruments.types";
+import { instruments, Instrument } from "types";
 
 function isEmpty(value: string): boolean {
   return !value.trim();

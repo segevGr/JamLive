@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { ViewMode } from "types/viewMode.types";
+import type { ViewMode } from "types";
 
 interface UIState {
   mode: ViewMode;

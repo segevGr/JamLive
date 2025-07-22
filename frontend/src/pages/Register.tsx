@@ -5,7 +5,7 @@ import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateRegisterForm } from "utils/validation";
 import { ROUTES } from "routes";
 import { axiosInstance } from "constants/axios";
-import { instruments } from "types/instruments.types";
+import { instruments } from "types";
 import { useTranslation } from "react-i18next";
 
 interface Props {

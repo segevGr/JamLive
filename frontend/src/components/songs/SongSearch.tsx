@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { InputField, SongList } from "components";
 import { API } from "constants/api";
 import { axiosInstance } from "constants/axios";
-import type { Song } from "types/song.types";
+import type { Song } from "types";
 import { useTranslation } from "react-i18next";
 
 interface Props {

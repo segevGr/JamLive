@@ -1,5 +1,5 @@
 import { LoadingSpinner, SongCard } from "components";
-import type { Song } from "types/song.types";
+import type { Song } from "types";
 import { useTranslation } from "react-i18next";
 
 interface SongListProps {

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Instrument } from "types/instruments.types";
+import { Instrument } from "types";
 
 type UserRole = "admin" | "user" | null;
 

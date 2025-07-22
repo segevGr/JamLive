@@ -1,4 +1,4 @@
-import { BaseButtonProps } from "./button.types";
+import { BaseButtonProps } from "components";
 import clsx from "clsx";
 
 export default function BaseButton({

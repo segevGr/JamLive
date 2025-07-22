@@ -1,6 +1,6 @@
 import { BaseButton } from "components";
-import { ViewMode } from "types/viewMode.types";
-import { logout, setMode, useAppDispatch, useAppSelector } from "store";
+import { ViewMode } from "types/";
+import { setMode, useAppDispatch } from "store";
 import clsx from "clsx";
 
 interface ModeSwitchProps {

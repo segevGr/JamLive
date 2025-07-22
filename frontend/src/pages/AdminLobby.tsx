@@ -6,7 +6,7 @@ import { axiosInstance } from "constants/axios";
 import { ROUTES } from "routes";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
-import type { Song } from "types/song.types";
+import type { Song } from "types";
 import { useTranslation } from "react-i18next";
 
 export default function AdminLobby() {

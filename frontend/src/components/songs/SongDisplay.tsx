@@ -1,4 +1,4 @@
-import { SongLine } from "types/song.types";
+import { SongLine } from "types";
 import clsx from "clsx";
 
 interface SongDisplayProps {

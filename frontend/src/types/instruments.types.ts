@@ -1,4 +1,3 @@
-// instruments.types.ts
 export const instruments = [
   "Drums",
   "Guitar",

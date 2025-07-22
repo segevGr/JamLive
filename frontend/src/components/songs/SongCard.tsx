@@ -1,5 +1,5 @@
 import { Music } from "lucide-react";
-import { Song } from "types/song.types";
+import { Song } from "types";
 
 interface Props {
   song: Song;

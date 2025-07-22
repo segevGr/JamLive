@@ -1,6 +1,6 @@
 import { Mic, Guitar, Drum, Keyboard, Music2, Music } from "lucide-react";
 import { JSX } from "react";
-import { Instrument } from "types/instruments.types";
+import { Instrument } from "types";
 import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 import clsx from "clsx";
