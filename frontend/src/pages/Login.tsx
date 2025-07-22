@@ -51,9 +51,7 @@ export default function Login() {
         })
       );
       navigate(
-        res.data.user.role === "admin"
-          ? ROUTES.ADMIN_HOME_PAGE
-          : ROUTES.WAITING_ROOM
+        res.data.user.role === "admin" ? ROUTES.ADMIN_LOBBY : ROUTES.USER_LOBBY
       );
     } catch (err: any) {
       if (err.response?.data.message === "Incorrect userName or password") {

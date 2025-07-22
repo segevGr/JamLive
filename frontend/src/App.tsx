@@ -1,14 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ROUTES, ProtectedRoute } from "./routes";
 import "./index.css";
-import {
-  Register,
-  Login,
-  WaitingRoom,
-  AdminHomePage,
-  Jam,
-  Profile,
-} from "pages";
+import { Register, Login, UserLobby, AdminLobby, Jam, Profile } from "pages";
 import { AccessDenied, HomeRedirect, NotFound } from "utils";
 import { GlobalLoader } from "components";
 import { isRtl } from "i18n/getDirection";
@@ -24,18 +17,18 @@ function App() {
           <Route path={ROUTES.REGISTER_ADMIN} element={<Register isAdmin />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route
-            path={ROUTES.WAITING_ROOM}
+            path={ROUTES.USER_LOBBY}
             element={
               <ProtectedRoute allowedRoles={["user"]}>
-                <WaitingRoom />
+                <UserLobby />
               </ProtectedRoute>
             }
           />
           <Route
-            path={ROUTES.ADMIN_HOME_PAGE}
+            path={ROUTES.ADMIN_LOBBY}
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminHomePage />
+                <AdminLobby />
               </ProtectedRoute>
             }
           />

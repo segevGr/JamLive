@@ -8,9 +8,9 @@
     "logoutMessage": "Are you sure you want to log out?",
     "logoutConfirm": "Yes, Logout"
   },
-  "waitingRoom": {
+  "UserLobby": {
     "title": "Waiting for the admin to start a song",
-    "pageTitle": "Waiting Room"
+    "pageTitle": "User Lobby"
   },
   "jam": {
     "pageTitle": "Jam Session",
@@ -21,7 +21,7 @@
     "accessDeniedTitle": "Access Denied",
     "accessDeniedDesc": "You're off tempo – no song has started yet!",
     "selectSongButton": "Select a song",
-    "backToWaitingRoomButton": "Back to Waiting Room",
+    "backToUserLobbyButton": "Back to Waiting Room",
     "confirmEndTitle": "End Session?",
     "confirmEndMessage": "Are you sure you want to end the session for all players?",
     "confirmEndConfirmLabel": "Yes, Quit",
@@ -123,8 +123,8 @@
     },
     "generalError": "Something went wrong\nPlease try again later"
   },
-  "AdminHomePage": {
-    "pageTitle": "Admin Home Page"
+  "AdminLobby": {
+    "pageTitle": "Admin Lobby"
   },
   "songList": {
     "loading": "Loading songs...",

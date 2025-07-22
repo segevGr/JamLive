@@ -9,9 +9,9 @@ import { useSocket } from "context/SocketProvider";
 import type { Song } from "types/song.types";
 import { useTranslation } from "react-i18next";
 
-export default function AdminHomePage() {
+export default function AdminLobby() {
   const { t } = useTranslation();
-  usePageTitle(t("AdminHomePage.pageTitle"));
+  usePageTitle(t("AdminLobby.pageTitle"));
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

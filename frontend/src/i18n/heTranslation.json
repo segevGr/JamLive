@@ -8,7 +8,7 @@
     "logoutMessage": "האם אתה בטוח שברצונך להתנתק?",
     "logoutConfirm": "כן, התנתק"
   },
-  "waitingRoom": {
+  "UserLobby": {
     "title": "מחכה שהאדמין יתחיל שיר",
     "pageTitle": "חדר המתנה"
   },
@@ -21,7 +21,7 @@
     "accessDeniedTitle": "הגישה נדחתה",
     "accessDeniedDesc": "יצאת מקצב – לא התחיל שיר עדיין!",
     "selectSongButton": "בחר שיר",
-    "backToWaitingRoomButton": "חזרה לחדר ההמתנה",
+    "backToUserLobbyButton": "חזרה לחדר ההמתנה",
     "confirmEndTitle": "לסיים את הסשן?",
     "confirmEndMessage": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
     "confirmEndConfirmLabel": "כן, סיים",
@@ -123,7 +123,7 @@
     },
     "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
   },
-  "AdminHomePage": {
+  "AdminLobby": {
     "pageTitle": "דף הבית של האדמין"
   },
   "songList": {

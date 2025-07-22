@@ -87,9 +87,9 @@ export default function Jam() {
 
     const timer = setTimeout(() => {
       if (role === "admin") {
-        navigate(ROUTES.ADMIN_HOME_PAGE);
+        navigate(ROUTES.ADMIN_LOBBY);
       } else {
-        navigate(ROUTES.WAITING_ROOM);
+        navigate(ROUTES.USER_LOBBY);
       }
     }, 3000);
 
@@ -124,11 +124,9 @@ export default function Jam() {
         buttonText={
           role === "admin"
             ? t("jam.selectSongButton")
-            : t("jam.backToWaitingRoomButton")
+            : t("jam.backToUserLobbyButton")
         }
-        redirectTo={
-          role === "admin" ? ROUTES.ADMIN_HOME_PAGE : ROUTES.WAITING_ROOM
-        }
+        redirectTo={role === "admin" ? ROUTES.ADMIN_LOBBY : ROUTES.USER_LOBBY}
       />
     );
   }
