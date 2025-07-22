@@ -101,7 +101,11 @@ const Navbar = () => {
         <span className="font-bold text-lg text-white">JamLive</span>
       </div>
 
-      <ModeSwitch className="hidden sm:inline-flex" mode={mode} />
+      <ModeSwitch
+        className="hidden sm:inline-flex"
+        mode={mode}
+        onChange={(newMode) => dispatch(setMode(newMode))}
+      />
 
       <div className="relative">
         <button
