@@ -157,5 +157,9 @@
     "Keyboard": "אורגן",
     "Vocals": "שירה"
   },
-  "searchPlaceholder": "חפש שיר כלשהו..."
+  "searchPlaceholder": "חפש שיר כלשהו...",
+  "toggles": {
+    "live": "מתנגן עכשיו",
+    "browse": "ספריית השירים"
+  }
 }

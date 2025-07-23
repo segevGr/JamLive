@@ -2,12 +2,14 @@ import { BaseButton } from "components";
 import { ViewMode } from "types";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector, setMode } from "store";
+import { useTranslation } from "react-i18next";
 
 interface ModeSwitchProps {
   className?: string;
 }
 
 export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const mode = useAppSelector((state) => state.ui.mode);
 
@@ -32,7 +34,7 @@ export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
     >
       <BaseButton
         {...commonBtnProps}
-        text="LIVE"
+        text={t("toggles.live")}
         color={mode === "live" ? "primary" : "gray"}
         onClick={() => handleClick("live")}
         className={clsx(
@@ -43,7 +45,7 @@ export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
 
       <BaseButton
         {...commonBtnProps}
-        text="BROWSE"
+        text={t("toggles.browse")}
         color={mode === "browse" ? "primary" : "gray"}
         onClick={() => handleClick("browse")}
         className={clsx(

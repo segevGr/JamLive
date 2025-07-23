@@ -157,5 +157,9 @@
     "Keyboard": "Keyboard",
     "Vocals": "Vocals"
   },
-  "searchPlaceholder": "Search any song..."
+  "searchPlaceholder": "Search any song...",
+  "toggles": {
+    "live": "Live",
+    "browse": "Browse"
+  }
 }
