@@ -15,9 +15,9 @@
   "jam": {
     "pageTitle": "Jam Session",
     "noSongError": "No song selected. Please go back to the waiting room.",
-    "sessionEndedTitle": "Session Ended",
+    "sessionEndedTitle": "Session Ended By The Admin",
     "sessionEndedAdmin": "Back to song selection...",
-    "sessionEndedUser": "Waiting for the next song...",
+    "sessionEndedUser": "Waiting for the admin to choose the next song...",
     "selectSongButton": "Select a song",
     "backToUserLobbyButton": "Back to Waiting Room",
     "confirmEndTitle": "End Session?",

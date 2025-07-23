@@ -15,9 +15,9 @@
   "jam": {
     "pageTitle": "סשן נגינה",
     "noSongError": "לא נבחר שיר. חזור לחדר ההמתנה.",
-    "sessionEndedTitle": "הסשן הסתיים",
+    "sessionEndedTitle": "הסשן הסתיים על ידי האדמין",
     "sessionEndedAdmin": "חוזרים לבחירת שיר...",
-    "sessionEndedUser": "מחכים לשיר הבא...",
+    "sessionEndedUser": "מחכים שהאדמין יבחר את השיר הבא...",
     "selectSongButton": "בחר שיר",
     "backToUserLobbyButton": "חזרה לחדר ההמתנה",
     "confirmEndTitle": "לסיים את הסשן?",
