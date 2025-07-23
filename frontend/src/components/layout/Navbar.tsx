@@ -22,11 +22,12 @@ const Navbar = ({ showSwitch = false }: NavbarProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { role } = useAppSelector((state) => state.auth);
+  const { currentSong } = useAppSelector((state) => state.songSession);
   const { socket } = useSocket();
   const location = useLocation();
 
   const confirmLogout = () => {
-    if (role === "admin") {
+    if (role === "admin" && currentSong) {
       socket?.emit("quitSession");
     }
     dispatch(logout());
