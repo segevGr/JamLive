@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
-import { Music } from "lucide-react";
-import { Navbar } from "components";
+import { useEffect } from "react";
+import { Navbar, SongSearch, LiveSessionWaiting } from "components";
 import { usePageTitle } from "hooks";
-import { useSocket } from "context/SocketProvider";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, setCurrentSong } from "store";
-import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
+import { useAppSelector, useAppDispatch, setCurrentSong } from "store";
+import { useSocket } from "context/SocketProvider";
 
 export default function UserLobby() {
-  usePageTitle("Waiting Room");
   const { t } = useTranslation();
-
-  const [dots, setDots] = useState("");
   const { socket } = useSocket();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
+  const currentSong = useAppSelector((state) => state.songSession.currentSong);
+
+  usePageTitle(t("UserLobby.pageTitle"));
 
   useEffect(() => {
     if (!socket) {
@@ -41,58 +31,32 @@ export default function UserLobby() {
 
     socket.on("startSong", (songData) => {
       dispatch(setCurrentSong(songData));
-      navigate(ROUTES.JAM);
     });
 
     return () => {
       socket.off("connect", handleConnect);
       socket.off("startSong");
     };
-  }, [socket, dispatch, navigate]);
+  }, [socket, dispatch]);
 
+  const viewMode = useAppSelector((state) => state.ui.mode);
   return (
     <div className="min-h-[100dvh] flex flex-col bg-background">
       <Navbar />
+      {viewMode === "browse" && <SongSearch onSelect={() => {}} />}
 
-      <main className="flex flex-1 items-center justify-center">
-        <div className="relative w-10/12 md:w-11/12 h-[70vh] md:h-[80vh] flex items-center justify-center text-center px-4">
-          <svg
-            className="absolute top-0 left-0 w-full h-full pointer-events-none text-borderGray"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 400 400"
-            preserveAspectRatio="none"
-          >
-            <rect
-              x="1"
-              y="1"
-              width="398"
-              height="398"
-              rx="16"
-              ry="16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeDasharray="6 4"
-            >
-              <animate
-                attributeName="stroke-dashoffset"
-                from="0"
-                to="10"
-                dur="0.5s"
-                repeatCount="indefinite"
-              />
-            </rect>
-          </svg>
+      {viewMode === "live" && !currentSong && <LiveSessionWaiting />}
 
-          <div className="z-10 flex flex-col items-center">
-            <Music className="text-accent w-20 h-20 mb-4" />
-            <p className="text-4xl text-primary font-medium">
-              {t("UserLobby.title")}
-              <span className="inline-block w-6 text-left">{dots}</span>
-            </p>
-          </div>
+      {viewMode === "live" && currentSong && (
+        <div className="flex-1 flex items-center justify-center text-center px-4">
+          <p className="text-xl text-gray-500">
+            {t(
+              "UserLobby.noActiveSession",
+              "No active session. Waiting for admin..."
+            )}
+          </p>
         </div>
-      </main>
+      )}
     </div>
   );
 }
