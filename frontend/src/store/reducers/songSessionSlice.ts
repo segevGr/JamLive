@@ -15,7 +15,7 @@ const songSessionSlice = createSlice({
   name: "songSession",
   initialState,
   reducers: {
-    setCurrentSong: (state, action: PayloadAction<Song>) => {
+    setCurrentSong: (state, action: PayloadAction<Song | null>) => {
       state.currentSong = action.payload;
     },
     clearSession: (state) => {

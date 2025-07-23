@@ -18,8 +18,6 @@
     "sessionEndedTitle": "Session Ended",
     "sessionEndedAdmin": "Back to song selection...",
     "sessionEndedUser": "Waiting for the next song...",
-    "accessDeniedTitle": "Access Denied",
-    "accessDeniedDesc": "You're off tempo – no song has started yet!",
     "selectSongButton": "Select a song",
     "backToUserLobbyButton": "Back to Waiting Room",
     "confirmEndTitle": "End Session?",

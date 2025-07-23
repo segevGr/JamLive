@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Instrument } from "types";
-
-type UserRole = "admin" | "user" | null;
+import { Instrument, UserRole } from "types";
 
 interface AuthState {
   userName: string | null;

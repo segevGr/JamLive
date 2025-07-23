@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { Navbar, SongSearch } from "components";
-import { usePageTitle } from "hooks";
+import { useCallback } from "react";
+import { Navbar, SongSearch, LiveSessionView, Dialog } from "components";
+import { usePageTitle, useSessionManager } from "hooks";
 import { API, axiosInstance } from "services";
-import { ROUTES } from "routes";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
 import type { Song } from "types";
@@ -12,24 +11,49 @@ export default function AdminLobby() {
   const { t } = useTranslation();
   usePageTitle(t("AdminLobby.pageTitle"));
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, role } = useAppSelector((state) => state.auth);
+  const viewMode = useAppSelector((state) => state.ui.mode);
+  const instrument = useAppSelector((state) => state.auth.instrument);
   const { socket } = useSocket();
+
+  const { activeSong, showLiveView, dialogProps } = useSessionManager({
+    role,
+  });
 
   const handleStartSession = async (songId: string) => {
     const res = await axiosInstance.get<Song>(API.SONGS.GET_BY_ID(songId));
-    const fullSong = res.data;
-
-    socket?.emit("startSong", { song: fullSong, token });
-    dispatch(setCurrentSong(fullSong));
-    navigate(ROUTES.JAM);
+    const song = res.data;
+    socket?.emit("startSong", { song, token });
+    dispatch(setCurrentSong(song));
   };
+
+  const handleQuit = useCallback(() => {
+    socket?.emit("quitSession");
+  }, [socket]);
+
+  const onSelect = viewMode === "live" ? handleStartSession : () => {};
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <Navbar />
-      <SongSearch onSelect={handleStartSession} />
+      <Navbar showSwitch={true} />
+      {viewMode === "live" ? (
+        showLiveView && activeSong ? (
+          <LiveSessionView
+            key={activeSong?.id}
+            song={activeSong}
+            instrument={instrument!}
+            role={role}
+            onQuit={handleQuit}
+          />
+        ) : (
+          <SongSearch onSelect={onSelect} />
+        )
+      ) : (
+        <SongSearch onSelect={onSelect} />
+      )}
+
+      <Dialog {...dialogProps} />
     </div>
   );
 }

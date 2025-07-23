@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Music, User, LogOut, Users, Rewind } from "lucide-react";
-import { logout, setMode, useAppDispatch, useAppSelector } from "store";
+import { logout, useAppDispatch, useAppSelector } from "store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "routes";
 import { useSocket } from "context/SocketProvider";
@@ -10,11 +10,14 @@ import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 import clsx from "clsx";
 
-const Navbar = () => {
+interface NavbarProps {
+  showSwitch?: boolean;
+}
+
+const Navbar = ({ showSwitch = false }: NavbarProps) => {
   const { t } = useTranslation();
   const [isLogoutOpen, openLogout, closeLogout, logoutData] = useModal();
   const [openNavbar, setOpenNavbar] = useState(false);
-  const mode = useAppSelector((state) => state.ui.mode);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -23,7 +26,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const confirmLogout = () => {
-    if (role === "admin" && location.pathname === "/jam") {
+    if (role === "admin") {
       socket?.emit("quitSession");
     }
     dispatch(logout());
@@ -101,11 +104,7 @@ const Navbar = () => {
         <span className="font-bold text-lg text-white">JamLive</span>
       </div>
 
-      <ModeSwitch
-        className="hidden sm:inline-flex"
-        mode={mode}
-        onChange={(newMode) => dispatch(setMode(newMode))}
-      />
+      {showSwitch && <ModeSwitch className="hidden sm:inline-flex" />}
 
       <div className="relative">
         <button

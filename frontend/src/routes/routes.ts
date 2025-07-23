@@ -6,7 +6,6 @@ const ROUTS = {
   USER_LOBBY: "/user-lobby",
   ADMIN_LOBBY: "/admin-lobby",
   ACCESS_DENIED: "/access-denied",
-  JAM: "/jam",
   PROFILE: "/profile",
 };
 

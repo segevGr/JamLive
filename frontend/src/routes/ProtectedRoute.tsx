@@ -2,9 +2,10 @@ import { JSX } from "react";
 import { Navigate } from "react-router-dom";
 import { useAppSelector } from "store";
 import { ROUTES } from "routes";
+import type { UserRole } from "types";
 
 interface Props {
-  allowedRoles: Array<"user" | "admin">;
+  allowedRoles: Array<UserRole>;
   children: JSX.Element;
 }
 
