@@ -4,11 +4,13 @@ import { Song } from "types";
 export interface SongSessionState {
   currentSong: Song | null;
   sessionId: string | null;
+  browseSong: Song | null;
 }
 
 const initialState: SongSessionState = {
   currentSong: null,
   sessionId: null,
+  browseSong: null,
 };
 
 const songSessionSlice = createSlice({
@@ -22,8 +24,12 @@ const songSessionSlice = createSlice({
       state.currentSong = null;
       state.sessionId = null;
     },
+    setBrowseSong: (state, action: PayloadAction<Song | null>) => {
+      state.browseSong = action.payload;
+    },
   },
 });
 
-export const { setCurrentSong, clearSession } = songSessionSlice.actions;
+export const { setCurrentSong, clearSession, setBrowseSong } =
+  songSessionSlice.actions;
 export const songSessionReducer = songSessionSlice.reducer;

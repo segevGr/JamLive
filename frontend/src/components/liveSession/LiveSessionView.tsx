@@ -9,13 +9,14 @@ import {
 } from "components";
 import { useModal } from "hooks";
 import { useTranslation } from "react-i18next";
-import type { Song, Instrument, UserRole } from "types";
+import type { Song, Instrument, UserRole, ViewMode } from "types";
 
 interface LiveSessionViewProps {
   song: Song | null;
   instrument: Instrument;
   role: UserRole;
   onQuit?: () => void;
+  mode: ViewMode;
 }
 
 export default function LiveSessionView({
@@ -23,6 +24,7 @@ export default function LiveSessionView({
   instrument,
   role,
   onQuit,
+  mode,
 }: LiveSessionViewProps) {
   const { t } = useTranslation();
 
@@ -58,17 +60,31 @@ export default function LiveSessionView({
   }, [autoScroll]);
 
   const openDialogFunc = () => {
-    openDialog({
-      type: "warn",
-      title: t("jam.confirmEndTitle"),
-      message: t("jam.confirmEndMessage"),
-      confirmLabel: t("jam.confirmEndConfirmLabel"),
-      onConfirm: () => {
-        closeDialog();
-        onQuit?.();
-      },
-      onClose: closeDialog,
-    });
+    if (mode == "browse") {
+      openDialog({
+        type: "warn",
+        title: t("jam.returnBrowse.dialogTitle"),
+        message: t("jam.returnBrowse.dialogText"),
+        confirmLabel: t("jam.returnBrowse.dialogButtonLabel"),
+        onConfirm: () => {
+          closeDialog();
+          onQuit?.();
+        },
+        onClose: closeDialog,
+      });
+    } else {
+      openDialog({
+        type: "warn",
+        title: t("jam.endSession.dialogTitle"),
+        message: t("jam.endSession.dialogText"),
+        confirmLabel: t("jam.endSession.dialogButtonLabel"),
+        onConfirm: () => {
+          closeDialog();
+          onQuit?.();
+        },
+        onClose: closeDialog,
+      });
+    }
   };
 
   return (
@@ -103,7 +119,9 @@ export default function LiveSessionView({
         isScrolling={autoScroll}
         toggle={() => setAutoScroll(!autoScroll)}
       />
-      {role === "admin" && <QuitButton onQuit={openDialogFunc} />}
+      {(role === "admin" || mode === "browse") && (
+        <QuitButton onQuit={openDialogFunc} mode={mode} />
+      )}
       <Dialog isOpen={isDialogOpen} {...dialogData} />
     </div>
   );

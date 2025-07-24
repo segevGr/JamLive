@@ -5,7 +5,7 @@ import {
   LiveSessionView,
   Dialog,
 } from "components";
-import { usePageTitle, useSessionManager } from "hooks";
+import { usePageTitle, useSessionManager, useBrowseSongManager } from "hooks";
 import { useAppSelector } from "store";
 import { useTranslation } from "react-i18next";
 
@@ -17,6 +17,8 @@ export default function UserLobby() {
   const instrument = useAppSelector((state) => state.auth.instrument);
   const role = useAppSelector((state) => state.auth.role);
 
+  const { browseSong, handleSelectBrowseSong, handleCloseBrowseSong } =
+    useBrowseSongManager();
   const { activeSong, showLiveView, dialogProps } = useSessionManager({
     role,
   });
@@ -25,7 +27,19 @@ export default function UserLobby() {
     <div className="min-h-[100dvh] flex flex-col bg-background">
       <Navbar showSwitch={true} />
 
-      {viewMode === "browse" && <SongSearch onSelect={() => {}} />}
+      {viewMode === "browse" &&
+        (browseSong ? (
+          <LiveSessionView
+            key={browseSong.id}
+            song={browseSong}
+            instrument={instrument!}
+            role={role}
+            onQuit={handleCloseBrowseSong}
+            mode={viewMode}
+          />
+        ) : (
+          <SongSearch onSelect={handleSelectBrowseSong} />
+        ))}
 
       {viewMode === "live" && showLiveView ? (
         <LiveSessionView
@@ -33,6 +47,7 @@ export default function UserLobby() {
           song={activeSong}
           instrument={instrument!}
           role={role}
+          mode={viewMode}
         />
       ) : (
         viewMode === "live" && <LiveSessionWaiting />

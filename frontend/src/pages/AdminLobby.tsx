@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Navbar, SongSearch, LiveSessionView, Dialog } from "components";
-import { usePageTitle, useSessionManager } from "hooks";
+import { usePageTitle, useSessionManager, useBrowseSongManager } from "hooks";
 import { API, axiosInstance } from "services";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
@@ -17,6 +17,8 @@ export default function AdminLobby() {
   const instrument = useAppSelector((state) => state.auth.instrument);
   const { socket } = useSocket();
 
+  const { browseSong, handleSelectBrowseSong, handleCloseBrowseSong } =
+    useBrowseSongManager();
   const { activeSong, showLiveView, dialogProps } = useSessionManager({
     role,
   });
@@ -37,21 +39,34 @@ export default function AdminLobby() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar showSwitch={true} />
-      {viewMode === "live" ? (
-        showLiveView && activeSong ? (
+
+      {viewMode === "browse" &&
+        (browseSong ? (
+          <LiveSessionView
+            key={browseSong.id}
+            song={browseSong}
+            instrument={instrument!}
+            role={role}
+            onQuit={handleCloseBrowseSong}
+            mode={viewMode}
+          />
+        ) : (
+          <SongSearch onSelect={handleSelectBrowseSong} />
+        ))}
+
+      {viewMode === "live" &&
+        (showLiveView && activeSong ? (
           <LiveSessionView
             key={activeSong?.id}
             song={activeSong}
             instrument={instrument!}
             role={role}
             onQuit={handleQuit}
+            mode={viewMode}
           />
         ) : (
           <SongSearch onSelect={onSelect} />
-        )
-      ) : (
-        <SongSearch onSelect={onSelect} />
-      )}
+        ))}
 
       <Dialog {...dialogProps} />
     </div>

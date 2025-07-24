@@ -20,12 +20,22 @@
     "sessionEndedUser": "מחכים שהאדמין יבחר את השיר הבא...",
     "selectSongButton": "בחר שיר",
     "backToUserLobbyButton": "חזרה לחדר ההמתנה",
-    "confirmEndTitle": "לסיים את הסשן?",
-    "confirmEndMessage": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
     "confirmEndConfirmLabel": "כן, סיים",
     "liveSessionTitle": "סשן פעיל",
     "loadingSong": "טוען שיר...",
-    "loadingLyrics": "טוען מילים..."
+    "loadingLyrics": "טוען מילים...",
+    "endSession": {
+      "button": "סיום הסשן",
+      "dialogTitle": "לסיים את הסשן?",
+      "dialogText": "האם אתה בטוח שברצונך לסיים את הסשן לכל המשתתפים?",
+      "dialogButtonLabel": "כן, סיים את הסשן"
+    },
+    "returnBrowse": {
+      "button": "חזרה לספרייה",
+      "dialogTitle": "לחזור לספרייה?",
+      "dialogText": "האם אתה בטוח שברצונך לחזור לספריית השירים?",
+      "dialogButtonLabel": "כן, חזור לספרייה"
+    }
   },
   "login": {
     "pageTitle": "התחברות",
@@ -135,8 +145,7 @@
   },
   "buttons": {
     "start": "התחל גלילה",
-    "stop": "עצור גלילה",
-    "quit": "צא"
+    "stop": "עצור גלילה"
   },
   "accessDenied": {
     "title": "הגישה נדחתה",

@@ -20,12 +20,22 @@
     "sessionEndedUser": "Waiting for the admin to choose the next song...",
     "selectSongButton": "Select a song",
     "backToUserLobbyButton": "Back to Waiting Room",
-    "confirmEndTitle": "End Session?",
-    "confirmEndMessage": "Are you sure you want to end the session for all players?",
-    "confirmEndConfirmLabel": "Yes, Quit",
+
     "liveSessionTitle": "Live Session",
     "loadingSong": "Loading song...",
-    "loadingLyrics": "Loading lyrics..."
+    "loadingLyrics": "Loading lyrics...",
+    "endSession": {
+      "button": "End Session",
+      "dialogTitle": "End Session?",
+      "dialogText": "Are you sure you want to end the session for all players?",
+      "dialogButtonLabel": "Yes, End Session"
+    },
+    "returnBrowse": {
+      "button": "Return Browsing",
+      "dialogTitle": "Return Browsing?",
+      "dialogText": "Are you sure you want to return to browse page?",
+      "dialogButtonLabel": "Yes, Return Browsing"
+    }
   },
   "login": {
     "pageTitle": "Login",
@@ -135,8 +145,7 @@
   },
   "buttons": {
     "start": "Start Scroll",
-    "stop": "Stop Scroll",
-    "quit": "Quit"
+    "stop": "Stop Scroll"
   },
   "accessDenied": {
     "title": "Access Denied",

@@ -2,17 +2,21 @@ import { BaseButton } from "components";
 import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 import clsx from "clsx";
+import { ViewMode } from "types";
 
 interface QuitButtonProps {
   onQuit: () => void;
+  mode: ViewMode;
 }
 
-export default function QuitButton({ onQuit }: QuitButtonProps) {
+export default function QuitButton({ onQuit, mode }: QuitButtonProps) {
   const { t } = useTranslation();
+
+  const buttonText = mode === "live" ? "endSession" : "returnBrowse";
 
   return (
     <BaseButton
-      text={t("buttons.quit")}
+      text={t(`jam.${buttonText}.button`)}
       onClick={onQuit}
       color="red"
       fullWidth={false}
