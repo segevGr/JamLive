@@ -6,8 +6,6 @@ import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
 import type { Song } from "types";
 import { useTranslation } from "react-i18next";
-import { isRtl } from "i18n/getDirection";
-import clsx from "clsx";
 
 export default function AdminLobby() {
   const { t } = useTranslation();
