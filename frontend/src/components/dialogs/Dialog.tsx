@@ -83,10 +83,7 @@ export default function Dialog({
         {children && <div className="mb-6">{children}</div>}
 
         <div
-          className={clsx(
-            "flex justify-center gap-4",
-            isRtl() && "flex-row-reverse"
-          )}
+          className={clsx("flex justify-center gap-4", isRtl() && "flex-row")}
         >
           {type !== "info" && (
             <>

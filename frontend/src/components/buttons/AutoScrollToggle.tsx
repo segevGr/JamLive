@@ -1,5 +1,7 @@
 import { BaseButton } from "components";
 import { useTranslation } from "react-i18next";
+import { isRtl } from "i18n/getDirection";
+import clsx from "clsx";
 
 interface AutoScrollToggleProps {
   isScrolling: boolean;
@@ -19,7 +21,7 @@ export default function AutoScrollToggle({
       color={isScrolling ? "error" : "green"}
       fullWidth={false}
       size="md"
-      className="fixed bottom-4 right-4 z-50"
+      className={clsx("fixed bottom-4  z-50", isRtl() ? "left-4" : "right-4")}
     />
   );
 }
