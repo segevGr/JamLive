@@ -8,7 +8,16 @@ import { store, persistor } from "store";
 import { PersistGate } from "redux-persist/integration/react";
 import { SocketProvider } from "./context/SocketProvider";
 import { LoadingSpinner } from "components";
-import "./i18n";
+import i18n from "./i18n";
+
+document.documentElement.setAttribute(
+  "dir",
+  i18n.language === "he" ? "rtl" : "ltr"
+);
+
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.setAttribute("dir", lng === "he" ? "rtl" : "ltr");
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
