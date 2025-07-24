@@ -60,7 +60,7 @@ export default function LiveSessionView({
   }, [autoScroll]);
 
   const openDialogFunc = () => {
-    if (mode == "browse") {
+    if (mode === "browse") {
       openDialog({
         type: "warn",
         title: t("jam.returnBrowse.dialogTitle"),

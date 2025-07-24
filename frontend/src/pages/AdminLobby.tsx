@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Navbar, SongSearch, LiveSessionView, Dialog } from "components";
+import { Navbar, Dialog, LobbyContent } from "components";
 import { usePageTitle, useSessionManager, useBrowseSongManager } from "hooks";
 import { API, axiosInstance } from "services";
 import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
@@ -34,40 +34,22 @@ export default function AdminLobby() {
     socket?.emit("quitSession");
   }, [socket]);
 
-  const onSelect = viewMode === "live" ? handleStartSession : () => {};
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar showSwitch={true} />
 
-      {viewMode === "browse" &&
-        (browseSong ? (
-          <LiveSessionView
-            key={browseSong.id}
-            song={browseSong}
-            instrument={instrument!}
-            role={role}
-            onQuit={handleCloseBrowseSong}
-            mode={viewMode}
-          />
-        ) : (
-          <SongSearch onSelect={handleSelectBrowseSong} />
-        ))}
-
-      {viewMode === "live" &&
-        (showLiveView && activeSong ? (
-          <LiveSessionView
-            key={activeSong?.id}
-            song={activeSong}
-            instrument={instrument!}
-            role={role}
-            onQuit={handleQuit}
-            mode={viewMode}
-          />
-        ) : (
-          <SongSearch onSelect={onSelect} />
-        ))}
-
+      <LobbyContent
+        role={role}
+        instrument={instrument!}
+        viewMode={viewMode}
+        browseSong={browseSong}
+        activeSong={activeSong}
+        showLiveView={showLiveView}
+        onStartSession={handleStartSession}
+        onQuitLive={handleQuit}
+        onSelectBrowse={handleSelectBrowseSong}
+        onQuitBrowse={handleCloseBrowseSong}
+      />
       <Dialog {...dialogProps} />
     </div>
   );

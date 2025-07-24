@@ -1,10 +1,4 @@
-import {
-  Navbar,
-  SongSearch,
-  LiveSessionWaiting,
-  LiveSessionView,
-  Dialog,
-} from "components";
+import { Navbar, Dialog, LobbyContent } from "components";
 import { usePageTitle, useSessionManager, useBrowseSongManager } from "hooks";
 import { useAppSelector } from "store";
 import { useTranslation } from "react-i18next";
@@ -27,31 +21,17 @@ export default function UserLobby() {
     <div className="min-h-[100dvh] flex flex-col bg-background">
       <Navbar showSwitch={true} />
 
-      {viewMode === "browse" &&
-        (browseSong ? (
-          <LiveSessionView
-            key={browseSong.id}
-            song={browseSong}
-            instrument={instrument!}
-            role={role}
-            onQuit={handleCloseBrowseSong}
-            mode={viewMode}
-          />
-        ) : (
-          <SongSearch onSelect={handleSelectBrowseSong} />
-        ))}
-
-      {viewMode === "live" && showLiveView ? (
-        <LiveSessionView
-          key={activeSong?.id}
-          song={activeSong}
-          instrument={instrument!}
-          role={role}
-          mode={viewMode}
-        />
-      ) : (
-        viewMode === "live" && <LiveSessionWaiting />
-      )}
+      <LobbyContent
+        role={role}
+        instrument={instrument!}
+        viewMode={viewMode}
+        browseSong={browseSong}
+        activeSong={activeSong}
+        showLiveView={showLiveView}
+        onStartSession={() => {}}
+        onSelectBrowse={handleSelectBrowseSong}
+        onQuitBrowse={handleCloseBrowseSong}
+      />
 
       <Dialog {...dialogProps} />
     </div>
