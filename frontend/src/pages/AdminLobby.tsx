@@ -6,6 +6,8 @@ import { setCurrentSong, useAppDispatch, useAppSelector } from "store";
 import { useSocket } from "context/SocketProvider";
 import type { Song } from "types";
 import { useTranslation } from "react-i18next";
+import { isRtl } from "i18n/getDirection";
+import clsx from "clsx";
 
 export default function AdminLobby() {
   const { t } = useTranslation();
@@ -37,6 +39,10 @@ export default function AdminLobby() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar showSwitch={true} />
+
+      <h2 className="text-xl font-semibold text-primary text-center mt-5 -mb-5">
+        {t(`AdminLobby.subtitle.${viewMode}`)}
+      </h2>
 
       <LobbyContent
         role={role}

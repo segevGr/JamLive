@@ -132,7 +132,11 @@
     "generalError": "Something went wrong\nPlease try again later"
   },
   "AdminLobby": {
-    "pageTitle": "Admin Lobby"
+    "pageTitle": "Admin Lobby",
+    "subtitle": {
+      "live": "",
+      "browse": ""
+    }
   },
   "songList": {
     "loading": "Loading songs...",
