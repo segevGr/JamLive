@@ -1,7 +1,7 @@
 import { BaseButtonProps } from "components";
 import clsx from "clsx";
 
-export default function BaseButton({
+const BaseButton = ({
   text,
   onClick,
   type = "button",
@@ -10,7 +10,7 @@ export default function BaseButton({
   color = "primary",
   size = "md",
   className = "",
-}: BaseButtonProps) {
+}: BaseButtonProps) => {
   const widthClass = fullWidth ? "w-full" : "";
 
   const sizeClass = {
@@ -41,4 +41,6 @@ export default function BaseButton({
       {text}
     </button>
   );
-}
+};
+
+export default BaseButton;

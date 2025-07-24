@@ -9,7 +9,7 @@ interface UseSessionManagerOptions {
   role: UserRole;
 }
 
-export default function useSessionManager({ role }: UseSessionManagerOptions) {
+const useSessionManager = ({ role }: UseSessionManagerOptions) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { socket } = useSocket();
@@ -73,4 +73,6 @@ export default function useSessionManager({ role }: UseSessionManagerOptions) {
     activeSong: currentSong,
     dialogProps: { isOpen, ...dialogData },
   };
-}
+};
+
+export default useSessionManager;

@@ -7,7 +7,7 @@ import { validateLoginForm } from "utils/validation";
 import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
 
-export default function Login() {
+const Login = () => {
   const { t } = useTranslation();
   usePageTitle(t("login.pageTitle"));
 
@@ -97,4 +97,6 @@ export default function Login() {
       </FormSection>
     </FormPageLayout>
   );
-}
+};
+
+export default Login;

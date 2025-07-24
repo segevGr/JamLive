@@ -11,10 +11,7 @@ const sizeClasses = {
   lg: "w-12 h-12 border-4",
 };
 
-export default function LoadingSpinner({
-  size = "md",
-  text,
-}: LoadingSpinnerProps) {
+const LoadingSpinner = ({ size = "md", text }: LoadingSpinnerProps) => {
   return (
     <div className="flex flex-col items-center justify-center py-4">
       <div
@@ -30,4 +27,6 @@ export default function LoadingSpinner({
       )}
     </div>
   );
-}
+};
+
+export default LoadingSpinner;

@@ -9,7 +9,7 @@ interface QuitButtonProps {
   mode: ViewMode;
 }
 
-export default function QuitButton({ onQuit, mode }: QuitButtonProps) {
+const QuitButton = ({ onQuit, mode }: QuitButtonProps) => {
   const { t } = useTranslation();
 
   const buttonText = mode === "live" ? "endSession" : "returnBrowse";
@@ -24,4 +24,6 @@ export default function QuitButton({ onQuit, mode }: QuitButtonProps) {
       className={clsx("fixed bottom-4 z-50", isRtl() ? "right-4" : "left-4")}
     />
   );
-}
+};
+
+export default QuitButton;

@@ -7,7 +7,7 @@ import { useSocket } from "context/SocketProvider";
 import type { Song } from "types";
 import { useTranslation } from "react-i18next";
 
-export default function AdminLobby() {
+const AdminLobby = () => {
   const { t } = useTranslation();
   usePageTitle(t("AdminLobby.pageTitle"));
 
@@ -53,4 +53,6 @@ export default function AdminLobby() {
       <Dialog {...dialogProps} />
     </div>
   );
-}
+};
+
+export default AdminLobby;

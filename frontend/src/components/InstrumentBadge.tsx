@@ -16,11 +16,7 @@ const iconMap: Record<Instrument, JSX.Element> = {
   Saxophone: <Music2 className={iconClass} />,
 };
 
-export default function InstrumentBadge({
-  instrument,
-}: {
-  instrument: Instrument;
-}) {
+const InstrumentBadge = ({ instrument }: { instrument: Instrument }) => {
   const { t } = useTranslation();
   const icon = iconMap[instrument] || <Music className={iconClass} />;
 
@@ -34,4 +30,6 @@ export default function InstrumentBadge({
       {t(`instruments.${instrument}`)}
     </div>
   );
-}
+};
+
+export default InstrumentBadge;

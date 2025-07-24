@@ -9,11 +9,13 @@ interface Props {
   children: JSX.Element;
 }
 
-export default function ProtectedRoute({ allowedRoles, children }: Props) {
+const ProtectedRoute = ({ allowedRoles, children }: Props) => {
   const { isAuthenticated, role } = useAppSelector((state) => state.auth);
 
   if (!isAuthenticated || !role || !allowedRoles.includes(role))
     return <Navigate to={ROUTES.ACCESS_DENIED} replace />;
 
   return children;
-}
+};
+
+export default ProtectedRoute;

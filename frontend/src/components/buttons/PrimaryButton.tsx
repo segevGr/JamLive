@@ -1,5 +1,7 @@
 import { BaseButton, BaseButtonProps } from "components";
 
-export default function PrimaryButton(props: BaseButtonProps) {
+const PrimaryButton = (props: BaseButtonProps) => {
   return <BaseButton {...props} />;
-}
+};
+
+export default PrimaryButton;

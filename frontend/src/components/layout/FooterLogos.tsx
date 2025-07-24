@@ -1,4 +1,4 @@
-export default function FooterLogos() {
+const FooterLogos = () => {
   return (
     <div className="mb-6 md:mb-0 flex justify-center">
       <img
@@ -8,4 +8,6 @@ export default function FooterLogos() {
       />
     </div>
   );
-}
+};
+
+export default FooterLogos;

@@ -2,7 +2,7 @@ import { ErrorPageTemplate } from "utils";
 import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
 
-export default function NotFound() {
+const NotFound = () => {
   const { t } = useTranslation();
 
   return (
@@ -13,4 +13,6 @@ export default function NotFound() {
       redirectTo={ROUTES.HOME}
     />
   );
-}
+};
+
+export default NotFound;

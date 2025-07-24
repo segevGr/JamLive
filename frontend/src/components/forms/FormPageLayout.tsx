@@ -13,7 +13,7 @@ interface FormPageLayoutProps {
   onBottomLinkClick?: () => void;
 }
 
-export default function FormPageLayout({
+const FormPageLayout = ({
   title,
   subtitle,
   children,
@@ -22,7 +22,7 @@ export default function FormPageLayout({
   bottomText = " ",
   bottomLinkText,
   onBottomLinkClick,
-}: FormPageLayoutProps) {
+}: FormPageLayoutProps) => {
   const { t } = useTranslation();
 
   return (
@@ -75,4 +75,6 @@ export default function FormPageLayout({
       )}
     </div>
   );
-}
+};
+
+export default FormPageLayout;

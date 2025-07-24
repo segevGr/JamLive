@@ -4,7 +4,7 @@ import type { DialogProps } from "components";
 
 type DialogData = Omit<DialogProps, "isOpen">;
 
-export default function useModal() {
+const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<DialogData | null>(null);
 
@@ -19,4 +19,6 @@ export default function useModal() {
   }, []);
 
   return [isOpen, open, close, data] as const;
-}
+};
+
+export default useModal;

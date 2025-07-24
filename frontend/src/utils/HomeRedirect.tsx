@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "store";
 import { ROUTES } from "routes";
 
-export default function HomeRedirect() {
+const HomeRedirect = () => {
   const { isAuthenticated, role } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
@@ -18,4 +18,6 @@ export default function HomeRedirect() {
   }, [isAuthenticated, role, navigate]);
 
   return null;
-}
+};
+
+export default HomeRedirect;

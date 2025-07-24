@@ -2,7 +2,7 @@ import { ErrorPageTemplate } from "utils";
 import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
 
-export default function AccessDenied() {
+const AccessDenied = () => {
   const { t } = useTranslation();
 
   return (
@@ -13,4 +13,6 @@ export default function AccessDenied() {
       redirectTo={ROUTES.HOME}
     />
   );
-}
+};
+
+export default AccessDenied;

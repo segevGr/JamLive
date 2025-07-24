@@ -3,7 +3,7 @@ import { API, axiosInstance } from "services";
 import type { Song } from "types";
 import { useCallback } from "react";
 
-export default function useBrowseSongManager() {
+const useBrowseSongManager = () => {
   const browseSong = useAppSelector((state) => state.songSession.browseSong);
   const dispatch = useAppDispatch();
 
@@ -20,4 +20,6 @@ export default function useBrowseSongManager() {
   }, [dispatch]);
 
   return { browseSong, handleSelectBrowseSong, handleCloseBrowseSong };
-}
+};
+
+export default useBrowseSongManager;

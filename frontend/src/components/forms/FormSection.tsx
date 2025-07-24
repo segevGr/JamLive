@@ -7,12 +7,12 @@ interface FormSectionProps {
   onSubmit?: (e: React.FormEvent) => void;
 }
 
-export default function FormSection({
+const FormSection = ({
   children,
   buttonText,
   isDisabled = false,
   onSubmit,
-}: FormSectionProps) {
+}: FormSectionProps) => {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       {children}
@@ -21,4 +21,6 @@ export default function FormSection({
       )}
     </form>
   );
-}
+};
+
+export default FormSection;

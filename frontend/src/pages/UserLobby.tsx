@@ -3,7 +3,7 @@ import { usePageTitle, useSessionManager, useBrowseSongManager } from "hooks";
 import { useAppSelector } from "store";
 import { useTranslation } from "react-i18next";
 
-export default function UserLobby() {
+const UserLobby = () => {
   const { t } = useTranslation();
   usePageTitle(t("UserLobby.pageTitle"));
 
@@ -36,4 +36,6 @@ export default function UserLobby() {
       <Dialog {...dialogProps} />
     </div>
   );
-}
+};
+
+export default UserLobby;

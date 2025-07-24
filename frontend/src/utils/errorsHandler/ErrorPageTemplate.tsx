@@ -11,13 +11,13 @@ interface ErrorPageProps {
   redirectTo?: string;
 }
 
-export default function ErrorPageTemplate({
+const ErrorPageTemplate = ({
   title,
   description,
   imageSrc,
   buttonText,
   redirectTo = "/",
-}: ErrorPageProps) {
+}: ErrorPageProps) => {
   const { t } = useTranslation();
   usePageTitle(title);
   const navigate = useNavigate();
@@ -48,4 +48,6 @@ export default function ErrorPageTemplate({
       <FooterLogos />
     </div>
   );
-}
+};
+
+export default ErrorPageTemplate;

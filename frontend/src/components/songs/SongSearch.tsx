@@ -8,7 +8,7 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
-export default function SongSearch({ onSelect }: Props) {
+const SongSearch = ({ onSelect }: Props) => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState("");
@@ -135,4 +135,6 @@ export default function SongSearch({ onSelect }: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default SongSearch;

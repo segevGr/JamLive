@@ -11,14 +11,14 @@ interface SongListProps {
   isSearching?: boolean;
 }
 
-export default function SongList({
+const SongList = ({
   songs,
   query,
   onSelect,
   loadMoreRef,
   isLoading = false,
   isSearching = false,
-}: SongListProps) {
+}: SongListProps) => {
   const { t } = useTranslation();
   const trimmedQuery = query.trim();
 
@@ -63,4 +63,6 @@ export default function SongList({
       </div>
     </div>
   );
-}
+};
+
+export default SongList;

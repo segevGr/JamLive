@@ -19,13 +19,13 @@ interface LiveSessionViewProps {
   mode: ViewMode;
 }
 
-export default function LiveSessionView({
+const LiveSessionView = ({
   song,
   instrument,
   role,
   onQuit,
   mode,
-}: LiveSessionViewProps) {
+}: LiveSessionViewProps) => {
   const { t } = useTranslation();
 
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
@@ -121,4 +121,6 @@ export default function LiveSessionView({
       <Dialog isOpen={isDialogOpen} {...dialogData} />
     </div>
   );
-}
+};
+
+export default LiveSessionView;

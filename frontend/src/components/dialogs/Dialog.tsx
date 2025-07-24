@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 import clsx from "clsx";
 
-export default function Dialog({
+const Dialog = ({
   isOpen,
   type = "info",
   title,
@@ -21,7 +21,7 @@ export default function Dialog({
   onClose,
   confirmDisabled,
   children,
-}: DialogProps) {
+}: DialogProps) => {
   const formDialog = ["confirm", "warn"].includes(type);
   const { t } = useTranslation();
   useLockBodyScroll(isOpen);
@@ -112,4 +112,6 @@ export default function Dialog({
   );
 
   return createPortal(dialog, document.body);
-}
+};
+
+export default Dialog;

@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-export default function useAuthForm<T extends Record<string, string>>(
-  initialState: T
-) {
+const useAuthForm = <T extends Record<string, string>>(initialState: T) => {
   const [form, setForm] = useState<T>(initialState);
   const [errors, setErrors] = useState<Partial<T>>({});
 
@@ -26,4 +24,6 @@ export default function useAuthForm<T extends Record<string, string>>(
     setErrors,
     handleChange,
   };
-}
+};
+
+export default useAuthForm;

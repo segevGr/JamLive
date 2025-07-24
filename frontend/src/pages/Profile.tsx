@@ -36,7 +36,7 @@ const SectionBorder = ({
   </div>
 );
 
-export default function Profile() {
+const Profile = () => {
   const { t } = useTranslation();
   usePageTitle(t("profile.pageTitle"));
 
@@ -340,4 +340,6 @@ export default function Profile() {
       </Dialog>
     </>
   );
-}
+};
+
+export default Profile;

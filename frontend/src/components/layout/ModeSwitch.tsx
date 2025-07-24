@@ -5,11 +5,7 @@ import { useAppDispatch, useAppSelector, setMode } from "store";
 import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
 
-interface ModeSwitchProps {
-  className?: string;
-}
-
-export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
+const ModeSwitch = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const mode = useAppSelector((state) => state.ui.mode);
@@ -29,17 +25,14 @@ export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
     <div
       role="tablist"
       aria-label="Mode switch"
-      className={clsx(
-        "inline-flex rounded-full bg-gray-200 p-1 shadow-inner",
-        className
-      )}
+      className="inline-flex rounded-full bg-gray-200 p-1 shadow-inner"
     >
       <div className="relative">
         {currentSong && (
           <span
             className={clsx(
-              "absolute -top-1 h-3 w-3 rounded-full bg-errorText ring-2 ring-white animate-slowPulse",
-              isRtl() ? "left-1" : "right-1"
+              "absolute -top-0.5 h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-errorText ring-2 ring-white animate-slowPulse",
+              isRtl() ? "left-0.5 sm:left-1" : "right-0.5 sm:right-1"
             )}
           />
         )}
@@ -49,7 +42,7 @@ export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
           text={t("toggles.live")}
           color={mode === "live" ? "primary" : "gray"}
           onClick={() => handleClick("live")}
-          className={clsx("rounded-full transition-all font-bold")}
+          className="rounded-full transition-all font-bold px-2 py-1 sm:px-4 sm:py-2"
         />
       </div>
 
@@ -58,8 +51,10 @@ export default function ModeSwitch({ className = "" }: ModeSwitchProps) {
         text={t("toggles.browse")}
         color={mode === "browse" ? "primary" : "gray"}
         onClick={() => handleClick("browse")}
-        className={clsx("rounded-full transition-all font-bold")}
+        className="rounded-full transition-all font-bold px-2 py-1 sm:px-4 sm:py-2"
       />
     </div>
   );
-}
+};
+
+export default ModeSwitch;

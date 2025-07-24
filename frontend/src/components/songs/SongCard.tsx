@@ -6,7 +6,7 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
-export default function SongCard({ song, onSelect }: Props) {
+const SongCard = ({ song, onSelect }: Props) => {
   return (
     <div
       className="border border-borderCard hover:bg-hoverCard hover:shadow-md transition rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer"
@@ -31,4 +31,6 @@ export default function SongCard({ song, onSelect }: Props) {
       <Music size={20} className="text-primary" />
     </div>
   );
-}
+};
+
+export default SongCard;

@@ -8,10 +8,7 @@ interface AutoScrollToggleProps {
   toggle: () => void;
 }
 
-export default function AutoScrollToggle({
-  isScrolling,
-  toggle,
-}: AutoScrollToggleProps) {
+const AutoScrollToggle = ({ isScrolling, toggle }: AutoScrollToggleProps) => {
   const { t } = useTranslation();
 
   return (
@@ -24,4 +21,6 @@ export default function AutoScrollToggle({
       className={clsx("fixed bottom-4  z-50", isRtl() ? "left-4" : "right-4")}
     />
   );
-}
+};
+
+export default AutoScrollToggle;

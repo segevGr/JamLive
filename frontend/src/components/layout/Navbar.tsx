@@ -105,7 +105,7 @@ const Navbar = ({ showSwitch = false }: NavbarProps) => {
         <span className="font-bold text-lg text-white">JamLive</span>
       </div>
 
-      {showSwitch && <ModeSwitch className="hidden sm:inline-flex" />}
+      {showSwitch && <ModeSwitch />}
 
       <div className="relative">
         <button

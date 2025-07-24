@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Music } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function LiveSessionWaiting() {
+const LiveSessionWaiting = () => {
   const { t } = useTranslation();
 
   const [dots, setDots] = useState("");
@@ -55,4 +55,6 @@ export default function LiveSessionWaiting() {
       </div>
     </main>
   );
-}
+};
+
+export default LiveSessionWaiting;

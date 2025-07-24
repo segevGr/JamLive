@@ -15,7 +15,7 @@ interface Props {
   onQuitBrowse: () => void;
 }
 
-export default function LobbyContent({
+const LobbyContent = ({
   role,
   instrument,
   viewMode,
@@ -26,13 +26,13 @@ export default function LobbyContent({
   onQuitLive,
   onSelectBrowse,
   onQuitBrowse,
-}: Props) {
+}: Props) => {
   const { t } = useTranslation();
   const titleMode = browseSong || showLiveView ? "active" : "inactive";
 
   return (
     <>
-      <h2 className="text-xl font-semibold text-primary text-center mt-5 ">
+      <h2 className="text-base md:text-xl font-semibold text-primary text-center mt-5 ">
         {t(
           `lobbyHeader.${
             role as Exclude<UserRole, null>
@@ -69,4 +69,6 @@ export default function LobbyContent({
       )}
     </>
   );
-}
+};
+
+export default LobbyContent;

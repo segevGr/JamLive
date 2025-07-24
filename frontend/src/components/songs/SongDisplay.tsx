@@ -6,10 +6,7 @@ interface SongDisplayProps {
   isSinger: boolean;
 }
 
-export default function SongDisplay({
-  songLyrics,
-  isSinger,
-}: SongDisplayProps) {
+const SongDisplay = ({ songLyrics, isSinger }: SongDisplayProps) => {
   return (
     <div className="flex flex-col gap-8 items-center w-full px-4">
       {songLyrics.map((line, index) => {
@@ -45,8 +42,10 @@ export default function SongDisplay({
       })}
     </div>
   );
-}
+};
 
 function isRTL(text: string) {
   return /[\u0590-\u05FF]/.test(text);
 }
+
+export default SongDisplay;

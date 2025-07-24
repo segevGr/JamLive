@@ -11,7 +11,7 @@ interface Props {
   isAdmin?: boolean;
 }
 
-export default function Register({ isAdmin = false }: Props) {
+const Register = ({ isAdmin = false }: Props) => {
   const { t } = useTranslation();
   usePageTitle(t("register.pageTitle"));
   const navigate = useNavigate();
@@ -125,4 +125,6 @@ export default function Register({ isAdmin = false }: Props) {
       <Dialog isOpen={isDialogOpen} {...dialogData} />
     </>
   );
-}
+};
+
+export default Register;

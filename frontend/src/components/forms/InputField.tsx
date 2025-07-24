@@ -22,7 +22,7 @@ interface InputFieldProps {
 const inputFieldStyles =
   "appearance-none w-full bg-white text-textMain border border-borderGray rounded-xl px-4 py-4 md:py-3 placeholder-placeholderGray focus:outline-none focus:ring-2 focus:ring-primary";
 
-export default function InputField({
+const InputField = ({
   label,
   name,
   placeholder,
@@ -34,7 +34,7 @@ export default function InputField({
   children,
   errorMessage,
   trailingIcon,
-}: InputFieldProps) {
+}: InputFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPasswordField = type === "password";
   const computedType = isPasswordField && showPassword ? "text" : type;
@@ -119,4 +119,6 @@ export default function InputField({
       )}
     </div>
   );
-}
+};
+
+export default InputField;
