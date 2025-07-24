@@ -134,8 +134,8 @@
   "AdminLobby": {
     "pageTitle": "Admin Lobby",
     "subtitle": {
-      "live": "",
-      "browse": ""
+      "live": "Live mode – choose a song to start a session 🎤",
+      "browse": "Browse mode – songs for personal viewing 🔍"
     }
   },
   "songList": {
