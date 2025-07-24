@@ -93,10 +93,6 @@ export default function LiveSessionView({
       className="h-screen overflow-y-auto bg-background relative pb-20"
     >
       <div className="flex flex-col items-center justify-center mt-10">
-        <h1 className="text-4xl font-bold text-accent mb-6">
-          {t("jam.liveSessionTitle")}
-        </h1>
-
         {song && (
           <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 py-8 text-center max-w-6xl w-full">
             <h2 className="text-5xl font-bold text-primaryDark mb-2">

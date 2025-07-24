@@ -20,8 +20,6 @@
     "sessionEndedUser": "Waiting for the admin to choose the next song...",
     "selectSongButton": "Select a song",
     "backToUserLobbyButton": "Back to Waiting Room",
-
-    "liveSessionTitle": "Live Session",
     "loadingSong": "Loading song...",
     "loadingLyrics": "Loading lyrics...",
     "endSession": {
