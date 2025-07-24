@@ -1,10 +1,11 @@
 import { SongSearch, LiveSessionView, LiveSessionWaiting } from "components";
-import type { Song, UserRole, Instrument } from "types";
+import type { Song, UserRole, Instrument, ViewMode } from "types";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   role: UserRole;
   instrument: Instrument;
-  viewMode: "live" | "browse";
+  viewMode: ViewMode;
   browseSong: Song | null;
   activeSong: Song | null;
   showLiveView: boolean;
@@ -26,22 +27,33 @@ export default function LobbyContent({
   onSelectBrowse,
   onQuitBrowse,
 }: Props) {
-  if (viewMode === "browse") {
-    return browseSong ? (
-      <LiveSessionView
-        key={browseSong.id}
-        song={browseSong}
-        instrument={instrument!}
-        role={role}
-        onQuit={onQuitBrowse}
-        mode={viewMode}
-      />
-    ) : (
-      <SongSearch onSelect={onSelectBrowse} />
-    );
-  } else {
-    if (showLiveView && activeSong) {
-      return (
+  const { t } = useTranslation();
+  const titleMode = browseSong || showLiveView ? "active" : "inactive";
+
+  return (
+    <>
+      <h2 className="text-xl font-semibold text-primary text-center mt-5 ">
+        {t(
+          `lobbyHeader.${
+            role as Exclude<UserRole, null>
+          }.${titleMode}.${viewMode}`
+        )}
+      </h2>
+
+      {viewMode === "browse" ? (
+        browseSong ? (
+          <LiveSessionView
+            key={browseSong.id}
+            song={browseSong}
+            instrument={instrument}
+            role={role}
+            onQuit={onQuitBrowse}
+            mode="browse"
+          />
+        ) : (
+          <SongSearch onSelect={onSelectBrowse} />
+        )
+      ) : showLiveView && activeSong ? (
         <LiveSessionView
           key={activeSong.id}
           song={activeSong}
@@ -50,13 +62,11 @@ export default function LobbyContent({
           onQuit={onQuitLive}
           mode="live"
         />
-      );
-    }
-
-    if (role === "admin") {
-      return <SongSearch onSelect={onStartSession} />;
-    }
-
-    return <LiveSessionWaiting />;
-  }
+      ) : role === "admin" ? (
+        <SongSearch onSelect={onStartSession} />
+      ) : (
+        <LiveSessionWaiting />
+      )}
+    </>
+  );
 }

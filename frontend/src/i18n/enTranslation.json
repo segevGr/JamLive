@@ -132,10 +132,28 @@
     "generalError": "Something went wrong\nPlease try again later"
   },
   "AdminLobby": {
-    "pageTitle": "Admin Lobby",
-    "subtitle": {
-      "live": "Live mode – choose a song to start a session 🎤",
-      "browse": "Browse mode – songs for personal viewing 🔍"
+    "pageTitle": "Admin Lobby"
+  },
+  "lobbyHeader": {
+    "admin": {
+      "inactive": {
+        "live": "Live mode – choose a song to start a session 🎤",
+        "browse": "Browse mode – songs for personal viewing 🔍"
+      },
+      "active": {
+        "live": "Live mode – This song is shown for everyone 🎤",
+        "browse": "Browse mode – This song is shown only to you 🎤"
+      }
+    },
+    "user": {
+      "inactive": {
+        "live": "Live mode – Waiting for the admin to start a song 🎤",
+        "browse": "Browse mode – songs for personal viewing 🔍"
+      },
+      "active": {
+        "live": "Live mode – You are watching a shared session 🎤",
+        "browse": "Browse mode – This song is shown only to you 🎤"
+      }
     }
   },
   "songList": {

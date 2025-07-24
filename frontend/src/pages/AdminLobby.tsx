@@ -38,10 +38,6 @@ export default function AdminLobby() {
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar showSwitch={true} />
 
-      <h2 className="text-xl font-semibold text-primary text-center mt-5 -mb-5">
-        {t(`AdminLobby.subtitle.${viewMode}`)}
-      </h2>
-
       <LobbyContent
         role={role}
         instrument={instrument!}
