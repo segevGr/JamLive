@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SongDisplay,
   InstrumentBadge,
@@ -30,7 +30,7 @@ const LiveSessionView = ({
 
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
   const [autoScroll, setAutoScroll] = useState(false);
-  const scrollInterval = useRef<NodeJS.Timeout | null>(null);
+  const [scrollSpeed, setScrollSpeed] = useState(2);
 
   // Enables auto-scrolling until the bottom is reached
   useEffect(() => {
@@ -44,18 +44,27 @@ const LiveSessionView = ({
       return;
     }
 
-    scrollInterval.current = setInterval(() => {
-      window.scrollBy({ top: 1 });
+    let animationId: number;
+
+    const scrollStep = () => {
+      window.scrollBy({ top: scrollSpeed });
 
       const atBottom =
         container.scrollTop + container.clientHeight >=
         container.scrollHeight - 5;
 
-      if (atBottom) setAutoScroll(false);
-    }, 150);
+      if (atBottom) {
+        setAutoScroll(false);
+        return;
+      }
 
-    return () => clearInterval(scrollInterval.current!);
-  }, [autoScroll]);
+      animationId = requestAnimationFrame(scrollStep);
+    };
+
+    animationId = requestAnimationFrame(scrollStep);
+
+    return () => cancelAnimationFrame(animationId);
+  }, [autoScroll, scrollSpeed]);
 
   const openDialogFunc = () => {
     if (mode === "browse") {
@@ -110,6 +119,8 @@ const LiveSessionView = ({
       <AutoScrollToggle
         isScrolling={autoScroll}
         toggle={() => setAutoScroll((prev) => !prev)}
+        onSpeedChange={(newSpeed) => setScrollSpeed(newSpeed)}
+        currentSpeed={scrollSpeed}
       />
 
       {(role === "admin" || mode === "browse") && (
