@@ -27,9 +27,12 @@ const songSessionSlice = createSlice({
     setBrowseSong: (state, action: PayloadAction<Song | null>) => {
       state.browseSong = action.payload;
     },
+    clearBrowseSong: (state) => {
+      state.browseSong = null;
+    },
   },
 });
 
-export const { setCurrentSong, clearSession, setBrowseSong } =
+export const { setCurrentSong, clearSession, setBrowseSong, clearBrowseSong } =
   songSessionSlice.actions;
 export const songSessionReducer = songSessionSlice.reducer;

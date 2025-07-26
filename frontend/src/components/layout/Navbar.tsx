@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Music, User, LogOut, Users, Rewind } from "lucide-react";
-import { logout, useAppDispatch, useAppSelector } from "store";
+import { clearBrowseSong, logout, useAppDispatch, useAppSelector } from "store";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ROUTES } from "routes";
 import { useSocket } from "context/SocketProvider";
@@ -30,6 +30,7 @@ const Navbar = ({ showSwitch = false }: NavbarProps) => {
     if (role === "admin" && currentSong) {
       socket?.emit("quitSession");
     }
+    dispatch(clearBrowseSong());
     dispatch(logout());
     navigate(ROUTES.HOME);
   };
