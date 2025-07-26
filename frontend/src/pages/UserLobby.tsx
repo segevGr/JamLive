@@ -18,7 +18,7 @@ const UserLobby = () => {
   });
 
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
       <Navbar showSwitch={true} />
 
       <LobbyContent

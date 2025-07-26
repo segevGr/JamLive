@@ -29,34 +29,32 @@ const LiveSessionView = ({
   const { t } = useTranslation();
 
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [autoScroll, setAutoScroll] = useState(false);
   const scrollInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Enables auto-scrolling until the bottom is reached
   useEffect(() => {
-    if (!scrollRef.current) return;
+    const container = (document.scrollingElement ||
+      document.documentElement) as HTMLElement;
 
-    if (autoScroll) {
-      scrollInterval.current = setInterval(() => {
-        const container = scrollRef.current!;
-        container.scrollBy({ top: 1 });
+    if (!autoScroll) return;
 
-        const { scrollTop, scrollHeight, clientHeight } = container;
-        const reachedBottom = scrollTop + clientHeight >= scrollHeight - 5;
-
-        if (reachedBottom) {
-          setAutoScroll(false);
-        }
-      }, 150);
+    if (container.scrollHeight - container.clientHeight <= 5) {
+      setAutoScroll(false);
+      return;
     }
 
-    return () => {
-      if (scrollInterval.current) {
-        clearInterval(scrollInterval.current);
-        scrollInterval.current = null;
-      }
-    };
+    scrollInterval.current = setInterval(() => {
+      window.scrollBy({ top: 1 });
+
+      const atBottom =
+        container.scrollTop + container.clientHeight >=
+        container.scrollHeight - 5;
+
+      if (atBottom) setAutoScroll(false);
+    }, 150);
+
+    return () => clearInterval(scrollInterval.current!);
   }, [autoScroll]);
 
   const openDialogFunc = () => {
@@ -88,10 +86,7 @@ const LiveSessionView = ({
   };
 
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto bg-background relative pb-20"
-    >
+    <div className="flex flex-col flex-grow bg-background relative pb-20 min-h-0">
       <div className="flex flex-col items-center justify-center mt-10">
         {song && (
           <div className="bg-white rounded-xl shadow-md mx-6 md:mx-auto px-6 py-8 text-center max-w-6xl w-full">
@@ -111,13 +106,16 @@ const LiveSessionView = ({
           </div>
         )}
       </div>
+
       <AutoScrollToggle
         isScrolling={autoScroll}
-        toggle={() => setAutoScroll(!autoScroll)}
+        toggle={() => setAutoScroll((prev) => !prev)}
       />
+
       {(role === "admin" || mode === "browse") && (
         <QuitButton onQuit={openDialogFunc} mode={mode} />
       )}
+
       <Dialog isOpen={isDialogOpen} {...dialogData} />
     </div>
   );

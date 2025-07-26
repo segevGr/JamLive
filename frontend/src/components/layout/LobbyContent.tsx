@@ -31,7 +31,7 @@ const LobbyContent = ({
   const titleMode = browseSong || showLiveView ? "active" : "inactive";
 
   return (
-    <>
+    <div className="flex flex-col flex-grow min-h-0">
       <h2 className="text-base md:text-xl font-semibold text-primary text-center mt-5 ">
         {t(
           `lobbyHeader.${
@@ -67,7 +67,7 @@ const LobbyContent = ({
       ) : (
         <LiveSessionWaiting />
       )}
-    </>
+    </div>
   );
 };
 
