@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   InputField,
@@ -16,7 +15,7 @@ import {
   logout,
 } from "store";
 import { ROUTES } from "routes";
-import { useAuthForm, usePageTitle, useModal } from "hooks";
+import { useAuthForm, usePageTitle, useModal, useLanguage } from "hooks";
 import { validateInstrument, validatePasswordChange } from "utils";
 import { API, axiosInstance } from "services";
 import { instruments, Instrument } from "types";
@@ -44,7 +43,8 @@ const Profile = () => {
   const dispatch = useAppDispatch();
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
 
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+  const { selectedLanguage, setSelectedLanguage, changeLanguage } =
+    useLanguage();
 
   const { instrument, userName } = useAppSelector((state) => state.auth);
   const currentInstrument = instrument || "";
@@ -145,8 +145,7 @@ const Profile = () => {
 
   const handleChangeLanguage = (e: React.FormEvent) => {
     e.preventDefault();
-    i18n.changeLanguage(selectedLanguage);
-    document.documentElement.dir = selectedLanguage === "he" ? "rtl" : "ltr";
+    changeLanguage(selectedLanguage);
     openDialog({
       type: "success",
       title: t("profile.languageSection.successTitle"),
