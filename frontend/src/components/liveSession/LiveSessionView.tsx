@@ -9,6 +9,7 @@ import {
 } from "components";
 import { useModal } from "hooks";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector, setScrollSpeed } from "store";
 import type { Song, Instrument, UserRole, ViewMode } from "types";
 
 interface LiveSessionViewProps {
@@ -27,10 +28,11 @@ const LiveSessionView = ({
   mode,
 }: LiveSessionViewProps) => {
   const { t } = useTranslation();
+  const scrollSpeed = useAppSelector((state) => state.ui.scrollSpeed);
+  const dispatch = useAppDispatch();
 
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
   const [autoScroll, setAutoScroll] = useState(false);
-  const [scrollSpeed, setScrollSpeed] = useState(2);
 
   // Enables auto-scrolling until the bottom is reached
   useEffect(() => {
@@ -119,8 +121,8 @@ const LiveSessionView = ({
       <AutoScrollToggle
         isScrolling={autoScroll}
         toggle={() => setAutoScroll((prev) => !prev)}
-        onSpeedChange={(newSpeed) => setScrollSpeed(newSpeed)}
         currentSpeed={scrollSpeed}
+        onSpeedChange={(newSpeed) => dispatch(setScrollSpeed(newSpeed))}
       />
 
       {(role === "admin" || mode === "browse") && (
