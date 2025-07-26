@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { InputField, FormPageLayout, FormSection, Dialog } from "components";
+import {
+  InputField,
+  FormPageLayout,
+  FormSection,
+  Dialog,
+  LanguageToggle,
+} from "components";
 import { API, axiosInstance } from "services";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
 import { validateRegisterForm } from "utils";
@@ -73,6 +79,7 @@ const Register = ({ isAdmin = false }: Props) => {
 
   return (
     <>
+      <LanguageToggle />
       <FormPageLayout
         title={t("register.title")}
         subtitle={t("register.subtitle")}

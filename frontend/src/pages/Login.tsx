@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, login } from "store";
-import { InputField, FormPageLayout, FormSection } from "components";
+import {
+  InputField,
+  FormPageLayout,
+  FormSection,
+  LanguageToggle,
+} from "components";
 import { API, axiosInstance } from "services";
 import { useAuthForm, usePageTitle } from "hooks";
 import { validateLoginForm } from "utils/validation";
@@ -64,38 +69,41 @@ const Login = () => {
   };
 
   return (
-    <FormPageLayout
-      title={t("login.title")}
-      subtitle={t("login.subtitle")}
-      imageSrc="/login-img.png"
-      bottomText={t("login.noAccountText")}
-      bottomLinkText={t("login.registerLinkText")}
-      onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
-    >
-      <FormSection
-        buttonText={t("login.buttonText")}
-        isDisabled={!isFormValid}
-        onSubmit={handleSubmit}
+    <>
+      <LanguageToggle />
+      <FormPageLayout
+        title={t("login.title")}
+        subtitle={t("login.subtitle")}
+        imageSrc="/login-img.png"
+        bottomText={t("login.noAccountText")}
+        bottomLinkText={t("login.registerLinkText")}
+        onBottomLinkClick={() => navigate(ROUTES.REGISTER)}
       >
-        <InputField
-          label={t("login.usernameLabel")}
-          name="userName"
-          placeholder={t("login.usernamePlaceholder")}
-          value={form.userName}
-          onChange={handleChange}
-          errorMessage={errors.userName}
-        />
-        <InputField
-          label={t("login.passwordLabel")}
-          name="password"
-          type="password"
-          placeholder={t("login.passwordPlaceholder")}
-          value={form.password}
-          onChange={handleChange}
-          errorMessage={errors.password}
-        />
-      </FormSection>
-    </FormPageLayout>
+        <FormSection
+          buttonText={t("login.buttonText")}
+          isDisabled={!isFormValid}
+          onSubmit={handleSubmit}
+        >
+          <InputField
+            label={t("login.usernameLabel")}
+            name="userName"
+            placeholder={t("login.usernamePlaceholder")}
+            value={form.userName}
+            onChange={handleChange}
+            errorMessage={errors.userName}
+          />
+          <InputField
+            label={t("login.passwordLabel")}
+            name="password"
+            type="password"
+            placeholder={t("login.passwordPlaceholder")}
+            value={form.password}
+            onChange={handleChange}
+            errorMessage={errors.password}
+          />
+        </FormSection>
+      </FormPageLayout>
+    </>
   );
 };
 

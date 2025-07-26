@@ -4,3 +4,4 @@ export { default as useModal } from "./useModal";
 export { default as usePageTitle } from "./usePageTitle";
 export { default as useSessionManager } from "./useSessionManager";
 export { default as useBrowseSongManager } from "./useBrowseSongManager";
+export { default as useLanguage } from "./useLanguage";
