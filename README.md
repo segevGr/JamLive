@@ -179,10 +179,6 @@ The collection includes all available endpoints:
 
 ![Live Session](./screenshots/admin-lobby-live-song.png)
 
-### 🎼 Live Jam Session
-
-![Live jam](./screenshots/live-jam.png)
-
 ### 🎼 Profile
 
 ![Profile](./screenshots/profile.png)
