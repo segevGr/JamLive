@@ -24,26 +24,65 @@ JamLive is a full-stack web application that enables musicians to join live rehe
 ## 🧠 Features
 
 - **Authentication**: Signup & login with role-based redirection.
-- **Live Song Session**:
+- **Live Song Session**
   - Admin selects a song → triggers session start.
-  - Users are redirected to the live song view.
-  - Chords + lyrics for Users, lyrics only for singers.
-- **Auto Scroll**: Users can toggle smooth scrolling of lyrics.
-- **Socket.io**: Real-time sync between admin and connected users.
-- **Accessibility**: Large fonts, high contrast for smoky environments.
-- **Responsive**: Mobile-first design with smooth UI via Tailwind.
+  - Users see a visual indicator that a live session is available.
+  - Chords + lyrics for players, lyrics-only for singers.
+- **Late-Join Sync**: Users who join mid-session instantly receive the current song + scroll position.
+- **Auto Scroll**: Toggle smooth scrolling of lyrics.
+- **View-Mode Persist**: Global `viewMode` (`browse` / `live`) is saved with Redux Persist, so navigation never “forgets” your state.
+- **User Profile**
+  - Edit instrument.
+  - Change password (current + new × 2).
+  - Delete account with confirmation.
+- **RTL Support**: Full right-to-left layout and icon mirroring whenever the UI language is Hebrew.
+- **Unified Session Manager**: Single hook (`useSessionManager`) drives all live-session events for Admin & User lobbies.
+- **Socket.io**: Real-time sync between admin and connected users (plus auto-reconnect).
+- **Accessibility**: Large fonts, high contrast for low-light rehearsal spaces.
+- **Responsive**: Mobile-first design with Tailwind.
+- **Conventional Commits**: Commitlint + Husky enforce `feat/fix/chore…` style messages for a clean Git history.
+
+## 🧭 Lobby Modes & User Flow
+
+Once logged in, users are redirected to their **respective lobby**:
+
+- 👤 **Regular Users** → `/user-lobby`
+- 🛠️ **Admins** → `/admin-lobby`
+
+Each lobby supports two main view modes:
+
+| Mode     | Description                                                                |
+| -------- | -------------------------------------------------------------------------- |
+| `browse` | Default state — users can freely search songs and explore the catalog.     |
+| `live`   | Active session — all users view the same song, synchronized via WebSocket. |
+
+### 👤 User Lobby (`/user-lobby`)
+
+- In **`browse` mode**, users can freely search and preview songs from the catalog.
+- When an admin starts a live session, users see a **subtle visual indicator** (a red dot above the “Live” label) showing that a session is in progress.
+- Users can choose to enter the live session at any time. If they join mid-song, they receive the current song and scroll state instantly.
+
+### 🛠️ Admin Lobby (`/admin-lobby`)
+
+- Admins can search the song catalog and start a live session manually.
+- Once started, all connected users receive the live indicator and can choose whether or not to join.
+- Admins view a full live preview of the broadcasting song and can end the session at any time.
+
+> 🧠 The current mode (`viewMode`) is saved globally using Redux Persist, so users stay in context even after navigating away from the lobby or refreshing.
 
 ## 🧪 Tech Stack
 
-| Layer    | Tech                    |
-| -------- | ----------------------- |
-| Frontend | React + TypeScript      |
-| Styling  | TailwindCSS             |
-| State    | Redux Toolkit + Persist |
-| Backend  | NestJS + Socket.io      |
-| DB       | MongoDB (via Mongoose)  |
-| Auth     | JWT                     |
-| Hosting  | Vercel + Railway        |
+| Layer      | Tech                    |
+| ---------- | ----------------------- |
+| Frontend   | React + TypeScript      |
+| Styling    | TailwindCSS             |
+| State      | Redux Toolkit + Persist |
+| i18n       | react-i18next           |
+| Backend    | NestJS + Socket.io      |
+| Containers | Docker (backend only)   |
+| DB         | MongoDB (via Mongoose)  |
+| Auth       | JWT                     |
+| Hosting    | Vercel + Railway        |
 
 ## 🛠️ Local Setup
 
@@ -57,7 +96,7 @@ cd JamLive
 2. **Frontend setup**
 
 ```bash
-cd client
+cd frontend
 npm install
 npm run dev
 ```
@@ -65,7 +104,7 @@ npm run dev
 3. **Backend setup**
 
 ```bash
-cd server
+cd backend
 npm install
 npm run start:dev
 ```
@@ -98,7 +137,7 @@ FRONTEND_ORIGIN=http://localhost:3000
 
 - `MONGO_URI`: Connection string to your MongoDB instance (Atlas or local)
 - `JWT_SECRET`: A secure string used to sign JWT tokens
-- `CLIENT_URL`: The URL of your frontend app (used for CORS)
+- `FRONTEND_ORIGIN`: The URL of your frontend app (used for CORS)
 
 > 💡 **Note**: The deployed demo version already connects to a live backend.  
 > If you'd like to run the backend locally, you'll need to provide your own `MONGO_URI` and `JWT_SECRET`.
@@ -116,7 +155,7 @@ The collection includes all available endpoints:
 - Song search
 - Auth-protected routes
 
-> Make sure to set the `url` environment variable in Postman to match your local or deployed server (e.g., `http://localhost:8000` or `https://jamlive-api.up.railway.app`).
+> Make sure to set the `url` environment variable in Postman to match your local or deployed backend (e.g., `http://localhost:8000` or `https://jamlive-api.up.railway.app`).
 
 ## 📸 Screenshots
 
@@ -128,17 +167,25 @@ The collection includes all available endpoints:
 
 ![Login](./screenshots/login.png)
 
-### ⏳ Waiting Room (Player view before session starts)
+### ⏳ User Lobby: Waiting Mode
 
-![Waiting room](./screenshots/waiting-room.png)
+![Waiting Mode](./screenshots/user-lobby-waiting-mode.png)
 
-### 🔍 Search Songs (Admin)
+### 🔍 Admin Lobby: Search Songs
 
-![Search songs](./screenshots/search-songs.png)
+![Search songs](./screenshots/admin-lobby-search-songs.png)
 
-### 🎼 Live Jam Session (Guitar Player view with chords)
+### 🔍 Admin Lobby: Live Session
+
+![Live Session](./screenshots/admin-lobby-live-song.png)
+
+### 🎼 Live Jam Session
 
 ![Live jam](./screenshots/live-jam.png)
+
+### 🎼 Profile
+
+![Profile](./screenshots/profile.png)
 
 ## 📎 Notes
 
@@ -146,4 +193,4 @@ The collection includes all available endpoints:
 - Players who join **after** the session has started will still receive the current song automatically.
 - The current song database is hard-coded in JSON format.
 
-> Built by Segev Grotas as part of a technical assignment for Moveo.
+> Built with ❤️ by Segev Grotas · [LinkedIn](https://www.linkedin.com/in/segevgrotas/)
