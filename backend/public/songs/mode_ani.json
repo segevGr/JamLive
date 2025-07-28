@@ -1,0 +1,83 @@
+[
+  [
+    { "lyrics": "מודה" },
+    { "lyrics": "אני", "chords": "Am" },
+    { "lyrics": "לפניך", "chords": "D" },
+    { "lyrics": "ולך" }
+  ],
+  [
+    { "lyrics": "על", "chords": "C" },
+    { "lyrics": "כל", "chords": "G" },
+    { "lyrics": "החסד" },
+    { "lyrics": "והאמת" },
+    { "lyrics": "והטובה", "chords": "F#m" },
+    { "lyrics": "והרעה" },
+    { "lyrics": "והטובה", "chords": "Bm" }
+  ],
+  [{ "lyrics": "שעשית", "chords": "E" }, { "lyrics": "עמדי" }],
+  [{ "lyrics": "ועם", "chords": "G7" }, { "lyrics": "ביתי" }],
+  [
+    { "lyrics": "ועם", "chords": "F" },
+    { "lyrics": "קרובי" },
+    { "lyrics": "וידידי" },
+    { "lyrics": "ועם", "chords": "Em" },
+    { "lyrics": "בני", "chords": "C" },
+    { "lyrics": "עמי" }
+  ],
+  [
+    { "lyrics": "ועם" },
+    { "lyrics": "ארצי,", "chords": "Am" },
+    { "lyrics": "ועם", "chords": "D" },
+    { "lyrics": "כל", "chords": "F#m" },
+    { "lyrics": "העולם" },
+    { "lyrics": "והאדם" }
+  ],
+  [{ "lyrics": "אשר" }, { "lyrics": "בראת.", "chords": "G7" }],
+  [
+    { "lyrics": "בלאט,", "chords": "Bm" },
+    { "lyrics": "חרש" },
+    { "lyrics": "חרש" }
+  ],
+  [
+    { "lyrics": "אט", "chords": "D" },
+    { "lyrics": "אט,", "chords": "Em" },
+    { "lyrics": "טופפות" }
+  ],
+  [
+    { "lyrics": "עתידות", "chords": "C" },
+    { "lyrics": "עתידות" },
+    { "lyrics": "לקראתנו," }
+  ],
+  [
+    { "lyrics": "ואת" },
+    { "lyrics": "מחייכת", "chords": "G" },
+    { "lyrics": "אלי" },
+    { "lyrics": "מתוך", "chords": "F" },
+    { "lyrics": "השינה." }
+  ],
+  [
+    { "lyrics": "יהיה" },
+    { "lyrics": "לנו", "chords": "Am" },
+    { "lyrics": "טוב,", "chords": "G" },
+    { "lyrics": "טוב" },
+    { "lyrics": "מטוב," }
+  ],
+  [{ "lyrics": "טוב", "chords": "D" }, { "lyrics": "מאוד," }],
+  [
+    { "lyrics": "זה", "chords": "Em" },
+    { "lyrics": "מתחיל" },
+    { "lyrics": "כבר", "chords": "F#m" },
+    { "lyrics": "בבוקר" },
+    { "lyrics": "בבוקר" }
+  ],
+  [
+    { "lyrics": "את", "chords": "G" },
+    { "lyrics": "צוחקת" },
+    { "lyrics": "אלי" }
+  ],
+  [
+    { "lyrics": "מתוך", "chords": "Bm" },
+    { "lyrics": "מתוך" },
+    { "lyrics": "השינה." }
+  ]
+]
