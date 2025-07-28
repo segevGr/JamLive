@@ -10,7 +10,7 @@ interface AutoScrollToggleProps {
   currentSpeed: number;
 }
 
-const MIN_SPEED = 1;
+const MIN_SPEED = 0.5;
 const MAX_SPEED = 6;
 
 const AutoScrollToggle = ({
@@ -24,13 +24,13 @@ const AutoScrollToggle = ({
 
   const handleIncrease = () => {
     if (currentSpeed < MAX_SPEED) {
-      onSpeedChange?.(currentSpeed + 1);
+      onSpeedChange?.(currentSpeed + 0.25);
     }
   };
 
   const handleDecrease = () => {
     if (currentSpeed > MIN_SPEED) {
-      onSpeedChange?.(currentSpeed - 1);
+      onSpeedChange?.(currentSpeed - 0.25);
     }
   };
 
