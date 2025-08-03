@@ -47,7 +47,13 @@
     "passwordLabel": "Enter your Password*",
     "passwordPlaceholder": "Password",
     "invalidCredentials": "Incorrect username or password, please try again",
-    "generalError": "Something went wrong\nPlease try again later"
+    "generalError": "Something went wrong\nPlease try again later",
+    "dialog": {
+      "button": "Need help?",
+      "title": "Welcome to JamLive!",
+      "message": "To log in as a regular user, enter:\nusername: user\npassword: user\n\nTo log in as an admin, enter:\nusername: admin\npassword: admin",
+      "confirmLabel": "Got it, let's start!"
+    }
   },
   "register": {
     "admin-register": "Admin Registration",

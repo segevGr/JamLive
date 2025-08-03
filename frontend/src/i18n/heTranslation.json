@@ -48,7 +48,13 @@
     "passwordLabel": "סיסמה*",
     "passwordPlaceholder": "סיסמה",
     "invalidCredentials": "שם משתמש או סיסמה שגויים, נסה שוב",
-    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר",
+    "dialog": {
+      "button": "צריך עזרה?",
+      "title": "ברוך הבא ל- JamLive!",
+      "message": "כדי להיכנס בתור משתמש רגיל הכנס:\nשם משתמש: user\nסיסמה: user\n\nכדי להיכנס בתור אדמין הכנס:\nשם משתמש: admin\nסיסמה: admin",
+      "confirmLabel": "הבנתי, בוא נתחיל!"
+    }
   },
   "register": {
     "admin-register": "רישום אדמין",
