@@ -1,4 +1,3 @@
-// frontend/src/constants/axios.ts
 import axios from "axios";
 import { store, start, stop } from "store";
 

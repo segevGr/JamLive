@@ -201,15 +201,16 @@
   "UserManagement": {
     "title": "ניהול משתמשים",
     "loading": "טוען רשימת משתמשים",
+    "errorFetch": "שגיאה בטעינת משתמשים",
+    "promote": "הפוך לאדמין",
+    "removeAdmin": "הסר הרשאות אדמין",
+    "deleteUser": "מחק משתמש",
     "headers": {
       "userName": "שם משתמש",
-      "createdAt": "נוצר בתאריך:",
+      "createdAt": "נוצר בתאריך: ",
       "role": "תפקיד",
       "instrument": "כלי נגינה",
-      "activities": "פעולות",
-      "promote": "הפוך לאדמין",
-      "removeAdmin": "הסר הרשאות אדמין",
-      "deleteUser": "מחק משתמש"
+      "activities": "פעולות"
     }
   }
 }

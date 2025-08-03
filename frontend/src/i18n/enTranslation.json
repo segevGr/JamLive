@@ -198,17 +198,24 @@
     "browse": "Browse"
   },
   "UserManagement": {
-    "title": "User Management",
-    "loading": "Loading user list",
     "headers": {
       "userName": "Username",
-      "createdAt": "Created at:",
+      "createdAt": "Created at: ",
       "role": "Role",
       "instrument": "Instrument",
-      "activities": "Actions",
-      "promote": "Promote to Admin",
-      "removeAdmin": "Remove Admin Role",
-      "deleteUser": "Delete User"
+      "activities": "Actions"
+    },
+    "title": "User Management",
+    "loading": "Loading user list",
+    "errorFetch": "Error fetching users",
+    "promote": "Promote to Admin",
+    "removeAdmin": "Remove Admin Role",
+    "deleteUser": "Delete User",
+    "changeRole": {
+      "dialog": {
+        "title": "האם להפוך את {{name}} ל{{role}}?",
+        "confirm": "Yes"
+      }
     }
   }
 }

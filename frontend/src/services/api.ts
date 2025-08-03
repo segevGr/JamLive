@@ -13,5 +13,6 @@ export const API = {
     CHANGE_PASSWORD: "/users/me/password",
     DELETE_USER: "/users/me",
     GET_USERS_LIST: "/users",
+    CHANGE_USER_ROLE: "/users/:id",
   },
 };

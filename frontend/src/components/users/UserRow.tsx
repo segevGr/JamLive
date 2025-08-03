@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { CardContainer } from "components";
 import { User } from "types";
@@ -10,10 +11,36 @@ interface Props {
   isHeader?: boolean;
   onOpenMenu?: () => void;
   isMenuOpen?: boolean;
+  onChangeRole?: () => void;
 }
 
-const UserRow = ({ user, isHeader = false, onOpenMenu, isMenuOpen }: Props) => {
+const UserRow = ({
+  user,
+  isHeader = false,
+  onOpenMenu,
+  isMenuOpen,
+  onChangeRole,
+}: Props) => {
   const { t } = useTranslation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isMenuOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        onOpenMenu?.();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen, onOpenMenu]);
 
   const content = (
     <div className="grid grid-cols-[2fr_1fr_1fr_auto] gap-x-10">
@@ -58,20 +85,22 @@ const UserRow = ({ user, isHeader = false, onOpenMenu, isMenuOpen }: Props) => {
             </button>
             {isMenuOpen && (
               <div
+                ref={dropdownRef}
                 className={clsx(
                   "absolute top-6 z-10 bg-white border rounded-md shadow-lg min-w-[7rem] w-fit",
                   isRtl() ? "right-0" : "left-0"
                 )}
               >
                 <button
+                  onClick={onChangeRole}
                   className={clsx(
                     "px-4 py-2 text-sm hover:bg-gray-100 whitespace-nowrap w-full",
                     isRtl() ? "text-right" : "text-left"
                   )}
                 >
                   {user!.role === "admin"
-                    ? t("UserManagement.headers.removeAdmin")
-                    : t("UserManagement.headers.promote")}
+                    ? t("UserManagement.removeAdmin")
+                    : t("UserManagement.promote")}
                 </button>
                 <button
                   className={clsx(
@@ -79,7 +108,7 @@ const UserRow = ({ user, isHeader = false, onOpenMenu, isMenuOpen }: Props) => {
                     isRtl() ? "text-right" : "text-left"
                   )}
                 >
-                  {t("UserManagement.headers.deleteUser")}
+                  {t("UserManagement.deleteUser")}
                 </button>
               </div>
             )}
