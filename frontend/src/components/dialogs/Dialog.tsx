@@ -76,7 +76,9 @@ const Dialog = ({
         )}
 
         {message && (
-          <p className={clsx("text-gray-600 mb-6", "text-center")}>{message}</p>
+          <p className="text-gray-600 mb-6 whitespace-pre-line text-center">
+            {message}
+          </p>
         )}
         {children && <div className="mb-6">{children}</div>}
 
