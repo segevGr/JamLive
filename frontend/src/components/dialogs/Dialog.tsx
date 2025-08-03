@@ -22,7 +22,7 @@ const Dialog = ({
   confirmDisabled,
   children,
 }: DialogProps) => {
-  const formDialog = ["confirm", "warn"].includes(type);
+  const formDialog = ["warn"].includes(type);
   const { t } = useTranslation();
   useLockBodyScroll(isOpen);
 
@@ -38,7 +38,6 @@ const Dialog = ({
   const paletteClass: Record<DialogType, string> = {
     info: "text-primary",
     success: "text-green-600",
-    confirm: "text-primary",
     warn: "text-primary",
     error: "text-red-600",
   };
@@ -46,7 +45,6 @@ const Dialog = ({
   const buttonColor: Record<DialogType, ButtonColor> = {
     info: "primary",
     success: "primary",
-    confirm: "primary",
     warn: "red",
     error: "red",
   };

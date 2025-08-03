@@ -1,10 +1,4 @@
-export const DIALOG_TYPES = [
-  "info",
-  "success",
-  "confirm",
-  "warn",
-  "error",
-] as const;
+export const DIALOG_TYPES = ["info", "success", "warn", "error"] as const;
 export type DialogType = (typeof DIALOG_TYPES)[number];
 
 export interface DialogProps {
