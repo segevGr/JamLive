@@ -39,8 +39,25 @@ const UserManagement = () => {
     }
   };
 
-  const deleteUser = async (userId: string, oppositeRole: UserRole) => {
-    return;
+  const deleteUser = async (userId: string) => {
+    try {
+      await axiosInstance.delete(API.USERS.DELETE_USER.replace(":id", userId));
+
+      openDialog({
+        type: "success",
+        title: t("profile.dialog.title"),
+        message: t("profile.dialog.instrumentMessage"),
+        confirmLabel: t("profile.dialog.confirmLabel"),
+        onConfirm: () => {
+          closeDialog();
+          setListUpdated((prev) => prev + 1);
+        },
+      });
+    } catch (err: any) {
+      console.log("🚀 ~ deleteUser ~ err:", err);
+
+      alert(t("profile.generalError"));
+    }
   };
 
   const openDialogFunc = (user: User, isRole: boolean) => {
@@ -57,7 +74,7 @@ const UserManagement = () => {
       : "";
     const onConfirm = isRole
       ? () => changeRole(user._id, oppositeRole)
-      : () => void {};
+      : () => deleteUser(user._id);
 
     openDialog({
       type: "warn",
@@ -112,6 +129,7 @@ const UserManagement = () => {
                 setOpenMenuUserId(openMenuUserId === user._id ? null : user._id)
               }
               onChangeRole={() => openDialogFunc(user, true)}
+              onDeleteUser={() => openDialogFunc(user, false)}
             />
           ))}
         </div>

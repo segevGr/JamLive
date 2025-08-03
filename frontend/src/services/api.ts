@@ -11,8 +11,9 @@ export const API = {
   USERS: {
     CHANGE_INSTRUMENT: "/users/me/instrument",
     CHANGE_PASSWORD: "/users/me/password",
-    DELETE_USER: "/users/me",
+    DELETE_ME: "/users/me",
     GET_USERS_LIST: "/users",
     CHANGE_USER_ROLE: "/users/:id",
+    DELETE_USER: "/users/:id",
   },
 };

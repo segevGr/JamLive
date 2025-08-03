@@ -169,7 +169,7 @@ const Profile = () => {
       return;
     }
     try {
-      await axiosInstance.delete(API.USERS.DELETE_USER, {
+      await axiosInstance.delete(API.USERS.DELETE_ME, {
         data: { password },
       });
       closeDialog();
