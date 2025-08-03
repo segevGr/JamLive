@@ -1,5 +1,6 @@
 import { Music } from "lucide-react";
 import { Song } from "types";
+import { CardContainer } from "components";
 
 interface Props {
   song: Song;
@@ -8,9 +9,9 @@ interface Props {
 
 const SongCard = ({ song, onSelect }: Props) => {
   return (
-    <div
-      className="border border-borderCard hover:bg-hoverCard hover:shadow-md transition rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer"
+    <CardContainer
       onClick={() => onSelect(song.id)}
+      className="px-4 py-3 flex items-center justify-between"
     >
       <div className="flex items-center gap-4">
         {song.image ? (
@@ -20,7 +21,7 @@ const SongCard = ({ song, onSelect }: Props) => {
             className="w-14 h-14 rounded-lg object-cover"
           />
         ) : (
-          <div className="w-14 h-14 rounded-lg  flex items-center justify-center text-primary text-xl">
+          <div className="w-14 h-14 rounded-lg flex items-center justify-center text-primary text-xl">
             ♫
           </div>
         )}
@@ -29,7 +30,7 @@ const SongCard = ({ song, onSelect }: Props) => {
         </span>
       </div>
       <Music size={20} className="text-primary" />
-    </div>
+    </CardContainer>
   );
 };
 
