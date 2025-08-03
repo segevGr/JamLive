@@ -8,6 +8,7 @@ import {
   Req,
   Delete,
   Get,
+  Param,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserRole } from './user.schema';
@@ -144,5 +145,23 @@ export class UsersController {
   async getUsersList() {
     const usersList = await this.usersService.getUsersList();
     return { users: usersList };
+  }
+
+  @Roles(UserRole.ADMIN)
+  @Put(':id')
+  async changeUserRole(
+    @Param('id') userId: string,
+    @Body('role') newRole: UserRole,
+  ) {
+    if (!Object.values(UserRole).includes(newRole)) {
+      throw new BadRequestException('Invalid role provided');
+    }
+
+    if (this.usersService.isProtectedUser(userId)) {
+      throw new BadRequestException("This user role can't be changed");
+    }
+
+    const updatedUser = await this.usersService.changeUserRole(userId, newRole);
+    return { message: 'Role updated successfully', user: updatedUser };
   }
 }

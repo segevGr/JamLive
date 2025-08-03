@@ -14,6 +14,15 @@ import { UnauthorizedException, NotFoundException } from '@nestjs/common';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  private readonly systemUserIds = [
+    '6821a7b3c638a7c6ebc8fece',
+    '682324aafcf870ad294fc128',
+  ];
+
+  isProtectedUser(userId: string): boolean {
+    return this.systemUserIds.includes(userId);
+  }
+
   async createUser(
     userName: string,
     password: string,
@@ -84,5 +93,14 @@ export class UsersService {
 
   async getUsersList() {
     return this.userModel.find().select('-password');
+  }
+
+  async changeUserRole(userId: string, newRole: UserRole) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    if (user.role === newRole)
+      throw new BadRequestException('The new role must be different');
+    user.role = newRole;
+    return user.save();
   }
 }
