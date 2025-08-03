@@ -1,7 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ROUTES, ProtectedRoute } from "routes";
 import "./index.css";
-import { Register, Login, UserLobby, AdminLobby, Profile } from "pages";
+import {
+  Register,
+  Login,
+  UserLobby,
+  AdminLobby,
+  Profile,
+  UserManagement,
+} from "pages";
 import { AccessDenied, HomeRedirect, NotFound } from "utils";
 import { GlobalLoader } from "components";
 
@@ -35,6 +42,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin", "user"]}>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.USER_MANAGEMENT}
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <UserManagement />
             </ProtectedRoute>
           }
         />

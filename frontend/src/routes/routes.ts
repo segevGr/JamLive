@@ -7,6 +7,7 @@ const ROUTS = {
   ADMIN_LOBBY: "/admin-lobby",
   ACCESS_DENIED: "/access-denied",
   PROFILE: "/profile",
+  USER_MANAGEMENT: "/user-management",
 };
 
 export default ROUTS;

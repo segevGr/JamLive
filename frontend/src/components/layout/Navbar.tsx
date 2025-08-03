@@ -36,7 +36,7 @@ const Navbar = ({ showSwitch = false }: NavbarProps) => {
   };
 
   const isInProfilePage = location.pathname === ROUTES.PROFILE;
-  const isInManageUsers = false;
+  const isInManageUsers = location.pathname === ROUTES.USER_MANAGEMENT;
 
   const listButtons = [
     ...(isInProfilePage || isInManageUsers
@@ -73,7 +73,7 @@ const Navbar = ({ showSwitch = false }: NavbarProps) => {
             label: t("navbar.manageUsers"),
             onClick: () => {
               setOpenNavbar(false);
-              // navigate(ROUTES.MANAGE_USERS);
+              navigate(ROUTES.USER_MANAGEMENT);
             },
             icon: <Users />,
             role: ["admin"],
