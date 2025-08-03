@@ -4,16 +4,23 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  isHeader?: boolean;
 }
 
-const CardContainer = ({ children, className, onClick }: Props) => {
+const CardContainer = ({
+  children,
+  className,
+  onClick,
+  isHeader = false,
+}: Props) => {
   return (
     <div
       onClick={onClick}
       className={clsx(
-        "p-4 rounded-xl border border-borderGray bg-white shadow-sm transition",
+        "p-4 rounded-xl border border-borderGray  shadow-sm transition",
         onClick && "cursor-pointer hover:shadow-md hover:bg-hoverCard",
-        className
+        className,
+        isHeader ? "" : "bg-white"
       )}
     >
       {children}

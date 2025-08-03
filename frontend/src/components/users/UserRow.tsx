@@ -44,8 +44,9 @@ const UserRow = ({
     };
   }, [isMenuOpen, onOpenMenu]);
 
+  const COLS = "grid grid-cols-[2fr_1fr_1fr_80px] gap-x-10";
   const content = (
-    <div className="grid grid-cols-[2fr_1fr_1fr_auto] gap-x-10">
+    <div className={COLS}>
       <div className="min-w-0">
         {isHeader ? (
           <span className="text-sm text-gray-500 font-medium">
@@ -69,7 +70,11 @@ const UserRow = ({
       </div>
 
       <div className="text-sm text-gray-600 self-center">
-        {isHeader ? t("UserManagement.headers.instrument") : user!.instrument}
+        {isHeader
+          ? t("UserManagement.headers.instrument")
+          : t(`instruments.${user!.instrument}`, {
+              defaultValue: user!.instrument,
+            })}
       </div>
 
       <div className="flex relative self-center">
@@ -121,7 +126,11 @@ const UserRow = ({
     </div>
   );
 
-  return isHeader ? content : <CardContainer>{content}</CardContainer>;
+  return isHeader ? (
+    <CardContainer isHeader>{content}</CardContainer>
+  ) : (
+    <CardContainer>{content}</CardContainer>
+  );
 };
 
 export default UserRow;

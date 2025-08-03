@@ -124,9 +124,7 @@ const UserManagement = () => {
           {t("UserManagement.title")}
         </h1>
 
-        <div className="hidden sm:block">
-          <UserRow isHeader />
-        </div>
+        <UserRow isHeader />
 
         <div className="space-y-4 mt-2">
           {users.map((user) => (

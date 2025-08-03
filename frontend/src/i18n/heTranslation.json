@@ -214,7 +214,7 @@
     "deleteUser": "מחק משתמש",
     "dialogs": {
       "changeRole": {
-        "title": "האם להפוך את {{name}} ל{{role}}?",
+        "title": "האם להפוך את {{name}} ל- {{role}}?",
         "confirmAction": "שנה תפקיד",
         "successMessage": "התפקיד של {{name}} שונה בהצלחה!",
         "confirmSuccess": "חזרה לעמוד ניהול משתמשים"
