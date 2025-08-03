@@ -154,19 +154,24 @@ export class UsersController {
     @Body('role') newRole: UserRole,
     @Req() req,
   ) {
-    if (req.user.userId === userId) {
-      throw new BadRequestException("You can't changed your own role!");
-    }
+    this.usersService.validateNotSelfAction(req.user.userId, userId);
 
     if (!Object.values(UserRole).includes(newRole)) {
       throw new BadRequestException('Invalid role provided');
     }
 
-    if (this.usersService.isProtectedUser(userId)) {
-      throw new BadRequestException("This user role can't be changed");
-    }
+    this.usersService.isProtectedUser(userId);
 
     const updatedUser = await this.usersService.changeUserRole(userId, newRole);
     return { message: 'Role updated successfully', user: updatedUser };
+  }
+
+  @Roles(UserRole.ADMIN)
+  @Delete(':id')
+  async deleteUser(@Req() req, @Param('id') userId: string) {
+    this.usersService.validateNotSelfAction(req.user.userId, userId);
+    this.usersService.isProtectedUser(userId);
+    await this.usersService.deleteUser(userId);
+    return { message: 'Account deleted successfully' };
   }
 }

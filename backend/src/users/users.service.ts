@@ -19,8 +19,18 @@ export class UsersService {
     '682324aafcf870ad294fc128',
   ];
 
-  isProtectedUser(userId: string): boolean {
-    return this.systemUserIds.includes(userId);
+  isProtectedUser(userId: string): void {
+    if (this.systemUserIds.includes(userId))
+      throw new BadRequestException(
+        'You cannot perform this action on your own user',
+      );
+  }
+
+  validateNotSelfAction(targetUserId: string, currentUserId: string): void {
+    if (targetUserId === currentUserId)
+      throw new BadRequestException(
+        'You cannot perform this action on your own user',
+      );
   }
 
   async createUser(
@@ -104,5 +114,9 @@ export class UsersService {
       throw new BadRequestException('The new role must be different');
     user.role = newRole;
     return user.save();
+  }
+
+  async deleteUser(userId: string) {
+    await this.userModel.findByIdAndDelete(userId);
   }
 }
