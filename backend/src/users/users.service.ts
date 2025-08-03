@@ -91,8 +91,10 @@ export class UsersService {
     await this.userModel.findByIdAndDelete(userId);
   }
 
-  async getUsersList() {
-    return this.userModel.find().select('-password');
+  async getUsersList(userId: string) {
+    return this.userModel
+      .find({ _id: { $nin: [...this.systemUserIds, userId] } })
+      .select('-password');
   }
 
   async changeUserRole(userId: string, newRole: UserRole) {

@@ -142,8 +142,8 @@ export class UsersController {
 
   @Roles(UserRole.ADMIN)
   @Get()
-  async getUsersList() {
-    const usersList = await this.usersService.getUsersList();
+  async getUsersList(@Req() req) {
+    const usersList = await this.usersService.getUsersList(req.user.userId);
     return { users: usersList };
   }
 
@@ -152,7 +152,12 @@ export class UsersController {
   async changeUserRole(
     @Param('id') userId: string,
     @Body('role') newRole: UserRole,
+    @Req() req,
   ) {
+    if (req.user.userId === userId) {
+      throw new BadRequestException("You can't changed your own role!");
+    }
+
     if (!Object.values(UserRole).includes(newRole)) {
       throw new BadRequestException('Invalid role provided');
     }
