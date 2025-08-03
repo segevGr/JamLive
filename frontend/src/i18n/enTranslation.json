@@ -196,5 +196,19 @@
   "toggles": {
     "live": "Live",
     "browse": "Browse"
+  },
+  "UserManagement": {
+    "title": "User Management",
+    "loading": "Loading user list",
+    "headers": {
+      "userName": "Username",
+      "createdAt": "Created at:",
+      "role": "Role",
+      "instrument": "Instrument",
+      "activities": "Actions",
+      "promote": "Promote to Admin",
+      "removeAdmin": "Remove Admin Role",
+      "deleteUser": "Delete User"
+    }
   }
 }

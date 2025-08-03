@@ -197,5 +197,19 @@
   "toggles": {
     "live": "לייב",
     "browse": "ספרייה"
+  },
+  "UserManagement": {
+    "title": "ניהול משתמשים",
+    "loading": "טוען רשימת משתמשים",
+    "headers": {
+      "userName": "שם משתמש",
+      "createdAt": "נוצר בתאריך:",
+      "role": "תפקיד",
+      "instrument": "כלי נגינה",
+      "activities": "פעולות",
+      "promote": "הפוך לאדמין",
+      "removeAdmin": "הסר הרשאות אדמין",
+      "deleteUser": "מחק משתמש"
+    }
   }
 }
