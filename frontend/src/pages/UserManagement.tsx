@@ -15,7 +15,11 @@ const UserManagement = () => {
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
   const [listUpdated, setListUpdated] = useState<number>(0);
 
-  const changeRole = async (userId: string, oppositeRole: UserRole) => {
+  const changeRole = async (
+    userId: string,
+    userName: string,
+    oppositeRole: UserRole
+  ) => {
     try {
       await axiosInstance.put(
         API.USERS.CHANGE_USER_ROLE.replace(":id", userId),
@@ -26,62 +30,67 @@ const UserManagement = () => {
 
       openDialog({
         type: "success",
-        title: t("profile.dialog.title"),
-        message: t("profile.dialog.instrumentMessage"),
-        confirmLabel: t("profile.dialog.confirmLabel"),
+        message: t("UserManagement.dialogs.changeRole.successMessage", {
+          name: userName,
+        }),
+        confirmLabel: t("UserManagement.dialogs.changeRole.confirmSuccess"),
         onConfirm: () => {
           closeDialog();
           setListUpdated((prev) => prev + 1);
         },
       });
     } catch (err: any) {
-      alert(t("profile.generalError"));
+      alert(t("generalError"));
     }
   };
 
-  const deleteUser = async (userId: string) => {
+  const deleteUser = async (userId: string, userName: string) => {
     try {
       await axiosInstance.delete(API.USERS.DELETE_USER.replace(":id", userId));
 
       openDialog({
         type: "success",
-        title: t("profile.dialog.title"),
-        message: t("profile.dialog.instrumentMessage"),
-        confirmLabel: t("profile.dialog.confirmLabel"),
+        message: t("UserManagement.dialogs.deleteUser.successMessage", {
+          name: userName,
+        }),
+        confirmLabel: t("UserManagement.dialogs.deleteUser.confirmSuccess"),
         onConfirm: () => {
           closeDialog();
           setListUpdated((prev) => prev + 1);
         },
       });
     } catch (err: any) {
-      console.log("🚀 ~ deleteUser ~ err:", err);
-
-      alert(t("profile.generalError"));
+      alert(t("generalError"));
     }
   };
 
   const openDialogFunc = (user: User, isRole: boolean) => {
-    const oppositeRole: UserRole = user.role === "admin" ? "user" : "admin";
-    const title = isRole
-      ? t("UserManagement.changeRole.dialog.title", {
-          name: user.userName,
+    const { userName, _id: userId, role } = user;
+
+    if (isRole) {
+      const oppositeRole: UserRole = role === "admin" ? "user" : "admin";
+
+      openDialog({
+        type: "warn",
+        title: t("UserManagement.dialogs.changeRole.title", {
+          name: userName,
           role: oppositeRole,
-        })
-      : "";
-    const message = isRole ? "" : t("navbar.logoutMessage");
-    const confirmLabel = isRole
-      ? t("UserManagement.changeRole.dialog.confirm")
-      : "";
-    const onConfirm = isRole
-      ? () => changeRole(user._id, oppositeRole)
-      : () => deleteUser(user._id);
+        }),
+        confirmLabel: t("UserManagement.dialogs.changeRole.confirmAction"),
+        onConfirm: () => changeRole(userId, userName, oppositeRole),
+        onClose: closeDialog,
+      });
+      return;
+    }
 
     openDialog({
       type: "warn",
-      title,
-      message,
-      confirmLabel,
-      onConfirm,
+      title: t("UserManagement.dialogs.deleteUser.title", {
+        name: userName,
+      }),
+      message: t("UserManagement.dialogs.deleteUser.actionMessage"),
+      confirmLabel: t("UserManagement.dialogs.deleteUser.confirmAction"),
+      onConfirm: () => deleteUser(userId, userName),
       onClose: closeDialog,
     });
   };

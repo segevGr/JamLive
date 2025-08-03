@@ -199,18 +199,34 @@
     "browse": "ספרייה"
   },
   "UserManagement": {
-    "title": "ניהול משתמשים",
-    "loading": "טוען רשימת משתמשים",
-    "errorFetch": "שגיאה בטעינת משתמשים",
-    "promote": "הפוך לאדמין",
-    "removeAdmin": "הסר הרשאות אדמין",
-    "deleteUser": "מחק משתמש",
     "headers": {
       "userName": "שם משתמש",
       "createdAt": "נוצר בתאריך: ",
       "role": "תפקיד",
       "instrument": "כלי נגינה",
       "activities": "פעולות"
+    },
+    "title": "ניהול משתמשים",
+    "loading": "טוען רשימת משתמשים",
+    "errorFetch": "שגיאה בטעינת משתמשים",
+    "promote": "הפוך לאדמין",
+    "removeAdmin": "הסר הרשאות אדמין",
+    "deleteUser": "מחק משתמש",
+    "dialogs": {
+      "changeRole": {
+        "title": "האם להפוך את {{name}} ל{{role}}?",
+        "confirmAction": "שנה תפקיד",
+        "successMessage": "התפקיד של {{name}} שונה בהצלחה!",
+        "confirmSuccess": "חזרה לעמוד ניהול משתמשים"
+      },
+      "deleteUser": {
+        "title": "האם למחוק את {{name}}?",
+        "actionMessage": "פעולה זו בלתי הפיכה ולא ניתנת לשחזור!",
+        "confirmAction": "מחק משתמש",
+        "successMessage": "המשתמש {{name}} נמחק בהצלחה!",
+        "confirmSuccess": "חזרה לעמוד ניהול משתמשים"
+      }
     }
-  }
+  },
+  "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
 }

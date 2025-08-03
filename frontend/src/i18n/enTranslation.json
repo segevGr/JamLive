@@ -211,11 +211,21 @@
     "promote": "Promote to Admin",
     "removeAdmin": "Remove Admin Role",
     "deleteUser": "Delete User",
-    "changeRole": {
-      "dialog": {
-        "title": "האם להפוך את {{name}} ל{{role}}?",
-        "confirm": "Yes"
+    "dialogs": {
+      "changeRole": {
+        "title": "Do you want to change {{name}}'s role to {{role}}?",
+        "confirmAction": "Change Role",
+        "successMessage": "{{name}}'s role was changed successfully!",
+        "confirmSuccess": "Back to User Management"
+      },
+      "deleteUser": {
+        "title": "Do you want to delete {{name}}?",
+        "actionMessage": "This action is irreversible and cannot be undone!",
+        "confirmAction": "Delete User",
+        "successMessage": "{{name}} was deleted successfully!",
+        "confirmSuccess": "Back to User Management"
       }
     }
-  }
+  },
+  "generalError": "Something went wrong\nPlease try again later"
 }
