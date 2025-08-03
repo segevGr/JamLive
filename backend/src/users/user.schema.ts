@@ -13,10 +13,10 @@ export enum UserRole {
 export class User {
   _id: Types.ObjectId;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true, unique: true, minlength: 4, maxlength: 20 })
   userName: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, minlength: 4, maxlength: 100 })
   password: string;
 
   @Prop({ enum: UserRole, default: UserRole.USER })

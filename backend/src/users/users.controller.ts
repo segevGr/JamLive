@@ -143,6 +143,6 @@ export class UsersController {
   @Get()
   async getUsersList() {
     const usersList = await this.usersService.getUsersList();
-    return { 'Users list': usersList };
+    return { users: usersList };
   }
 }
