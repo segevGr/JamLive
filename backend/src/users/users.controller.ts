@@ -7,6 +7,7 @@ import {
   Put,
   Req,
   Delete,
+  Get,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserRole } from './user.schema';
@@ -15,6 +16,7 @@ import { validateFields } from '../utils/validateFields';
 import { Public } from 'src/common/decorators/public.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { AuthService } from 'src/auth/auth.service';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -135,5 +137,12 @@ export class UsersController {
 
     await this.usersService.deleteAccount(req.user.userId, body.password);
     return { message: 'Account deleted successfully' };
+  }
+
+  @Roles(UserRole.ADMIN)
+  @Get()
+  async getUsersList() {
+    const usersList = await this.usersService.getUsersList();
+    return { 'Users list': usersList };
   }
 }

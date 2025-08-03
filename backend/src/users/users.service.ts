@@ -81,4 +81,8 @@ export class UsersService {
 
     await this.userModel.findByIdAndDelete(userId);
   }
+
+  async getUsersList() {
+    return this.userModel.find().select('-password');
+  }
 }
