@@ -16,7 +16,7 @@ import {
 } from "store";
 import { ROUTES } from "routes";
 import { useAuthForm, usePageTitle, useModal, useLanguage } from "hooks";
-import { validateInstrument, validatePasswordChange } from "utils";
+import { validation } from "utils";
 import { API, axiosInstance } from "services";
 import { instruments, Instrument } from "types";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,7 @@ const SectionBorder = ({
 
 const Profile = () => {
   const { t } = useTranslation();
+  const { validateInstrument, validatePasswordChange } = validation(t);
   usePageTitle(t("profile.pageTitle"));
 
   const navigate = useNavigate();

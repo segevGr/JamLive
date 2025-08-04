@@ -10,7 +10,7 @@ import {
 } from "components";
 import { API, axiosInstance } from "services";
 import { useAuthForm, useModal, usePageTitle } from "hooks";
-import { validateLoginForm } from "utils/validation";
+import { validation } from "utils";
 import { ROUTES } from "routes";
 import { useTranslation } from "react-i18next";
 import { isRtl } from "i18n/getDirection";
@@ -19,6 +19,7 @@ import clsx from "clsx";
 const Login = () => {
   const { t } = useTranslation();
   usePageTitle(t("login.pageTitle"));
+  const { validateLoginForm } = validation(t);
   const [isHelpOpen, openHelp, closeHelp, helpData] = useModal();
 
   const dispatch = useAppDispatch();

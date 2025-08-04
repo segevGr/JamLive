@@ -225,5 +225,17 @@
       }
     }
   },
-  "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+  "generalError": "משהו השתבש\nנסה שוב מאוחר יותר",
+  "errors": {
+    "formErrors": {
+      "required": "{{field}} הוא שדה חובה",
+      "minLength": "{{field}} חייב להיות פחות מ- {{min}} תווים",
+      "maxLength": "{{field}} חייב להיות יותר מ- {{max}} תווים"
+    },
+    "fields": {
+      "username": "שם משתמש",
+      "password": "סיסמה",
+      "instrument": "כלי נגינה"
+    }
+  }
 }

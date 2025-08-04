@@ -224,5 +224,17 @@
       }
     }
   },
-  "generalError": "Something went wrong\nPlease try again later"
+  "generalError": "Something went wrong\nPlease try again later",
+  "errors": {
+    "formErrors": {
+      "required": "{{field}} is required",
+      "minLength": "{{field}} must be at least {{min}} characters",
+      "maxLength": "{{field}} must be less than {{max}} characters"
+    },
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "instrument": "Instrument"
+    }
+  }
 }

@@ -8,7 +8,7 @@ import {
 } from "components";
 import { API, axiosInstance } from "services";
 import { useAuthForm, usePageTitle, useModal } from "hooks";
-import { validateRegisterForm } from "utils";
+import { validation } from "utils";
 import { ROUTES } from "routes";
 import { instruments } from "types";
 import { useTranslation } from "react-i18next";
@@ -19,6 +19,8 @@ interface Props {
 
 const Register = ({ isAdmin = false }: Props) => {
   const { t } = useTranslation();
+  const { validateRegisterForm } = validation(t);
+
   usePageTitle(t("register.pageTitle"));
   const navigate = useNavigate();
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
