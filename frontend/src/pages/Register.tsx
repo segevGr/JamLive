@@ -72,7 +72,7 @@ const Register = ({ isAdmin = false }: Props) => {
           userName: t("register.userExistsError"),
         });
       } else {
-        alert(t("register.generalError"));
+        alert(t("generalError"));
       }
     }
   };

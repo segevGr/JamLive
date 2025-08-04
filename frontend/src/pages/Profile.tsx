@@ -102,7 +102,7 @@ const Profile = () => {
           instrument: t("profile.sameInstrumentError"),
         });
       } else {
-        alert(t("profile.generalError"));
+        alert(t("generalError"));
       }
     }
   };
@@ -138,7 +138,7 @@ const Profile = () => {
           currentPassword: t("profile.currentPasswordIncorrect"),
         });
       } else {
-        alert(t("profile.generalError"));
+        alert(t("generalError"));
       }
     }
   };
@@ -190,7 +190,7 @@ const Profile = () => {
           deletePassword: t("profile.incorrectPassword"),
         });
       } else {
-        alert(t("profile.generalError"));
+        alert(t("generalError"));
       }
     }
   };

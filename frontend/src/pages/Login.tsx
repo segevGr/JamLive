@@ -68,7 +68,7 @@ const Login = () => {
           password: t("login.invalidCredentials"),
         });
       } else {
-        alert(t("login.generalError"));
+        alert(t("generalError"));
       }
     }
   };

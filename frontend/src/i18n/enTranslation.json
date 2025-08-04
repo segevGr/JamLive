@@ -47,7 +47,6 @@
     "passwordLabel": "Enter your Password*",
     "passwordPlaceholder": "Password",
     "invalidCredentials": "Incorrect username or password, please try again",
-    "generalError": "Something went wrong\nPlease try again later",
     "dialog": {
       "button": "Need help?",
       "title": "Welcome to JamLive!",
@@ -72,8 +71,7 @@
     "successTitle": "Registered Successfully!",
     "successMessage": "Welcome to the JamLive Family. You can now log in.",
     "successConfirm": "Go to Login",
-    "userExistsError": "Username already exists, please choose another username",
-    "generalError": "Something went wrong\nPlease try again later"
+    "userExistsError": "Username already exists, please choose another username"
   },
   "profile": {
     "pageTitle": "Profile",
@@ -132,8 +130,7 @@
       "title": "Goodbye!",
       "message": "Your user has been successfully deleted. We hope you will be back soon!",
       "confirmLabel": "End session"
-    },
-    "generalError": "Something went wrong\nPlease try again later"
+    }
   },
   "AdminLobby": {
     "pageTitle": "Admin Lobby"

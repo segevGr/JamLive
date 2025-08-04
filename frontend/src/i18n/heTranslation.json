@@ -48,7 +48,6 @@
     "passwordLabel": "סיסמה*",
     "passwordPlaceholder": "סיסמה",
     "invalidCredentials": "שם משתמש או סיסמה שגויים, נסה שוב",
-    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר",
     "dialog": {
       "button": "צריך עזרה?",
       "title": "ברוך הבא ל- JamLive!",
@@ -73,8 +72,7 @@
     "successTitle": "נרשמת בהצלחה!",
     "successMessage": "ברוך הבא למשפחת JamLive. כעת תוכל להתחבר.",
     "successConfirm": "עבור להתחברות",
-    "userExistsError": "שם המשתמש כבר קיים, נסה שם אחר",
-    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+    "userExistsError": "שם המשתמש כבר קיים, נסה שם אחר"
   },
   "profile": {
     "pageTitle": "פרופיל",
@@ -133,8 +131,7 @@
       "title": "להתראות!",
       "message": "החשבון נמחק בהצלחה. נשמח לראותך שוב!",
       "confirmLabel": "סיים סשן"
-    },
-    "generalError": "משהו השתבש\nנסה שוב מאוחר יותר"
+    }
   },
   "AdminLobby": {
     "pageTitle": "דף הבית של האדמין"
