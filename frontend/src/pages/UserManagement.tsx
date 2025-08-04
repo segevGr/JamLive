@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navbar, Dialog, UserRow, LoadingSpinner } from "components";
+import { Navbar, Dialog, UserRow } from "components";
 import { API, axiosInstance } from "services";
 import { useModal, usePageTitle } from "hooks";
 import { User, UserRole } from "types";
@@ -10,7 +10,6 @@ const UserManagement = () => {
   usePageTitle(t("UserManagement.title"));
 
   const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [openMenuUserId, setOpenMenuUserId] = useState<string | null>(null);
   const [isDialogOpen, openDialog, closeDialog, dialogData] = useModal();
   const [listUpdated, setListUpdated] = useState<number>(0);
@@ -98,23 +97,17 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setIsLoading(true);
         const res = await axiosInstance.get<{ users: User[] }>(
           API.USERS.GET_USERS_LIST
         );
         setUsers(res.data.users);
       } catch (err) {
         console.error(t("UserManagement.errorFetch"), err);
-      } finally {
-        setIsLoading(false);
       }
     };
 
     fetchUsers();
   }, [t, listUpdated]);
-
-  if (isLoading)
-    return <LoadingSpinner size="lg" text={t("UserManagement.loading")} />;
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
