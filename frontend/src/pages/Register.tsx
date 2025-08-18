@@ -13,11 +13,7 @@ import { ROUTES } from "routes";
 import { instruments } from "types";
 import { useTranslation } from "react-i18next";
 
-interface Props {
-  isAdmin?: boolean;
-}
-
-const Register = ({ isAdmin = false }: Props) => {
+const Register = () => {
   const { t } = useTranslation();
   const { validateRegisterForm } = validation(t);
 
@@ -54,9 +50,7 @@ const Register = ({ isAdmin = false }: Props) => {
         userName: form.userName.toLowerCase(),
       };
 
-      isAdmin
-        ? await axiosInstance.post(API.AUTH.SIGNUP_ADMIN, formToSend)
-        : await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
+      await axiosInstance.post(API.AUTH.SIGNUP, formToSend);
 
       openDialog({
         type: "success",
@@ -86,7 +80,6 @@ const Register = ({ isAdmin = false }: Props) => {
         title={t("register.title")}
         subtitle={t("register.subtitle")}
         imageSrc="/register-img.png"
-        isAdmin={isAdmin}
         bottomText={t("register.bottomText")}
         bottomLinkText={t("register.bottomLinkText")}
         onBottomLinkClick={() => navigate(ROUTES.LOGIN)}

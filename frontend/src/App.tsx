@@ -19,7 +19,6 @@ function App() {
       <Routes>
         <Route path={ROUTES.HOME} element={<HomeRedirect />} />
         <Route path={ROUTES.REGISTER} element={<Register />} />
-        <Route path={ROUTES.REGISTER_ADMIN} element={<Register isAdmin />} />
         <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route
           path={ROUTES.USER_LOBBY}

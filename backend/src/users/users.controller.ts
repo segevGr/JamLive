@@ -49,29 +49,6 @@ export class UsersController {
     return { message: 'User created successfully', userId: user._id };
   }
 
-  @Public()
-  @Post('signup-admin')
-  async signupAdmin(
-    @Body() body: { userName: string; password: string; instrument: string },
-  ) {
-    const error = validateFields(body, ['userName', 'password', 'instrument']);
-    if (error) {
-      throw new BadRequestException(error);
-    }
-
-    if (!instruments.includes(body.instrument as Instrument)) {
-      throw new BadRequestException('Invalid instrument value');
-    }
-
-    const user = await this.usersService.createUser(
-      body.userName,
-      body.password,
-      UserRole.ADMIN,
-      body.instrument as Instrument,
-    );
-    return { message: 'Admin created successfully', userId: user._id };
-  }
-
   @UseGuards(JwtAuthGuard)
   @Put('me/instrument')
   async updateInstrument(@Req() req, @Body() body: { instrument: Instrument }) {

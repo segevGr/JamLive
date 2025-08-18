@@ -9,10 +9,10 @@ JamLive is a full-stack web application that enables musicians to join live rehe
 
 ## 🚪 Signup Routes
 
-| Role  | Path              | Notes                      |
-| ----- | ----------------- | -------------------------- |
-| Admin | `/register-admin` | Registers a new admin user |
-| User  | `/register`       | Registers a regular user   |
+| Role  | Path               | Notes                           |
+| ----- | ------------------ | ------------------------------- |
+| Admin | `/user-management` | Promoting a user to admin level |
+| User  | `/register`        | Registers a regular user        |
 
 ## 👤 Test Users
 
@@ -150,7 +150,7 @@ You can test the backend API using the Postman collection provided in this repos
 
 The collection includes all available endpoints:
 
-- Signup (user & admin)
+- Signup
 - Login
 - Song search
 - Auth-protected routes
@@ -159,7 +159,7 @@ The collection includes all available endpoints:
 
 ## 📸 Screenshots
 
-### 🔐 Register Page (Admin/User)
+### 🔐 Register Page
 
 ![Register](./screenshots/register.png)
 

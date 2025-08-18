@@ -7,7 +7,6 @@ interface FormPageLayoutProps {
   subtitle: string;
   children: React.ReactNode;
   imageSrc?: string;
-  isAdmin?: boolean;
   bottomText?: string;
   bottomLinkText?: string;
   onBottomLinkClick?: () => void;
@@ -18,7 +17,6 @@ const FormPageLayout = ({
   subtitle,
   children,
   imageSrc,
-  isAdmin = false,
   bottomText = " ",
   bottomLinkText,
   onBottomLinkClick,
@@ -36,11 +34,6 @@ const FormPageLayout = ({
         >
           <div className="flex flex-col self-start md:self-center md:ml-0">
             <h1 className="text-xl md:text-3xl text-accent mb-2">{subtitle}</h1>
-            {isAdmin && (
-              <p className="text-sm text-primary font-medium uppercase tracking-wide">
-                {t("register.admin-register")}
-              </p>
-            )}
             <h2 className="text-5xl md:text-7xl font-semibold text-primary mb-10">
               {title}
             </h2>
