@@ -1,5 +1,4 @@
 import { FooterLogos } from "components";
-import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 interface FormPageLayoutProps {
@@ -21,8 +20,6 @@ const FormPageLayout = ({
   bottomLinkText,
   onBottomLinkClick,
 }: FormPageLayoutProps) => {
-  const { t } = useTranslation();
-
   return (
     <div className="min-h-[100dvh] flex flex-col md:flex-row font-sans bg-background">
       <div className="w-full flex-1 md:w-1/2 flex flex-col md:justify-center items-center">
