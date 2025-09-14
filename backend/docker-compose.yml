@@ -1,8 +1,0 @@
-services:
-  backend:
-    build: .
-    container_name: jamlive-backend
-    ports:
-      - '${PORT}:${PORT}'
-    env_file:
-      - .env

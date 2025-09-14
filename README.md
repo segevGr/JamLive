@@ -117,7 +117,6 @@ You need to configure two `.env` files — one for the **frontend** and one for 
 
 ```env
 REACT_APP_BASE_URL=http://localhost:8000
-REACT_APP_SOCKET_URL=http://localhost:8000
 ```
 
 This sets the base URL for API requests during development.

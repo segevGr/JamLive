@@ -1,2 +1,32 @@
+# Node modules
 node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
 dist
+.tmp
+.cache
+
+# System / IDE
+.DS_Store
+.idea
+.vscode
+*.swp
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose*.yml
+
+# Logs
+logs
+*.log
