@@ -1,0 +1,48 @@
+name: jamlive-ci
+
+on:
+  push:
+    branches: ["master"]
+    paths-ignore:
+      - "README.md"
+  workflow_dispatch:
+
+jobs:
+  build_and_unit_tests:
+    runs-on: ubuntu-latest
+    name: Build and Unit Tests (${{ matrix.project }})
+    strategy:
+      matrix:
+        project: [frontend, backend]
+    defaults:
+      run:
+        working-directory: ${{ matrix.project }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.10
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Tests
+        run: npm test
+
+  # package_e2e_tests_and_deploy:
+    runs-on: ubuntu-latests
+    name: Package E2E Tests and Deploy
+    need: build_and_unit_tests
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - Run Docker Compose
+        run: docker compose up --build -d
