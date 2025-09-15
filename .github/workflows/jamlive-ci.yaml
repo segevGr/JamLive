@@ -60,8 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Package E2E Tests and Deploy
     needs: build_and_unit_tests
-  if: ${{ success() }}
-  
+    if: ${{ success() }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
