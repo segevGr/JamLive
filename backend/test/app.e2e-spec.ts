@@ -1,43 +1,36 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { AppModule } from '../src/app.module';
 
-describe('App e2e basic checks', () => {
-  let app: INestApplication;
+const BASE_URL = process.env.E2E_BASE_URL || 'http://localhost:8000';
 
-  beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+describe('App E2E (black-box)', () => {
+  let token: string;
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+  it('/users/signup → creates a user', async () => {
+    const res = await request(BASE_URL)
+      .post('/users/signup')
+      .send({ userName: 'tester', password: '1234', instrument: 'Guitar' })
+      .expect(201);
+    expect(res.body).toHaveProperty('userId');
   });
 
-  afterAll(async () => {
-    await app.close();
+  it('/auth/login → returns token', async () => {
+    const res = await request(BASE_URL)
+      .post('/auth/login')
+      .send({ userName: 'tester', password: '1234' })
+      .expect(200);
+    token = res.body.token;
+    expect(token).toBeTruthy();
   });
 
-  it('GET /users → should return 401 when not authenticated', async () => {
-    await request(app.getHttpServer()).get('/users').expect(401);
+  it('/songs/search → returns array with auth', async () => {
+    const res = await request(BASE_URL)
+      .get('/songs/search')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+    expect(Array.isArray(res.body)).toBe(true);
   });
 
-  it('GET /some-random → should return 404 for unknown route', async () => {
-    await request(app.getHttpServer()).get('/some-random').expect(404);
-  });
-
-  it('AppModule should be defined', async () => {
-    expect(AppModule).toBeDefined();
-  });
-
-  it('Nest application should be initialized', async () => {
-    expect(app).toBeDefined();
-    expect(app.getHttpServer).toBeDefined();
-  });
-
-  it('GET /users → should return 401 and an error message', async () => {
-    const res = await request(app.getHttpServer()).get('/users').expect(401);
-    expect(res.body).toBeDefined();
+  it('/songs/search → 401 without token', async () => {
+    await request(BASE_URL).get('/songs/search').expect(401);
   });
 });
