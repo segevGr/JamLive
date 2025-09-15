@@ -10,6 +10,7 @@ frontend_build/
 **/.env
 **/.env.local
 **/.env.*.local
+.secrets
 
 # System
 .DS_Store

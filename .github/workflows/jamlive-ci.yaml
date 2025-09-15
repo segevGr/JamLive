@@ -69,5 +69,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_REGIONS }}
 
+      - name: List frontend build contents
+        run: ls -la ./frontend_build
+
       - name: Deploy Frontend to S3
         run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET }} --delete
