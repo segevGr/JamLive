@@ -35,14 +35,30 @@ jobs:
       - name: Tests
         run: npm test
 
-  # package_e2e_tests_and_deploy:
-  #   runs-on: ubuntu-latests
-  #   name: Package E2E Tests and Deploy
-  #   need: build_and_unit_tests
+  package_e2e_tests_and_deploy:
+    runs-on: ubuntu-latest
+    name: Package E2E Tests and Deploy
+    needs: build_and_unit_tests
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - Run Docker Compose
-  #       run: docker compose up --build -d
+      - name: Run Docker Compose
+        run: docker compose up --build -d
+
+      # - name: Backend E2E Testing
+      #   working-directory: backend
+      #   run: npm run test:e2e
+
+      ########### TBD - E2E TESTING ###########
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ${{ secrets.REGION }}
+
+      - name: Deploy Frontend to S3
+        run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET }} --delete

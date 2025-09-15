@@ -4,11 +4,15 @@ services:
     build:
       context: ./frontend
     ports:
-      - "80:80"
+      - "80:3000"
     env_file:
       - ./frontend/.env
     networks:
       - jamLive
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend_build:/app/build
 
   backend:
     image: jamlive-back:test
