@@ -13,10 +13,12 @@ jobs:
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Detect file changes
         id: filter
         uses: dorny/paths-filter@v3
@@ -103,3 +105,9 @@ jobs:
 
       - name: Deploy Frontend to S3
         run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET }} --delete
+
+      - name: CloudFront Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
+            --paths "/index.html"

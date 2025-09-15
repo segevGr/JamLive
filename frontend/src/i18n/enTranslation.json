@@ -63,7 +63,7 @@
     "bottomLinkText": "Log In",
     "buttonText": "Register",
     "usernameLabel": "Username*",
-    "usernamePlaceholder": "Select your username",
+    "usernamePlaceholder": "Enter your username",
     "instrumentLabel": "Your instrument*",
     "instrumentPlaceholder": "Select your instrument",
     "passwordLabel": "Create password*",
