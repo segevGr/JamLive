@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Package E2E Tests and Deploy
     needs: build_and_unit_tests
-    if: ${{ success() }}
+    if: ${{ success() || needs.build_and_unit_tests.result == 'skipped' }}
 
     steps:
       - name: Checkout
