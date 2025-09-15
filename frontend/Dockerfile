@@ -7,3 +7,5 @@ RUN npm ci
 
 COPY . .
 RUN npm run build
+
+CMD ["tail", "-f", "/dev/null"]
