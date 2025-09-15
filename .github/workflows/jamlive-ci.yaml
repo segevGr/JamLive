@@ -91,6 +91,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_REGIONS }}
 
+      - name: Export frontend build
+        run: |
+          container_id=$(docker ps -qf "ancestor=jamlive-front:test")
+          echo "Frontend container: $container_id"
+          docker cp $container_id:/app/build ./frontend_build
+          ls -la ./frontend_build
+
       - name: List frontend build contents
         run: ls -la ./frontend_build
 
