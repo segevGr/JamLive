@@ -6,6 +6,5 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
 RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["sh", "-c", "npm run build && serve -s build -l 3000"]
