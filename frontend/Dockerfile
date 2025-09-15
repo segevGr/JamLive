@@ -7,4 +7,4 @@ RUN npm ci
 
 COPY . .
 RUN npm install -g serve
-CMD ["sh", "-c", "npm run build && serve -s build -l 3000"]
+CMD ["sh", "-c", "npm run build && cp -r build/* /app/build && serve -s /app/build -l 3000"]
