@@ -11,9 +11,6 @@ services:
       - jamLive
     depends_on:
       - backend
-    volumes:
-      - ./frontend_build:/app/build
-
   backend:
     image: jamlive-back:test
     build:
