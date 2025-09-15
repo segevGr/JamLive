@@ -6,4 +6,6 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-ENTRYPOINT ["npm", "run", "build"]
+RUN npm run build
+RUN npm install -g serve
+CMD ["serve", "-s", "build", "-l", "3000"]
