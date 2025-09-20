@@ -88,8 +88,9 @@ jobs:
           path: ./frontend_build
 
   deploy_frontend:
-    needs: package_e2e_tests_and_publish
     name: Deploy Frontend
+    needs: package_e2e_tests_and_publish
+    if: ${{ always() && needs.package_e2e_tests_and_publish.result == 'success' }}
     uses: ./.github/workflows/frontend-cd.yaml
     with:
       artifact: frontend_build
