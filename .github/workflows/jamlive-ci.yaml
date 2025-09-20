@@ -29,40 +29,29 @@ jobs:
             backend:
               - 'backend/src/**'
 
-  build_and_unit_tests:
-    runs-on: ubuntu-latest
-    name: Build and Unit Tests (${{ matrix.project }})
+  frontend_build_and_test:
     needs: detect_changes
-    if: ${{ needs.detect_changes.outputs.frontend == 'true' || needs.detect_changes.outputs.backend == 'true' }}
-    strategy:
-      matrix:
-        project: [frontend, backend]
-    defaults:
-      run:
-        working-directory: ${{ matrix.project }}
+    name: Frontend Build & Test
+    if: ${{ needs.detect_changes.outputs.frontend == 'true' }}
+    uses: ./.github/workflows/build-and-unit-test.yaml
+    with:
+      project: frontend
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  backend_build_and_test:
+    needs: detect_changes
+    name: Backend Build & Test
+    if: ${{ needs.detect_changes.outputs.backend == 'true' }}
+    uses: ./.github/workflows/build-and-unit-test.yaml
+    with:
+      project: backend
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.10
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Tests
-        run: npm test
-
-  package_e2e_tests_and_deploy:
+  package_e2e_tests_and_publish:
     runs-on: ubuntu-latest
-    name: Package E2E Tests and Deploy
-    needs: build_and_unit_tests
-    if: ${{ success() || needs.build_and_unit_tests.result == 'skipped' }}
+    name: Package E2E Tests and Publish
+    needs: [frontend_build_and_test, backend_build_and_test]
+    if: >
+      contains(fromJSON('["success","skipped"]'), needs.frontend_build_and_test.result) &&
+      contains(fromJSON('["success","skipped"]'), needs.backend_build_and_test.result)
 
     steps:
       - name: Checkout
@@ -86,28 +75,20 @@ jobs:
 
       ########### TBD - E2E TESTING ###########
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ${{ secrets.AWS_REGIONS }}
-
       - name: Export frontend build
         run: |
           container_id=$(docker ps -qf "ancestor=jamlive-front:test")
-          echo "Frontend container: $container_id"
           docker cp $container_id:/app/build ./frontend_build
-          ls -la ./frontend_build
 
-      - name: List frontend build contents
-        run: ls -la ./frontend_build
+      - name: Publish frontend build as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend_build
+          path: ./frontend_build
 
-      - name: Deploy Frontend to S3
-        run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET }} --delete
-
-      - name: CloudFront Invalidation
-        run: |
-          aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
-            --paths "/index.html"
+  deploy_frontend:
+    needs: package_e2e_tests_and_publish
+    name: Deploy Frontend
+    uses: ./.github/workflows/frontend-cd.yaml
+    with:
+      artifact: frontend_build

@@ -1,0 +1,31 @@
+name: frontend-cd
+
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        required: true
+        type: string
+
+jobs:
+  frontend_cd:
+    runs-on: ubuntu-latest
+    name: Frontend CD
+
+    steps:
+      - name: Configure AWS
+        uses: ./.github/actions/configure-aws
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact }}
+          path: ./frontend_build
+
+      - name: Deploy Frontend to S3
+        run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET }} --delete
+
+      - name: CloudFront Invalidation
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
+            --paths "/index.html"
