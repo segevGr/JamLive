@@ -11,20 +11,19 @@ on:
         type: string
 
 jobs:
+  always_success:
+    runs-on: ubuntu-latest
+    - name: Mark workflow as success when no changes
+    run: echo "This job ensures workflow never ends as skipped."
+
   build_and_test:
     runs-on: ubuntu-latest
+    if: ${{ inputs.should_run == 'true' }}
     defaults:
       run:
         working-directory: ${{ inputs.project }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Exit early if no changes
-        run: |
-          if [ "${{ inputs.should_run }}" != "true" ]; then
-            echo "No changes detected for ${{ inputs.project }}, exiting job successfully."
-            exit 0
-          fi
 
       - uses: actions/setup-node@v4
         with:
