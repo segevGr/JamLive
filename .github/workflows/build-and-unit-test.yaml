@@ -6,6 +6,9 @@ on:
       project:
         required: true
         type: string
+      should_run:
+        required: true
+        type: string
 
 jobs:
   build_and_test:
@@ -15,6 +18,14 @@ jobs:
         working-directory: ${{ inputs.project }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Exit early if no changes
+        run: |
+          if [ "${{ inputs.should_run }}" != "true" ]; then
+            echo "No changes detected for ${{ inputs.project }}, exiting job successfully."
+            exit 0
+          fi
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20.10

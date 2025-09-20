@@ -32,27 +32,23 @@ jobs:
   frontend_build_and_test:
     needs: detect_changes
     name: Frontend Build & Test
-    if: ${{ needs.detect_changes.outputs.frontend == 'true' }}
     uses: ./.github/workflows/build-and-unit-test.yaml
     with:
       project: frontend
+      should_run: ${{ needs.detect_changes.outputs.frontend }}
 
   backend_build_and_test:
     needs: detect_changes
     name: Backend Build & Test
-    if: ${{ needs.detect_changes.outputs.backend == 'true' }}
     uses: ./.github/workflows/build-and-unit-test.yaml
     with:
       project: backend
+      should_run: ${{ needs.detect_changes.outputs.backend }}
 
   package_e2e_tests_and_publish:
     runs-on: ubuntu-latest
     name: Package E2E Tests and Publish
-    needs: [detect_changes, frontend_build_and_test, backend_build_and_test]
-    if: >
-      always() &&
-      needs.frontend_build_and_test.result != 'failure' &&
-      needs.backend_build_and_test.result != 'failure'
+    needs: [frontend_build_and_test, backend_build_and_test]
 
     steps:
       - name: Checkout
@@ -90,7 +86,6 @@ jobs:
   deploy_frontend:
     name: Deploy Frontend
     needs: package_e2e_tests_and_publish
-    if: ${{ always() && needs.package_e2e_tests_and_publish.result == 'success' }}
     uses: ./.github/workflows/frontend-cd.yaml
     with:
       artifact: frontend_build
