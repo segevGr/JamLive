@@ -49,9 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Package E2E Tests and Publish
     needs: [frontend_build_and_test, backend_build_and_test]
-    if: >
-      needs.frontend_build_and_test.result != 'failure' &&
-      needs.backend_build_and_test.result != 'failure'
 
     steps:
       - name: Checkout
