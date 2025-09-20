@@ -15,21 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug AWS region secret
-        run: |
-          if [ -z "${{ secrets.AWS_REGIONS }}" ]; then
-            echo "❌ AWS_REGIONS is EMPTY"
-            exit 1
-          else
-            echo "✅ AWS_REGIONS is set"
-          fi
-
       - name: Configure AWS
         uses: ./.github/actions/configure-aws
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          aws_region: ${{ secrets.AWS_REGIONS }}
+          aws_region: ${{ secrets.AWS_REGION }}
 
       - uses: actions/download-artifact@v4
         with:

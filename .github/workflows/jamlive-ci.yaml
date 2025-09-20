@@ -87,5 +87,6 @@ jobs:
     name: Deploy Frontend
     needs: package_e2e_tests_and_publish
     uses: ./.github/workflows/frontend-cd.yaml
+    secrets: inherit
     with:
       artifact: frontend_build
