@@ -50,8 +50,8 @@ jobs:
     name: Package E2E Tests and Publish
     needs: [frontend_build_and_test, backend_build_and_test]
     if: >
-      contains(fromJSON('["success","skipped"]'), needs.frontend_build_and_test.result) &&
-      contains(fromJSON('["success","skipped"]'), needs.backend_build_and_test.result)
+      (needs.frontend_build_and_test.result == 'success' || needs.frontend_build_and_test.result == null) &&
+      (needs.backend_build_and_test.result == 'success' || needs.backend_build_and_test.result == null)
 
     steps:
       - name: Checkout
