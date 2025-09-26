@@ -7,6 +7,9 @@ on:
         required: true
         type: string
 
+permissions:
+  id-token: write
+
 jobs:
   frontend_cd:
     runs-on: ubuntu-latest
@@ -18,8 +21,7 @@ jobs:
       - name: Configure AWS
         uses: ./.github/actions/configure-aws
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          aws_role_arn: ${{ secrets.FRONTEND_ROLE_ARN }}
           aws_region: ${{ secrets.AWS_REGION }}
 
       - uses: actions/download-artifact@v4
