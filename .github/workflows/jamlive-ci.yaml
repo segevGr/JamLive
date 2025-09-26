@@ -88,5 +88,7 @@ jobs:
     needs: package_e2e_tests_and_publish
     uses: ./.github/workflows/frontend-cd.yaml
     secrets: inherit
+    permissions:
+      id-token: write
     with:
       artifact: frontend_build
