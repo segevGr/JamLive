@@ -7,6 +7,9 @@ on:
       - "README.md"
   workflow_dispatch:
 
+permissions:
+  id-token: write
+
 jobs:
   detect_changes:
     runs-on: ubuntu-latest
