@@ -72,12 +72,24 @@ jobs:
 
       ########### TBD - E2E TESTING ###########
 
-      - name: Export frontend build
+      - name: Configure AWS
+        uses: ./.github/actions/configure-aws
+        with:
+          aws_role_arn: ${{ secrets.ECR_PERMISSION_ROLE }}
+          aws_region: ${{ secrets.AWS_REGION }}
+
+      - name: Publish Frontend Image To ECR
+        uses: ./.github/actions/publish-to-ecr
+        with:
+          local_image: jamlive-front:test
+          repo_uri: ${{ secrets.FRONTEND_ECR_URI }}
+
+      - name: Export Frontend Build
         run: |
           container_id=$(docker ps -qf "ancestor=jamlive-front:test")
           docker cp $container_id:/app/build ./frontend_build
 
-      - name: Publish frontend build as artifact
+      - name: Publish Frontend Build as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend_build

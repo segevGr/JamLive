@@ -1,0 +1,27 @@
+name: Publish Docker Image to ECR
+description: Tags and pushes a local Docker image to ECR
+author: Segev Grotas
+
+inputs:
+  local_image:
+    description: Local image name (that built earlier in pipeline)
+    required: true
+  repo_uri:
+    description: ECR repository URI
+    required: true
+  tag:
+    description: Image tag
+    required: false
+    default: latest
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login to ECR
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Find Tag and Push Image
+      shell: bash
+      run: |
+        docker tag ${{ inputs.local_image }} ${{ inputs.repo_uri }}:${{ inputs.tag }}
+        docker push ${{ inputs.repo_uri }}:${{ inputs.tag }}
