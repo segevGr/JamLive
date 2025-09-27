@@ -5,20 +5,23 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-COPY . .
-RUN npm run build
+COPY nest-cli.json tsconfig.build.json tsconfig.json ./
+COPY src ./src
+COPY public ./public
 
+RUN npm run build && npm prune --omit=dev
+
+######################################
 
 FROM node:20.10.0-alpine3.19 AS runner
 
+RUN addgroup -S appuser && adduser -S appuser -G appuser
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --omit=dev
-
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=appuser:appuser /app/node_modules ./node_modules
+COPY --from=builder --chown=appuser:appuser /app/dist ./dist
+COPY --from=builder --chown=appuser:appuser /app/public ./public
+USER appuser
 
 EXPOSE 8000
-
 ENTRYPOINT ["node", "dist/main"]
