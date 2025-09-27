@@ -8,6 +8,7 @@ RUN npm ci
 COPY tsconfig.json tailwind.config.js postcss.config.js ./
 COPY public ./public
 COPY src ./src
+
 RUN npm run build
 
 ######################################
@@ -23,4 +24,4 @@ COPY --from=builder --chown=appuser:appuser /app/build ./build
 USER appuser
 
 EXPOSE 3000
-CMD ["serve", "-s", "build", "-l", "3000"]
+ENTRYPOINT ["serve", "-s", "build", "-l", "3000"]
