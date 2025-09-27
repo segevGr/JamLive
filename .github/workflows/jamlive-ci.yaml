@@ -81,6 +81,12 @@ jobs:
           aws_role_arn: ${{ secrets.ECR_PERMISSION_ROLE }}
           aws_region: ${{ secrets.AWS_REGION }}
 
+      - name: Publish Backend Image To ECR
+        uses: ./.github/actions/publish-to-ecr
+        with:
+          local_image: jamlive-back:test
+          repo_uri: ${{ secrets.BACKEND_ECR_URI }}
+
       - name: Publish Frontend Image To ECR
         uses: ./.github/actions/publish-to-ecr
         with:
