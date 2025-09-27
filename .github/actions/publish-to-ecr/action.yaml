@@ -20,7 +20,7 @@ runs:
     - name: Login to ECR
       uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Find Tag and Push Image
+    - name: Tag and Push Image
       shell: bash
       run: |
         docker tag ${{ inputs.local_image }} ${{ inputs.repo_uri }}:${{ inputs.tag }}
