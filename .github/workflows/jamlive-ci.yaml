@@ -57,8 +57,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build Docker Images
+        run: docker compose build --build-arg REACT_APP_BASE_URL=http://13.201.22.106
+        env:
+          REACT_APP_BASE_URL: http://13.201.22.106
+
       - name: Run Docker Compose
-        run: docker compose up --build -d --build-arg REACT_APP_BASE_URL=http://13.201.22.106 
+        run: docker compose up -d 
         env:
           PORT: 8000
           MONGO_URI: ${{ secrets.MONGO_URI }}
@@ -67,7 +72,6 @@ jobs:
           JWT_COOKIE_EXPIRES_IN: ${{ secrets.JWT_COOKIE_EXPIRES_IN }}
           FRONTEND_ORIGIN: ${{ secrets.FRONTEND_ORIGIN }}
           E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
-          REACT_APP_BASE_URL: http://13.201.22.106
 
       # - name: Backend E2E Testing
       #   working-directory: backend
