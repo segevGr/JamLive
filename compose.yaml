@@ -3,10 +3,10 @@ services:
     image: jamlive-front:test
     build:
       context: ./frontend
+      args:
+        REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
     ports:
       - "80:3000"
-    environment:
-      - REACT_APP_BASE_URL=${REACT_APP_BASE_URL}
     networks:
       - jamLive
     depends_on:
