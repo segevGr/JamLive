@@ -67,7 +67,7 @@ jobs:
           JWT_COOKIE_EXPIRES_IN: ${{ secrets.JWT_COOKIE_EXPIRES_IN }}
           FRONTEND_ORIGIN: ${{ secrets.FRONTEND_ORIGIN }}
           E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
-          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+          REACT_APP_BASE_URL: http://43.204.109.13/
 
       # - name: Backend E2E Testing
       #   working-directory: backend
@@ -103,6 +103,7 @@ jobs:
         with:
           name: frontend_build
           path: ./frontend_build
+          retention-days: 1
 
   deploy_frontend:
     name: Deploy Frontend

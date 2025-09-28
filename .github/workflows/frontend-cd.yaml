@@ -4,6 +4,13 @@ on:
   workflow_call:
     inputs:
       artifact:
+        description: 'Artifact name from CI'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      artifact:
+        description: 'Artifact name from CI'
         required: true
         type: string
 
