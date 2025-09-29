@@ -58,9 +58,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker Images
-        run: docker compose build --build-arg REACT_APP_BASE_URL=http://13.201.22.106
-        env:
-          REACT_APP_BASE_URL: http://13.201.22.106
+        run: docker compose build --build-arg REACT_APP_BASE_URL=app-alb-1872397962.ap-south-1.elb.amazonaws.com
 
       - name: Run Docker Compose
         run: docker compose up -d 
