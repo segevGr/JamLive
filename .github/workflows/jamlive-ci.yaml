@@ -5,6 +5,9 @@ on:
     branches: ["master"]
     paths-ignore:
       - "README.md"
+      - "postman/**"
+      - "screenshots/**"
+      - "terraform/**"
   workflow_dispatch:
 
 permissions:

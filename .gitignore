@@ -21,4 +21,16 @@ yarn-debug.log*
 zip
 todo
 
-/terraform
+# Terraform state
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# קבצי plan
+*.tfplan
+
+# התיקיה של Terraform
+.terraform/
+.terraform.lock.hcl
