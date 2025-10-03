@@ -10,6 +10,14 @@ runs:
       with:
         node-version: 20.10
 
+    - name: Store/Restore node_modules cache
+      uses: actions/cache@v4
+      with:
+        path: e2e/node_modules
+        key: ${{ runner.os }}-e2e-${{ hashFiles('e2e/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-e2e-
+
     - name: Install & Run E2E
       run: |
         cd e2e
