@@ -1,50 +1,24 @@
-data "aws_instance" "app" {
-  instance_id = var.ec2_instance_id
-}
+resource "aws_instance" "app" {
+  ami                         = "ami-0f58b397bc5c1f2e8"
+  instance_type               = "t3a.small"
+  subnet_id                   = var.public_subnet_ids[0]
+  associate_public_ip_address = true
+  security_groups             = [var.allow_web_traffic_sg_id]
 
-data "aws_subnet" "app_subnet" {
-  id = data.aws_instance.app.subnet_id
-}
+  tags = merge(
+    {
+      Name = "${var.project_name}-backend"
+    },
+    var.tags
+  )
 
-data "aws_subnets" "all_subnets" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_subnet.app_subnet.vpc_id]
-  }
-}
-
-resource "aws_security_group" "alb_sg" {
-  name        = "alb-sg"
-  description = "Allow HTTP and HTTPS for ALB"
-  vpc_id      = data.aws_subnet.app_subnet.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
 resource "aws_lb_target_group" "app_tg" {
-  name     = "app-tg"
+  name     = "${var.project_name}-tg"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = data.aws_subnet.app_subnet.vpc_id
+  vpc_id   = var.vpc_id
 
   target_type = "instance"
   health_check {
@@ -54,20 +28,24 @@ resource "aws_lb_target_group" "app_tg" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
   }
+
+  tags = var.tags
 }
 
 resource "aws_lb_target_group_attachment" "app_attachment" {
   target_group_arn = aws_lb_target_group.app_tg.arn
-  target_id        = data.aws_instance.app.id
+  target_id        = aws_instance.app.id
   port             = 80
 }
 
 resource "aws_lb" "app_alb" {
-  name               = "app-alb"
+  name               = "${var.project_name}-alb"
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
+  security_groups    = [var.allow_web_traffic_sg_id]
 
-  subnets = slice(data.aws_subnets.all_subnets.ids, 0, 2)
+  subnets = var.public_subnet_ids
+
+  tags = var.tags
 }
 
 resource "aws_lb_listener" "http_redirect" {

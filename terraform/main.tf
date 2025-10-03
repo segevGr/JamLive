@@ -13,9 +13,14 @@ variable "deploy_backend" {
 }
 
 module "backend" {
-  source          = "./modules/backend"
-  count           = var.deploy_backend ? 1 : 0
-  ec2_instance_id = var.ec2_instance_id
+  source                  = "./modules/backend"
+  count                   = var.deploy_backend ? 1 : 0
+  tags                    = local.common_tags
+  project_name            = var.project_name
+  vpc_id                  = module.network.vpc_id
+  allow_web_traffic_sg_id = module.security.allow_web_traffic_sg_id
+  public_subnet_ids       = module.network.public_subnet_ids
+  iam_role_ecr_arn        = module.security.ecr_role_arn
 }
 
 module "security" {

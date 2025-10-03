@@ -27,7 +27,7 @@ variable "subnets" {
   type = map(object({
     cidr_block = string
     az         = string
-    public     = bool
+    is_public  = bool
   }))
 }
 
@@ -40,9 +40,4 @@ variable "cloudfront_default_root_object" {
 variable "github_oidc_subject" {
   description = "GitHub repository subject pattern for OIDC trust"
   type        = string
-}
-
-#Backend
-variable "ec2_instance_id" {
-  type = string
 }

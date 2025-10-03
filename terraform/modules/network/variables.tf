@@ -23,6 +23,6 @@ variable "subnets" {
   type = map(object({
     cidr_block = string
     az         = string
-    public     = bool
+    is_public  = bool
   }))
 }

@@ -1,8 +1,5 @@
-resource "aws_iam_role" "Frontend-Role" {
+resource "aws_iam_role" "this" {
   name = "${var.project_name}-Frontend-Role"
-  lifecycle {
-    prevent_destroy = true
-  }
   tags = var.tags
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -26,11 +23,8 @@ resource "aws_iam_role" "Frontend-Role" {
 resource "aws_iam_policy" "CloudFront-policy" {
   name        = "${var.project_name}-CloudFront-permissions"
   description = "CloudFront permissions"
-  depends_on  = [aws_cloudfront_distribution.frontend]
-  lifecycle {
-    prevent_destroy = true
-  }
-  tags = var.tags
+  depends_on  = [aws_cloudfront_distribution.this]
+  tags        = var.tags
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -40,7 +34,7 @@ resource "aws_iam_policy" "CloudFront-policy" {
           "cloudfront:GetDistribution",
           "cloudfront:CreateInvalidation"
         ]
-        Resource = [aws_cloudfront_distribution.frontend.arn]
+        Resource = [aws_cloudfront_distribution.this.arn]
       }
     ]
   })
@@ -49,11 +43,8 @@ resource "aws_iam_policy" "CloudFront-policy" {
 resource "aws_iam_policy" "S3-policy" {
   name        = "${var.project_name}-S3-permissions"
   description = "S3 permissions"
-  depends_on  = [aws_s3_bucket.frontend]
-  lifecycle {
-    prevent_destroy = true
-  }
-  tags = var.tags
+  depends_on  = [aws_s3_bucket.this]
+  tags        = var.tags
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -62,7 +53,7 @@ resource "aws_iam_policy" "S3-policy" {
         Action = [
           "s3:ListBucket"
         ]
-        Resource = aws_s3_bucket.frontend.arn
+        Resource = aws_s3_bucket.this.arn
       },
       {
         Effect = "Allow"
@@ -70,18 +61,18 @@ resource "aws_iam_policy" "S3-policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "${aws_s3_bucket.frontend.arn}/*"
+        Resource = "${aws_s3_bucket.this.arn}/*"
       }
     ]
   })
 }
 
 resource "aws_iam_role_policy_attachment" "attach-CloudFront-policy" {
-  role       = aws_iam_role.Frontend-Role.name
+  role       = aws_iam_role.this.name
   policy_arn = aws_iam_policy.CloudFront-policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "attach-S3-policy" {
-  role       = aws_iam_role.Frontend-Role.name
+  role       = aws_iam_role.this.name
   policy_arn = aws_iam_policy.S3-policy.arn
 }
