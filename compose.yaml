@@ -22,8 +22,6 @@ services:
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
       - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
-      - JWT_COOKIE_EXPIRES_IN=${JWT_COOKIE_EXPIRES_IN}
-      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN}
       - E2E_BASE_URL=${E2E_BASE_URL}
     networks:
       - jamLive

@@ -130,13 +130,12 @@ PORT=8000
 MONGO_URI=<your MongoDB connection string>
 JWT_SECRET=<your JWT secret>
 JWT_EXPIRES_IN=90d
-JWT_COOKIE_EXPIRES_IN=90
-FRONTEND_ORIGIN=http://localhost:3000
+FRONTEND_URL=http://localhost
 ```
 
 - `MONGO_URI`: Connection string to your MongoDB instance (Atlas or local)
 - `JWT_SECRET`: A secure string used to sign JWT tokens
-- `FRONTEND_ORIGIN`: The URL of your frontend app (used for CORS)
+- `FRONTEND_URL`: The URL of your frontend app (used for CORS) `default is http://localhost`
 
 > 💡 **Note**: The deployed demo version already connects to a live backend.  
 > If you'd like to run the backend locally, you'll need to provide your own `MONGO_URI` and `JWT_SECRET`.

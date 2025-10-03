@@ -11,8 +11,9 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const frontendOrigin = process.env.FRONTEND_URL || 'http://localhost';
   app.enableCors({
-    origin: process.env.FRONTEND_ORIGIN!,
+    origin: frontendOrigin,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   });
