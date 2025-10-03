@@ -7,7 +7,7 @@ on:
         description: 'Artifact name from CI'
         required: true
         type: string
-  workflow_dispatch:
+  workflow_dispatch: #WILL BE DELETED
     inputs:
       artifact:
         description: 'Artifact name from CI'
