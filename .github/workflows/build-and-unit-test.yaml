@@ -29,6 +29,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.10.0"
+
+      - name: Store/Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ inputs.project }}/node_modules
+          key: ${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('${{ inputs.project }}/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ inputs.project }}-
+
       - run: npm ci
       - run: npm run build
       - run: npm test
