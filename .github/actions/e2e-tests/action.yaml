@@ -8,7 +8,7 @@ runs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: 20.10
+        node-version: "20.10.0"
 
     - name: Store/Restore node_modules cache
       uses: actions/cache@v4
