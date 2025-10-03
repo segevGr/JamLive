@@ -4,26 +4,24 @@ services:
     build:
       context: ./frontend
       args:
-        REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
+        REACT_APP_BASE_URL: ${REACT_APP_BASE_URL:-http://localhost:8000}
     ports:
       - "80:3000"
     networks:
       - jamLive
     depends_on:
       - backend
+
   backend:
     image: jamlive-back:test
     build:
       context: ./backend
     ports:
       - "8000:8000"
-    environment:
-      - PORT=${PORT}
-      - MONGO_URI=${MONGO_URI}
-      - JWT_SECRET=${JWT_SECRET}
-      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
     networks:
       - jamLive
+    env_file:
+      - ./backend/.env
 
 networks:
   jamLive:

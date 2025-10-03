@@ -71,11 +71,8 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
 
-      # - name: Backend E2E Testing
-      #   working-directory: backend
-      #   run: npm run test:e2e
-
-      ########### TBD - E2E TESTING ###########
+      - name: E2E Tests
+        uses: ./.github/actions/e2e-tests
 
       - name: Configure AWS
         uses: ./.github/actions/configure-aws

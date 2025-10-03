@@ -34,3 +34,5 @@ terraform.tfstate.backup
 # התיקיה של Terraform
 .terraform/
 .terraform.lock.hcl
+
+test-results/

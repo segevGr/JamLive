@@ -1,0 +1,19 @@
+name: E2E Tests
+description: Run end-to-end Playwright tests
+author: Segev Grotas
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.10
+
+    - name: Install & Run E2E
+      run: |
+        cd e2e
+        npm ci
+        npx playwright install --with-deps
+        npm test
+      shell: bash
