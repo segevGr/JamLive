@@ -1,14 +1,14 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.route("**/*", (route) => {
+  await page.route("**/*", async (route) => {
     const url = route.request().url();
     if (!url.startsWith("http://localhost")) {
       const newUrl = url.replace(/^https:\/\/[^/]+/, "http://localhost:8000");
-      route.fallback({ url: newUrl });
-    } else {
-      route.fallback();
+      const response = await route.fetch({ url: newUrl });
+      return route.fulfill({ response });
     }
+    return route.fallback();
   });
 });
 
