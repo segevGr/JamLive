@@ -6,13 +6,13 @@ test("Frontend ↔ Backend basic login flow works", async ({ page }) => {
   await page.fill('input[name="userName"]', "fake-user");
   await page.fill('input[name="password"]', "wrong-password");
 
-  const [request] = await Promise.all([
-    page.waitForRequest(
-      (req) => req.method() === "POST" && req.url().includes("/auth/login")
+  const response = await Promise.all([
+    page.waitForResponse(
+      (res) =>
+        res.url().includes("/auth/login") && res.request().method() === "POST"
     ),
     page.click('button[type="submit"]'),
-  ]);
+  ]).then(([res]) => res);
 
-  const response = await request.response();
-  expect(response?.status()).toBe(401);
+  expect(response.status()).toBe(401);
 });
