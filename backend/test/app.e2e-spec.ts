@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-const BASE_URL = process.env.E2E_BASE_URL || 'http://localhost:8000';
+const BASE_URL = 'http://localhost:8000';
 
 describe('App E2E (black-box)', () => {
   let token: string;
