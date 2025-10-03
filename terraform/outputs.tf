@@ -25,7 +25,7 @@ output "ecr_role_arn" {
 
 output "backend_alb_domain" {
   description = "The domain name of the backend ALB"
-  value       = try("https://${module.backend[0].backend_alb_domain}", "")
+  value       = try("https://${module.backend[0].backend_alb_domain}", "Backend is off")
 }
 
 output "ecr_repository_url" {
