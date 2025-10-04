@@ -5,6 +5,8 @@ resource "aws_instance" "app" {
   associate_public_ip_address = true
   security_groups             = [var.allow_web_traffic_sg_id]
 
+  user_data = file("${path.module}/userdata.sh")
+
   tags = merge(
     {
       Name = "${var.project_name}-backend"
