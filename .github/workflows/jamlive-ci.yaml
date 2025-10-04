@@ -68,6 +68,7 @@ jobs:
         with:
           context: ./frontend
           push: false
+          load: true
           tags: jamlive-front:test
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
@@ -79,6 +80,7 @@ jobs:
         with:
           context: ./backend
           push: false
+          load: true
           tags: jamlive-back:test
           cache-from: type=gha,scope=backend
           cache-to: type=gha,scope=backend,mode=max
@@ -91,11 +93,11 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
 
+      - run : docker ps
       - run: |
           curl -i -X POST http://localhost:8000/auth/login \
             -H "Content-Type: application/json" \
             -d '{"userName":"fake","password":"wrong"}'
-      - run : docker ps
 
       - name: E2E Tests
         uses: ./.github/actions/e2e-tests
