@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   cancel-previous:
+    name: Cancel Previous Runs
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
@@ -27,6 +28,7 @@ jobs:
           access_token: ${{ github.token }}
 
   detect_changes:
+    name: Detect Code Changes
     runs-on: ubuntu-latest
     needs: cancel-previous
     outputs:
