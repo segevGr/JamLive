@@ -9,14 +9,8 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: "20.10.0"
-
-    - name: Store/Restore node_modules cache
-      uses: actions/cache@v4
-      with:
-        path: e2e/node_modules
-        key: ${{ runner.os }}-e2e-${{ hashFiles('e2e/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-e2e-
+        cache: "npm"
+        cache-dependency-path: "e2e/package-lock.json"
 
     - name: Store/Restore Playwright browsers cache
       uses: actions/cache@v4
@@ -29,12 +23,7 @@ runs:
     - name: Install & Run E2E
       working-directory: e2e
       run: |
-        if [ ! -d "node_modules" ] || [ -z "$(ls -A node_modules)" ]; then
-          echo "No node_modules cache found. Running npm ci."
-          npm ci
-        else
-          echo "node_modules cache restored. Skipping npm ci."
-        fi
+        npm ci
         npx playwright install
         npm test
       shell: bash

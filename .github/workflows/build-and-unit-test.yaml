@@ -29,22 +29,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.10.0"
-
-      - name: Store/Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ inputs.project }}/node_modules
-          key: ${{ runner.os }}-${{ inputs.project }}-${{ hashFiles(format('{0}/package-lock.json', inputs.project)) }}
-          restore-keys: |
-            ${{ runner.os }}-${{ inputs.project }}-
+          cache: "npm"
 
       - name: Install dependencies (if needed), Build & Test
         run: |
-          if [ ! -d "node_modules" ] || [ -z "$(ls -A node_modules)" ]; then
-            echo "No node_modules cache found. Running npm ci."
-            npm ci
-          else
-            echo "node_modules cache restored. Skipping npm ci."
-          fi
+          npm ci
           npm run build
           npm test
