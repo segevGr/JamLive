@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Mark workflow as success when no changes
-        run: echo "This job ensures workflow never ends as skipped."
+        run: echo "This job ensures workflow never ends as skipped"
 
   build_and_test:
     runs-on: ubuntu-latest
