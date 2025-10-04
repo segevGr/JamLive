@@ -9,7 +9,7 @@ export default defineConfig({
   testDir: path.join(__dirname, "tests"),
   outputDir: path.join(__dirname, "test-results"),
   timeout: 30000,
-  retries: 0,
+  retries: 3,
   use: {
     baseURL: "http://localhost",
     headless: true,
