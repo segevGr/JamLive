@@ -26,11 +26,15 @@ runs:
         restore-keys: |
           playwright-${{ runner.os }}-
 
-
     - name: Install & Run E2E
+      working-directory: e2e
       run: |
-        cd e2e
-        npm ci
-        npx playwright install --with-deps
+        if [ ! -d "node_modules" ] || [ -z "$(ls -A node_modules)" ]; then
+          echo "No node_modules cache found. Running npm ci."
+          npm ci
+        else
+          echo "node_modules cache restored. Skipping npm ci."
+        fi
+        npx playwright install
         npm test
       shell: bash

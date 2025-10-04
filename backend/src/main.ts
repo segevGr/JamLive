@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-// test comment
+// note for cache
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
