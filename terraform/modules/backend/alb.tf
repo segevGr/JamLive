@@ -11,7 +11,6 @@ resource "aws_instance" "app" {
     },
     var.tags
   )
-
 }
 
 resource "aws_lb_target_group" "app_tg" {
