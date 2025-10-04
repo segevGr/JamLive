@@ -34,10 +34,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ inputs.project }}/node_modules
-          key: ${{ runner.os }}-${{ inputs.project }}-${{ hashFiles('${{ inputs.project }}/package-lock.json') }}
+          key: ${{ runner.os }}-${{ inputs.project }}-${{ hashFiles(format('{0}/package-lock.json', inputs.project)) }}
           restore-keys: |
             ${{ runner.os }}-${{ inputs.project }}-
 
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - name: Install dependencies (if needed), Build & Test
+        run: |
+          if [ ! -d "node_modules" ] || [ -z "$(ls -A node_modules)" ]; then
+            echo "No node_modules cache found. Running npm ci."
+            npm ci
+          else
+            echo "node_modules cache restored. Skipping npm ci."
+          fi
+          npm run build
+          npm test
