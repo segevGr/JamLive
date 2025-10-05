@@ -1,0 +1,40 @@
+name: Summary and Email Notification
+
+on:
+  workflow_call:
+
+jobs:
+  notify:
+    name: Send Email Notification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get All Jobs For This Run
+        run: |
+          curl -s -H "Authorization: Bearer ${{ github.token }}" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/jobs" \
+          > jobs.json
+
+      - name: Parse Failures
+        id: parse
+        run: |
+          failed=$(jq -r '.jobs[] | select(.conclusion=="failure") | .name' jobs.json)
+          echo "failed_jobs=$failed" >> $GITHUB_OUTPUT
+
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        env:
+          STATUS: ${{ steps.parse.outputs.failed_jobs == '' && 'success' || 'failure' }}
+          FAILURES_LIST: ${{ steps.parse.outputs.failed_jobs }}
+        with:
+          server_address: ${{ secrets.SMTP_ADDRESS }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "Workflow ${{ env.STATUS }}"
+          to: ${{ github.event.pusher.email }},segev.grotas@gmail.com
+          from: "GitHub Actions <${{ secrets.SMTP_USER }}> "
+          body: |
+            Workflow result: ${{ env.STATUS }}
+            ${{ env.STATUS == 'failure' && format('Failed jobs:\n{0}', env.FAILURES_LIST) || 'All jobs passed successfully.' }}
+            Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

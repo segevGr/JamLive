@@ -69,7 +69,7 @@ jobs:
     name: Package E2E Tests and Publish
     needs: [frontend_build_and_test, backend_build_and_test]
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -147,3 +147,27 @@ jobs:
       id-token: write
     with:
       artifact: frontend_build
+
+  # deploy_backend:
+  #   name: Deploy Backend
+  #   needs: package_e2e_tests_and_publish
+  #   uses: ./.github/workflows/backend-cd.yaml
+  #   secrets: inherit
+  #   permissions:
+  #     id-token: write
+  #   with:
+  #     artifact: backend_build
+
+  notify:
+    name: Notify
+    if: always()
+    needs:
+      - cancel-previous
+      - detect_changes
+      - frontend_build_and_test
+      - backend_build_and_test
+      - package_e2e_tests_and_publish
+      - deploy_frontend
+      # - deploy_backend
+    uses: ./.github/workflows/notify-by-email.yaml
+    secrets: inherit
