@@ -8,7 +8,7 @@ services:
     ports:
       - "80:3000"
     networks:
-      - jamLive
+      - frontend-network
     depends_on:
       - backend
   backend:
@@ -18,12 +18,24 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - PORT=${PORT}
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
-      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
     networks:
-      - jamLive
+      - frontend-network
+      - backend-network
+
+  db:
+    image: mongo:6
+    container_name: jamlive-db
+    volumes:
+      - db_data:/data/db
+      - ./backend/db/seed:/docker-entrypoint-initdb.d
+    networks:
+      - backend-network
 
 networks:
-  jamLive:
+  frontend-network:
+  backend-network:
+
+volumes:
+  db_data:
