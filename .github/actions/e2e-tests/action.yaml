@@ -28,8 +28,8 @@ runs:
       shell: bash
 
     - name: Run E2E
-      working-directory: e2e
       uses: segevGr/JamLive/.github/actions/retry@<commit-sha>
       with:
         command: |
+          cd e2e
           npm test
