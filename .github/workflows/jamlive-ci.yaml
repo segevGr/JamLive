@@ -103,11 +103,8 @@ jobs:
       - name: Run Docker Compose
         run: docker compose up -d 
         env:
-          PORT: 8000
-          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGO_URI: mongodb://db:27017/jamlive_dev
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRES_IN: ${{ secrets.JWT_EXPIRES_IN }}
-          REACT_APP_BASE_URL: http://localhost:8000
 
       - name: E2E Tests
         uses: ./.github/actions/e2e-tests

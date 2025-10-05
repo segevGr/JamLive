@@ -7,6 +7,9 @@ interface Props {
   onSelect: (id: string) => void;
 }
 
+const backendBaseUrl =
+  process.env.REACT_APP_BASE_URL || "http://localhost:8000";
+
 const SongCard = ({ song, onSelect }: Props) => {
   return (
     <CardContainer
@@ -16,7 +19,7 @@ const SongCard = ({ song, onSelect }: Props) => {
       <div className="flex items-center gap-4">
         {song.image ? (
           <img
-            src={`${process.env.REACT_APP_BASE_URL}${song.image}`}
+            src={`${backendBaseUrl}${song.image}`}
             alt={song.title}
             className="w-14 h-14 rounded-lg object-cover"
           />

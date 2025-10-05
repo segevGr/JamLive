@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = process.env.REACT_APP_BASE_URL!;
+const SOCKET_URL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
 
 type ISocketContext = {
   socket: Socket | null;
