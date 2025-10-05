@@ -34,4 +34,3 @@ runs:
       with:
         command: |
           npm test
-      shell: bash
