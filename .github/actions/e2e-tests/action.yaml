@@ -25,12 +25,11 @@ runs:
       run: |
         npm ci
         npx playwright install
-        npm test
       shell: bash
 
     - name: Run E2E
       working-directory: e2e
-      uses: ../retry
+      uses: segevGr/JamLive/.github/actions/retry@<commit-sha>
       with:
         command: |
           npm test
