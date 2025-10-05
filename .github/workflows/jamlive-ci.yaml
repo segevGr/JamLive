@@ -28,8 +28,8 @@ jobs:
 
   detect_changes:
     name: Detect Code Changes
-    runs-on: ubuntu-latest
     needs: cancel-previous
+    runs-on: ubuntu-latest
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
@@ -50,26 +50,26 @@ jobs:
               - 'backend/src/**'
 
   frontend_build_and_test:
-    needs: detect_changes
     name: Frontend Build & Test
+    needs: detect_changes
     uses: ./.github/workflows/build-and-unit-test.yaml
     with:
       project: frontend
       should_run: ${{ needs.detect_changes.outputs.frontend }}
 
   backend_build_and_test:
-    needs: detect_changes
     name: Backend Build & Test
+    needs: detect_changes
     uses: ./.github/workflows/build-and-unit-test.yaml
     with:
       project: backend
       should_run: ${{ needs.detect_changes.outputs.backend }}
 
   package_e2e_tests_and_publish:
-    runs-on: ubuntu-latest
     name: Package E2E Tests and Publish
     needs: [frontend_build_and_test, backend_build_and_test]
-
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
