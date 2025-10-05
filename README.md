@@ -126,11 +126,11 @@ This sets the base URL for API requests during development.
 ### ✅ Backend (`backend/.env`)
 
 ```env
-PORT=<backend port> `default is 8000`
+PORT=<backend port> \\default is 8000
 MONGO_URI=<your MongoDB connection string>
 JWT_SECRET=<your JWT secret>
-JWT_EXPIRES_IN=<JWT duration> `default is 90d`
-FRONTEND_URL=<frontend URL> `default is http://localhost`
+JWT_EXPIRES_IN=<JWT duration> \\default is 90d
+FRONTEND_URL=<frontend URL> \\default is http://localhost
 ```
 
 - `MONGO_URI`: Connection string to your MongoDB instance (Atlas or local)
