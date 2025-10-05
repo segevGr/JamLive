@@ -1,0 +1,33 @@
+name: Retry Action
+description: Retries a shell command multiple times until success or reaches the max attempts
+author: Segev Grotas
+
+inputs:
+  command:
+    description: The shell command to run
+    required: true
+  max_attempts:
+    description: Maximum number of attempts
+    default: "3"
+  retry_wait_seconds:
+    description: Seconds to wait between retries
+    default: "10"
+  timeout_seconds:
+    description: Maximum number of seconds to allow each attempt to run
+    default: "10"
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        for i in $(seq 1 ${{ inputs.max_attempts }}); do
+          if timeout ${{ inputs.timeout_seconds }}s bash -c "${{ inputs.command }}"; then
+            echo "Success on attempt $i"
+            exit 0
+          fi
+          echo "Attempt $i failed, retrying in ${{ inputs.retry_wait_seconds }}s..."
+          sleep ${{ inputs.retry_wait_seconds }}
+        done
+        echo "All ${{ inputs.max_attempts }} attempts failed"
+        exit 1

@@ -20,10 +20,18 @@ runs:
         restore-keys: |
           playwright-${{ runner.os }}-
 
-    - name: Install & Run E2E
+    - name: Install Dependencies
       working-directory: e2e
       run: |
         npm ci
         npx playwright install
         npm test
+      shell: bash
+
+    - name: Run E2E
+      working-directory: e2e
+      uses: ../retry
+      with:
+        command: |
+          npm test
       shell: bash
