@@ -1,10 +1,3 @@
-locals {
-  common_tags = {
-    author  = "Segev Grotas"
-    project = "Jamlive"
-  }
-}
-
 #General
 variable "project_name" {
   description = "Name prefix for resources"

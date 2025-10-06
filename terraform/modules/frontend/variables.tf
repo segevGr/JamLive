@@ -13,12 +13,7 @@ variable "cloudfront_default_root_object" {
   type        = string
 }
 
-variable "github_oidc_subject" {
-  description = "GitHub repository subject pattern for OIDC trust (e.g. repo:Org/Repo:*)"
-  type        = string
-}
-
-variable "github_oidc_arn" {
-  description = "ARN of the GitHub OIDC provider"
+variable "github_assume_role_policy" {
+  description = "JSON-encoded IAM assume role policy document for GitHub OIDC provider."
   type        = string
 }

@@ -3,8 +3,7 @@ module "frontend" {
   tags                           = local.common_tags
   project_name                   = var.project_name
   cloudfront_default_root_object = var.cloudfront_default_root_object
-  github_oidc_subject            = var.github_oidc_subject
-  github_oidc_arn                = aws_iam_openid_connect_provider.github.arn
+  github_assume_role_policy      = local.github_assume_role_policy
 }
 
 variable "deploy_backend" {
@@ -24,12 +23,11 @@ module "backend" {
 }
 
 module "security" {
-  source              = "./modules/security"
-  tags                = local.common_tags
-  project_name        = var.project_name
-  github_oidc_subject = var.github_oidc_subject
-  github_oidc_arn     = aws_iam_openid_connect_provider.github.arn
-  vpc_id              = module.network.vpc_id
+  source                    = "./modules/security"
+  tags                      = local.common_tags
+  project_name              = var.project_name
+  github_assume_role_policy = local.github_assume_role_policy
+  vpc_id                    = module.network.vpc_id
 }
 
 module "network" {

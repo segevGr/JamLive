@@ -1,23 +1,7 @@
 resource "aws_iam_role" "this" {
-  name = "${var.project_name}-Frontend-Role"
-  tags = var.tags
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Federated = var.github_oidc_arn
-        }
-        Action = "sts:AssumeRoleWithWebIdentity"
-        Condition = {
-          StringEquals = {
-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_oidc_subject}"
-          }
-        }
-      }
-    ]
-  })
+  name               = "${var.project_name}-Frontend-Role"
+  tags               = var.tags
+  assume_role_policy = var.github_assume_role_policy
 }
 
 resource "aws_iam_policy" "CloudFront-policy" {
