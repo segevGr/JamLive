@@ -9,14 +9,14 @@ resource "aws_instance" "app" {
 
   tags = merge(
     {
-      Name = "${var.project_name}/${var.environment}-backend"
+      Name = "${var.project_name}-${var.environment}-backend"
     },
     var.tags
   )
 }
 
 resource "aws_lb_target_group" "app_tg" {
-  name     = "${var.project_name}/${var.environment}--tg"
+  name     = "${var.project_name}-${var.environment}--tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -40,7 +40,7 @@ resource "aws_lb_target_group_attachment" "app_attachment" {
 }
 
 resource "aws_lb" "app_alb" {
-  name               = "${var.project_name}/${var.environment}-alb"
+  name               = "${var.project_name}-${var.environment}-alb"
   load_balancer_type = "application"
   security_groups    = [var.allow_web_traffic_sg_id]
 

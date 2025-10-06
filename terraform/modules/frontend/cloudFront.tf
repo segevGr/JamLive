@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_control" "this" {
-  name                              = "${var.project_name}/${var.environment}-frontend-oac"
+  name                              = "${var.project_name}-${var.environment}-frontend-oac"
   description                       = "OAC for frontend bucket"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
@@ -8,7 +8,7 @@ resource "aws_cloudfront_origin_access_control" "this" {
 
 resource "aws_cloudfront_distribution" "this" {
   enabled             = true
-  comment             = "${var.project_name}/${var.environment} frontend"
+  comment             = "${var.project_name}-${var.environment} frontend"
   default_root_object = var.cloudfront_default_root_object
 
   origin {

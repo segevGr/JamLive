@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
   tags = merge(
     {
-      Name = "${var.project_name}/${var.environment}-vpc"
+      Name = "${var.project_name}-${var.environment}-vpc"
     },
     var.tags
   )

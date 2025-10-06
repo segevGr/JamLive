@@ -1,11 +1,11 @@
 resource "aws_iam_role" "this" {
-  name               = "${var.project_name}/${var.environment}-Frontend-Role"
+  name               = "${var.project_name}-${var.environment}-Frontend-Role"
   tags               = var.tags
   assume_role_policy = var.github_assume_role_policy
 }
 
 resource "aws_iam_policy" "CloudFront-policy" {
-  name        = "${var.project_name}/${var.environment}-CloudFront-permissions"
+  name        = "${var.project_name}-${var.environment}-CloudFront-permissions"
   description = "CloudFront permissions"
   depends_on  = [aws_cloudfront_distribution.this]
   tags        = var.tags
@@ -25,7 +25,7 @@ resource "aws_iam_policy" "CloudFront-policy" {
 }
 
 resource "aws_iam_policy" "S3-policy" {
-  name        = "${var.project_name}/${var.environment}-S3-permissions"
+  name        = "${var.project_name}-${var.environment}-S3-permissions"
   description = "S3 permissions"
   depends_on  = [aws_s3_bucket.this]
   tags        = var.tags
