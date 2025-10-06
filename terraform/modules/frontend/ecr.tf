@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "this" {
-  name                 = "${lower(var.project_name)}/frontend"
+  name                 = "${lower(var.project_name)}/${lower(var.environment)}/frontend"
   image_tag_mutability = "MUTABLE"
 
   encryption_configuration {

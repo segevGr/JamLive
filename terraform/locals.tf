@@ -1,7 +1,8 @@
 locals {
   common_tags = {
-    author  = "Segev Grotas"
-    project = "Jamlive"
+    author      = "Segev Grotas"
+    project     = var.project_name
+    environment = var.environment
   }
 }
 

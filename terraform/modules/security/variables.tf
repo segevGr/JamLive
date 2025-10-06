@@ -8,6 +8,11 @@ variable "project_name" {
   type        = string
 }
 
+variable "environment" {
+  description = "Name of the environment (e.g., production, development)."
+  type        = string
+}
+
 variable "github_assume_role_policy" {
   description = "JSON-encoded IAM assume role policy document for GitHub OIDC provider."
   type        = string

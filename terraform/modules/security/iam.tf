@@ -1,11 +1,11 @@
 resource "aws_iam_role" "ECR-Permission-Role" {
-  name               = "${var.project_name}-ECR-Permission-Role"
+  name               = "${var.project_name}/${var.environment}-ECR-Permission-Role"
   tags               = var.tags
   assume_role_policy = var.github_assume_role_policy
 }
 
 resource "aws_iam_policy" "ECR-Permission-policy" {
-  name        = "${var.project_name}-ECR-permissions"
+  name        = "${var.project_name}/${var.environment}-ECR-permissions"
   description = "ECR permissions, Push & Pull only"
   tags        = var.tags
   policy = jsonencode({

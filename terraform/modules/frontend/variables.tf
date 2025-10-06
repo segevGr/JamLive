@@ -8,6 +8,11 @@ variable "project_name" {
   type        = string
 }
 
+variable "environment" {
+  description = "Name of the environment (e.g., production, development)."
+  type        = string
+}
+
 variable "cloudfront_default_root_object" {
   description = "Default root object served by CloudFront (e.g. index.html)"
   type        = string
