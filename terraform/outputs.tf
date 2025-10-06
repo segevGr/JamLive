@@ -28,7 +28,7 @@ output "backend_alb_domain" {
   value       = try("https://${module.backend[0].backend_alb_domain}", "Backend is off")
 }
 
-output "ecr_repository_url" {
-  description = "URL of the ECR repository (for docker push/tag)"
+output "frontend_ecr_repository_url" {
+  description = "URL of the frontend ECR repository (for docker push/tag)"
   value       = module.frontend.ecr_repository_url
 }
