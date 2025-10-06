@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "this" {
-  bucket        = "${lower(var.project_name)}/${lower(var.environment)}-frontend"
+  bucket        = "${lower(var.project_name)}.${lower(var.environment)}-frontend"
   force_destroy = true
   tags          = var.tags
 }
