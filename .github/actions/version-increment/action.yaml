@@ -1,0 +1,44 @@
+name: Version Increment
+description: Retries a shell command multiple times until success
+author: Segev Grotas
+
+outputs:
+  new_tag:
+    description: The new version tag
+    value: ${{ steps.increment.outputs.new_tag }}
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      id: increment
+      run: |
+        git fetch --tags --force
+
+        commit_message=$(git log -1 --pretty=%B)
+        echo "Commit message: $commit_message"
+
+        latest_tag=$(git tag -l "v*" | sort -V | tail -n 1)
+        if [ -z "$latest_tag" ]; then
+          latest_tag="v1.0.0"
+        fi
+
+        major=$(echo $latest_tag | cut -d '.' -f 1 | sed 's/v//')
+        minor=$(echo $latest_tag | cut -d '.' -f 2)
+        patch=$(echo $latest_tag | cut -d '.' -f 3)
+
+        if echo "$commit_message" | grep -q -- "-major-"; then
+          major=$((major + 1))
+          minor=0
+          patch=0
+        elif echo "$commit_message" | grep -q -- "-minor-"; then
+          minor=$((minor + 1))
+          patch=0
+        else
+          patch=$((patch + 1))
+        fi
+
+        new_tag="v${major}.${minor}.${patch}"
+        echo "Generated new version tag: $new_tag"
+
+        echo "new_tag=$new_tag" >> $GITHUB_OUTPUT

@@ -84,6 +84,21 @@ Each lobby supports two main view modes:
 | Auth       | JWT                     |
 | Hosting    | Vercel + Railway        |
 
+## 🔢 Automatic Version Bumping
+
+This repository uses commit messages to determine the next version tag:
+
+- `-major-` → bumps **major** version (e.g. `v1.4.2` → `v2.0.0`)
+- `-minor-` → bumps **minor** version (e.g. `v1.4.2` → `v1.5.0`)
+- no keyword → bumps **patch** version (e.g. `v1.4.2` → `v1.4.3`)
+
+The workflow:
+
+1. Fetches the latest Git tag (`v*`).
+2. Reads the latest commit message.
+3. Determines bump type (major/minor/patch).
+4. Generates the new tag accordingly.
+
 ## 🛠️ Local Setup
 
 1. **Clone the repository**

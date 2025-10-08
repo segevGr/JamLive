@@ -7,6 +7,11 @@ on:
         description: 'Artifact name from CI'
         required: true
         type: string
+      version:
+        description: 'Version tag to deploy (e.g. v1.2.3)'
+        required: true
+        type: string
+
   workflow_dispatch: #WILL BE DELETED
     inputs:
       artifact:
@@ -19,8 +24,8 @@ permissions:
 
 jobs:
   frontend_cd:
-    runs-on: ubuntu-latest
     name: Frontend CD
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -36,11 +41,16 @@ jobs:
           name: ${{ inputs.artifact }}
           path: ./frontend_build
 
-      - name: Deploy Frontend to S3
-        run: aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+      - name: Upload versioned build to S3
+        run: |
+          aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET_NAME }}/releases/${{ env.VERSION_TAG }}
+
+      - name: Deploy latest build to S3 root
+        run: |
+          aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
 
       - name: CloudFront Invalidation
         run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
-            --paths "/index.html"
+            --paths "/*"
