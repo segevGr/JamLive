@@ -47,7 +47,7 @@ jobs:
 
       - name: Deploy latest build to S3 root
         run: |
-          aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+          aws s3 sync ./frontend_build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete --exclude "releases/*"
 
       - name: CloudFront Invalidation
         run: |

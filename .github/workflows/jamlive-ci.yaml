@@ -195,5 +195,6 @@ jobs:
       - package_e2e_tests_and_publish
       - deploy_frontend
       # - deploy_backend
+      - create_git_tag
     uses: ./.github/workflows/notify-by-email.yaml
     secrets: inherit
