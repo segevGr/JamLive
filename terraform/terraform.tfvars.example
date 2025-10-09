@@ -1,0 +1,21 @@
+# General
+project_name        = "<project-name>"
+environment         = "<environment>"
+region              = "<region>"
+github_oidc_subject = "<org>/<repo>:ref:refs/heads/<branch>"
+
+# Network
+vpc_cidr_block = "<vpc-cidr-block>"
+subnets = {
+  # "<subnet-name>" = {
+  #   cidr_block = "<cidr-block>"
+  #   az         = "<availability-zone-letter>"
+  #   is_public  = <true/false>
+  # }
+}
+
+# Deployment
+deploy_backend = <true/false>
+
+# Frontend
+cloudfront_default_root_object = "<default-root-object>"

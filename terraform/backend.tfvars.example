@@ -1,0 +1,4 @@
+bucket  = "<your-dev-bucket>"
+key     = "<state-file-key>"
+region  = "<region>"
+encrypt = <true/false>
