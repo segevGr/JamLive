@@ -11,12 +11,10 @@ terraform {
     }
   }
 
-  #   backend "s3" {
-  #     bucket  = "terraform-state-bucket"
-  #     key     = "terraform.tfstate"
-  #     region  = "ap-south-1"
-  #     encrypt = true
-  #   }
+  # Backend configuration is stored in environment-specific files (e.g. backend.dev.tfvars, backend.prod.tfvars).
+  # Initialize the backend with: terraform init -backend-config=backend.<env>.tfvars
+  backend "s3" {}
+
 }
 
 provider "aws" {
