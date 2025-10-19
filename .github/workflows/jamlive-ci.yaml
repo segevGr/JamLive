@@ -105,7 +105,7 @@ jobs:
           context: ./backend
           push: false
           load: true
-          tags: jamlive-back:${{ steps.version.outputs.new_tag }}
+          tags: jamlive/backend:${{ steps.version.outputs.new_tag }}
           cache-from: type=gha,scope=backend
           cache-to: type=gha,scope=backend,mode=max
 
@@ -116,9 +116,10 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Wait for all Docker services to be healthy
-        uses: jwalton/gh-docker-healthy@v1
+        uses: raschmitt/wait-for-healthy-container@v1.0.1
         with:
-          timeout: 60
+          container-name: jamlive-frontend-1
+          timeout: 30
 
       - name: E2E Tests
         uses: ./.github/actions/e2e-tests
@@ -132,20 +133,20 @@ jobs:
       - name: Publish Backend Image To ECR
         uses: ./.github/actions/publish-to-ecr
         with:
-          local_image: jamlive-back:test
+          local_image: jamlive/backend:test
           repo_uri: ${{ secrets.BACKEND_ECR_URI }}
           tag: ${{ steps.version.outputs.new_tag }}
 
       - name: Publish Frontend Image To ECR
         uses: ./.github/actions/publish-to-ecr
         with:
-          local_image: jamlive-front:test
+          local_image: jamlive/frontend:test
           repo_uri: ${{ secrets.FRONTEND_ECR_URI }}
           tag: ${{ steps.version.outputs.new_tag }}
 
       - name: Export Frontend Build
         run: |
-          container_id=$(docker ps -qf "ancestor=jamlive-front:test")
+          container_id=$(docker ps -qf "ancestor=jamlive/frontend:test")
           docker cp $container_id:/app/build ./frontend_build
 
       - name: Publish Frontend Build as Artifact

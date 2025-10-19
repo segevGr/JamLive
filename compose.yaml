@@ -1,6 +1,7 @@
 services:
   frontend:
-    image: jamlive-front:test
+    container_name: jamlive-frontend
+    image: jamlive/frontend:test
     build:
       context: ./frontend
       args:
@@ -20,7 +21,8 @@ services:
         condition: service_healthy
 
   backend:
-    image: jamlive-back:test
+    image: jamlive/backend:test
+    container_name: jamlive-backend
     build:
       context: ./backend
     ports:
