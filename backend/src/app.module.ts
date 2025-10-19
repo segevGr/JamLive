@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { SongSessionModule } from './song-session/song-session.module';
 import { SongsModule } from './songs/songs.module';
+import { HealthModule } from './health/health.module';
 
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './auth/roles.guard';
@@ -17,6 +18,7 @@ import { LoggerMiddleware } from './logger.middleware';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI || ''),
+    HealthModule,
     UsersModule,
     AuthModule,
     SongSessionModule,

@@ -115,6 +115,11 @@ jobs:
           MONGO_URI: mongodb://db:27017/jamlive_dev
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
+      - name: Wait for all Docker services to be healthy
+        uses: jwalton/gh-docker-healthy@v1
+        with:
+          timeout: 60
+
       - name: E2E Tests
         uses: ./.github/actions/e2e-tests
 
