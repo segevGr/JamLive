@@ -104,12 +104,12 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
       - name: Debug GHCR Cache Manifest
         run: |
           echo "=== FRONTEND BUILDER TAG ==="
-          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          curl -s -H "Authorization: Bearer ${{ secrets.GHCR_ACCESS_TOKEN }}" \
             https://ghcr.io/v2/segevgr/frontend/tags/list | jq .
 
       - name: Build and Cache Frontend Image
