@@ -50,7 +50,7 @@ jobs:
           load: false
           target: builder
           tags: jamlive/${{ inputs.project }}:builder
-          cache-from: type=gha,scope=${{ inputs.project }}
+          cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
             type=gha,scope=${{ inputs.project }},mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:cache,mode=max
