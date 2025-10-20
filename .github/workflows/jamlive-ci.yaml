@@ -106,6 +106,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug GHCR Cache Manifest
+        run: |
+          echo "=== FRONTEND BUILDER TAG ==="
+          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://ghcr.io/v2/segevgr/frontend/tags/list | jq .
+
       - name: Build and Cache Frontend Image
         uses: docker/build-push-action@v6
         with:
