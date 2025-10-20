@@ -3,16 +3,22 @@ node_modules
 npm-debug.log
 yarn-error.log
 
-# Build output
+# Ignore build outputs
 dist
 .tmp
+.tmp/
 .cache
+.cache/
+coverage/
+*.log
+*.tsbuildinfo
 
 # System / IDE
 .DS_Store
 .idea
 .vscode
 *.swp
+Thumbs.db
 
 # Env files
 .env
@@ -30,3 +36,8 @@ docker-compose*.yml
 # Logs
 logs
 *.log
+
+# Ignore test results
+*.spec.ts
+jest-cache/
+jest-results.json
