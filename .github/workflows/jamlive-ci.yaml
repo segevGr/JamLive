@@ -22,6 +22,7 @@ jobs:
   cancel-previous:
     name: Cancel Previous Workflow Runs
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: styfle/cancel-workflow-action@0.12.1
         with:
@@ -31,6 +32,7 @@ jobs:
     name: Detect Code Changes
     needs: cancel-previous
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
@@ -70,6 +72,7 @@ jobs:
     name: Package E2E Tests and Publish
     needs: [frontend_build_and_test, backend_build_and_test]
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     outputs:
       version_tag: ${{ steps.version.outputs.new_tag }}
 
