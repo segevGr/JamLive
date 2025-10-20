@@ -12,7 +12,7 @@ import {
 import { AccessDenied, HomeRedirect, NotFound } from "utils";
 import { GlobalLoader } from "components";
 
-// note for cache 3
+// note for cache 2
 function App() {
   return (
     <Router>
