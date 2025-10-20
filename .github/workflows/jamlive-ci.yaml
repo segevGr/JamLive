@@ -109,7 +109,7 @@ jobs:
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: |
             type=gha,scope=frontend,mode=max
-            type=registry,ref=ghcr.io/${{ github.repository_owner }}/frontend:cache
+            type=registry,ref=ghcr.io/${{ github.repository_owner,, }}/frontend:cache
           cache-to: |
             type=gha,scope=frontend,mode=max
 
@@ -124,7 +124,7 @@ jobs:
           tags: jamlive/backend:test
           cache-from: |
             type=gha,scope=backend,mode=max
-            type=registry,ref=ghcr.io/${{ github.repository_owner }}/backend:cache
+            type=registry,ref=ghcr.io/${{ github.repository_owner,, }}/backend:cache
           cache-to: type=gha,scope=backend,mode=max
 
       - name: Run Docker Compose
