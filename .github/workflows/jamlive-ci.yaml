@@ -117,9 +117,9 @@ jobs:
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: |
-            type=gha,scope=frontend,mode=max
+            type=gha,scope=frontend-runner,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
-          cache-to: type=gha,scope=frontend,mode=max
+          cache-to: type=gha,scope=frontend-runner,mode=max
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
@@ -130,9 +130,9 @@ jobs:
           target: runner
           tags: jamlive/backend:test
           cache-from: |
-            type=gha,scope=backend,mode=max
+            type=gha,scope=backend-runner,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
-          cache-to: type=gha,scope=backend,mode=max
+          cache-to: type=gha,scope=backend-runner,mode=max
 
       - name: Run Docker Compose
         env:
