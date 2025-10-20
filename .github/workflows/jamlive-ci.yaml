@@ -13,6 +13,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  packages: write
 
 concurrency:
   group: jamlive-ci-${{ github.ref }}
@@ -48,14 +49,16 @@ jobs:
         with:
           filters: |
             frontend:
-              - 'frontend/src/**'
+              - 'frontend/**'
             backend:
-              - 'backend/src/**'
+              - 'backend/**'
 
   frontend_build_and_test:
     name: Frontend Build & Test
     needs: detect_changes
     uses: ./.github/workflows/build-and-unit-test.yaml
+    permissions:
+      packages: write
     with:
       project: frontend
       should_run: ${{ needs.detect_changes.outputs.frontend }}
@@ -65,6 +68,8 @@ jobs:
     name: Backend Build & Test
     needs: detect_changes
     uses: ./.github/workflows/build-and-unit-test.yaml
+    permissions:
+      packages: write
     with:
       project: backend
       should_run: ${{ needs.detect_changes.outputs.backend }}
@@ -102,8 +107,12 @@ jobs:
           tags: jamlive/frontend:test
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
-          cache-from: type=gha,scope=frontend,mode=max
-          cache-to: type=gha,scope=frontend,mode=max
+          cache-from: |
+            type=gha,scope=frontend,mode=max
+            type=registry,ref=ghcr.io/${{ github.repository_owner }}/frontend:cache
+          cache-to: |
+            type=gha,scope=frontend,mode=max
+
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
@@ -113,7 +122,9 @@ jobs:
           load: true
           target: runner
           tags: jamlive/backend:test
-          cache-from: type=gha,scope=backend,mode=max
+          cache-from: |
+            type=gha,scope=backend,mode=max
+            type=registry,ref=ghcr.io/${{ github.repository_owner }}/backend:cache
           cache-to: type=gha,scope=backend,mode=max
 
       - name: Run Docker Compose
