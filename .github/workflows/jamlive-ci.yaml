@@ -126,7 +126,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./backend
-          push: true
+          push: false
           load: true
           target: runner
           tags: jamlive/backend:test

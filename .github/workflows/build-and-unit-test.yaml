@@ -46,10 +46,10 @@ jobs:
           OWNER: segevgr
         with:
           context: ./${{ inputs.project }}
-          push: false
+          push: true
           load: false
           target: builder
-          tags: jamlive/${{ inputs.project }}:builder
+          tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
             type=gha,scope=${{ inputs.project }},mode=max
