@@ -80,6 +80,8 @@ jobs:
     needs: [frontend_build_and_test, backend_build_and_test]
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      OWNER: ${{ toLower(github.repository_owner) }}
     outputs:
       version_tag: ${{ steps.version.outputs.new_tag }}
 
@@ -109,7 +111,7 @@ jobs:
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: |
             type=gha,scope=frontend,mode=max
-            type=registry,ref=ghcr.io/${{ github.repository_owner,, }}/frontend:cache
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache
           cache-to: |
             type=gha,scope=frontend,mode=max
 
@@ -124,7 +126,7 @@ jobs:
           tags: jamlive/backend:test
           cache-from: |
             type=gha,scope=backend,mode=max
-            type=registry,ref=ghcr.io/${{ github.repository_owner,, }}/backend:cache
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:cache
           cache-to: type=gha,scope=backend,mode=max
 
       - name: Run Docker Compose

@@ -35,6 +35,8 @@ jobs:
 
       - name: Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
+        env:
+          OWNER: ${{ toLower(github.repository_owner) }}
         with:
           context: ./${{ inputs.project }}
           push: false
@@ -44,7 +46,7 @@ jobs:
           cache-from: type=gha,scope=${{ inputs.project }}
           cache-to: |
             type=gha,scope=${{ inputs.project }},mode=max
-            type=registry,ref=ghcr.io/${{ github.repository_owner,, }}/${{ inputs.project }}:cache,mode=max
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:cache,mode=max
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
