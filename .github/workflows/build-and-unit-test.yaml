@@ -36,7 +36,7 @@ jobs:
       - name: Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
         env:
-          OWNER: ${{ toLower(github.repository_owner) }}
+          OWNER: segevgr
         with:
           context: ./${{ inputs.project }}
           push: false
