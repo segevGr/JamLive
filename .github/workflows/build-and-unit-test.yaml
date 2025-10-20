@@ -43,7 +43,6 @@ jobs:
           tags: jamlive/${{ inputs.project }}:builder
           cache-from: type=gha,scope=${{ inputs.project }}
           cache-to: type=gha,scope=${{ inputs.project }},mode=max
-          outputs: type=cacheonly
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
