@@ -1,45 +1,57 @@
-# Node modules
-node_modules
+# ===========================
+# Node & Package Management
+# ===========================
+node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
 
-# Build output
-build
-dist
+# ===========================
+# Build Output / Artifacts
+# ===========================
+build/
+dist/
+.cache/
+.tmp/
+*.map
+*.log
 
-# Ignore OS / editor files
-Thumbs.db
+# ===========================
+# Env Files
+# ===========================
+.env
+.env.local
+.env.*.local
+**/.env*
+
+# ===========================
+# IDE / OS / Temp Files
+# ===========================
 .DS_Store
-.idea
-.vscode
+Thumbs.db
+.idea/
+.vscode/
 *.swp
+**/.eslintcache
+**/*.tmp
 
-# Env files
-# .env
-# .env.local
-# .env.*.local
-
-# Git
-.git
+# ===========================
+# Git & Docker
+# ===========================
+.git/
 .gitignore
-
-# Docker
 Dockerfile
 docker-compose*.yml
 
+# ===========================
 # Logs
-logs
+# ===========================
+logs/
 *.log
 
-# Ignore build artifacts
-build/
-dist/
-.tmp/
-.cache/
-*.log
-*.map
-
-# Ignore images that may change timestamps
+# ===========================
+# Public Assets prone to timestamp changes
+# ===========================
 public/*.png
 public/*.jpg
 public/*.jpeg
@@ -48,7 +60,12 @@ public/*.svg
 public/*.ico
 public/*.webp
 
-# Ignore manifest/service worker variations
+# Manifest / Service Worker
 public/manifest.json
 public/service-worker.js
 public/robots.txt
+
+# ===========================
+# Tailwind / Local Config
+# ===========================
+**/tailwind.config.local.js

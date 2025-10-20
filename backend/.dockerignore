@@ -1,43 +1,55 @@
-# Node modules
-node_modules
+# ===========================
+# Node & Package Management
+# ===========================
+node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
 
-# Ignore build outputs
-dist
-.tmp
-.tmp/
-.cache
+# ===========================
+# Build & Cache Outputs
+# ===========================
+dist/
 .cache/
+.tmp/
 coverage/
-*.log
 *.tsbuildinfo
-
-# System / IDE
-.DS_Store
-.idea
-.vscode
-*.swp
-Thumbs.db
-
-# Env files
-.env
-.env.local
-.env.*.local
-
-# Git
-.git
-.gitignore
-
-# Docker
-Dockerfile
-docker-compose*.yml
-
-# Logs
-logs
 *.log
 
-# Ignore test results
+# ===========================
+# Tests & Jest
+# ===========================
 *.spec.ts
 jest-cache/
 jest-results.json
+
+# ===========================
+# Env Files
+# ===========================
+.env
+.env.local
+.env.*.local
+**/.env*
+
+# ===========================
+# IDE / OS / Temp Files
+# ===========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ===========================
+# Git & Docker
+# ===========================
+.git/
+.gitignore
+Dockerfile
+docker-compose*.yml
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
