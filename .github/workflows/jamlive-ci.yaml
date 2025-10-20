@@ -117,10 +117,10 @@ jobs:
           cache-to: type=gha,scope=backend,mode=max
 
       - name: Run Docker Compose
-        run: docker compose up -d 
-        env:
-          MONGO_URI: mongodb://db:27017/jamlive_dev
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          export MONGO_URI="mongodb://db:27017/jamlive_dev"
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          docker compose up -d
 
       - name: Wait for all Docker services to be healthy
         uses: raschmitt/wait-for-healthy-container@v1.0.1
