@@ -9,7 +9,12 @@ COPY nest-cli.json tsconfig.build.json tsconfig.json ./
 COPY src ./src
 COPY public ./public
 
-RUN npm run build && npm prune --omit=dev
+RUN npm run build
+
+######################################
+
+FROM builder AS unit-tests
+RUN npm test
 
 ######################################
 
@@ -21,6 +26,9 @@ WORKDIR /app
 COPY --from=builder --chown=appuser:appuser /app/node_modules ./node_modules
 COPY --from=builder --chown=appuser:appuser /app/dist ./dist
 COPY --from=builder --chown=appuser:appuser /app/public ./public
+
+RUN npm prune --omit=dev
+
 USER appuser
 
 EXPOSE 8000

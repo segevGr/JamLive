@@ -93,7 +93,8 @@ jobs:
           context: ./frontend
           push: false
           load: true
-          tags: jamlive-front:${{ steps.version.outputs.new_tag }}
+          target: runner
+          tags: jamlive-front:test
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: type=gha,scope=frontend
@@ -105,7 +106,8 @@ jobs:
           context: ./backend
           push: false
           load: true
-          tags: jamlive/backend:${{ steps.version.outputs.new_tag }}
+          target: runner
+          tags: jamlive/backend:test
           cache-from: type=gha,scope=backend
           cache-to: type=gha,scope=backend,mode=max
 

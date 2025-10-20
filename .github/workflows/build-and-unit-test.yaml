@@ -26,14 +26,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20.10.0"
-          cache: "npm"
-          cache-dependency-path: "${{ inputs.project }}/package-lock.json"
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install, Build & Test
+      - name: Build Builder Stage (cache only)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./${{ inputs.project }}
+          push: false
+          load: false
+          target: builder
+          tags: jamlive/${{ inputs.project }}:builder
+          cache-from: type=gha,scope=${{ inputs.project }}
+          cache-to: type=gha,scope=${{ inputs.project }},mode=max
+
+      - name: Run Unit Tests
         run: |
-          npm ci
-          npm run build
-          npm test
+          docker build --target unit-tests -t jamlive/${{ inputs.project }}-test .

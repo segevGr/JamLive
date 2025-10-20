@@ -16,6 +16,11 @@ RUN npm run build
 
 ######################################
 
+FROM builder AS unit-tests
+RUN npm test
+
+######################################
+
 FROM node:20.10.0-alpine3.19 AS runner
 
 RUN addgroup -S appuser && adduser -S appuser -G appuser
