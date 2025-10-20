@@ -59,6 +59,7 @@ jobs:
     with:
       project: frontend
       should_run: ${{ needs.detect_changes.outputs.frontend }}
+      timeout-minutes: 30
 
   backend_build_and_test:
     name: Backend Build & Test
@@ -67,6 +68,7 @@ jobs:
     with:
       project: backend
       should_run: ${{ needs.detect_changes.outputs.backend }}
+      timeout-minutes: 30
 
   package_e2e_tests_and_publish:
     name: Package E2E Tests and Publish
@@ -97,7 +99,7 @@ jobs:
           push: false
           load: true
           target: runner
-          tags: jamlive-front:test
+          tags: jamlive/frontend:test
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: type=gha,scope=frontend

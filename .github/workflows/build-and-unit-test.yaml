@@ -9,6 +9,9 @@ on:
       should_run:
         required: true
         type: string
+      timeout-minutes:
+        required: false
+        type: number
 
 jobs:
   always_success:
@@ -19,6 +22,7 @@ jobs:
 
   build_and_test:
     runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
     if: ${{ inputs.should_run == 'true' }}
     defaults:
       run:
