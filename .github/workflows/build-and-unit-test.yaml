@@ -64,3 +64,11 @@ jobs:
           push: false
           load: false
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
+
+#WILL BE DELETED
+      - name: Debug GHCR Cache Push
+        run: |
+          docker buildx du
+          echo "==== Checking images on GHCR ===="
+          curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://ghcr.io/v2/segevgr/frontend/tags/list
