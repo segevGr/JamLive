@@ -105,13 +105,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
+
 #WILL BE DELETED
       - name: Debug GHCR Cache Pull
         run: |
           echo "==== Checking GHCR for existing cache ===="
           curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://ghcr.io/v2/segevgr/${{ inputs.project }}/tags/list | jq .
+            https://ghcr.io/v2/segevgr/backend/tags/list | jq .
           
           echo "==== Checking available buildx builders ===="
           docker buildx ls

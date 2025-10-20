@@ -13,6 +13,9 @@ on:
         required: false
         type: number
 
+permissions:
+  packages: write
+
 jobs:
   always_success:
     runs-on: ubuntu-latest
