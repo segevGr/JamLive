@@ -106,20 +106,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Build and Cache Frontend Image
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: ./frontend
-      #     push: false
-      #     load: true
-      #     target: runner
-      #     tags: jamlive/frontend:test
-      #     build-args: |
-      #       REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
-      #     cache-from: |
-      #       type=gha,scope=frontend,mode=max
-      #       type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache,mode=max
-      #     cache-to: type=gha,scope=frontend,mode=max
+      - name: Build and Cache Frontend Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: false
+          load: true
+          target: runner
+          tags: jamlive/frontend:test
+          build-args: |
+            REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
+          cache-from: |
+            type=gha,scope=frontend,mode=max
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache,mode=max
+          cache-to: type=gha,scope=frontend,mode=max
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
