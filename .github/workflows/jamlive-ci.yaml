@@ -106,33 +106,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-#WILL BE DELETED
-      - name: Debug GHCR Cache Pull
-        run: |
-          echo "==== Checking GHCR for existing cache ===="
-          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://ghcr.io/v2/segevgr/backend/tags/list | jq .
-          
-          echo "==== Checking available buildx builders ===="
-          docker buildx ls
-          
-          echo "==== Checking existing local cache ===="
-          docker buildx du || echo "No local BuildKit cache yet"
-
-      - name: Build and Cache Frontend Image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./frontend
-          push: false
-          load: true
-          target: runner
-          tags: jamlive/frontend:test
-          build-args: |
-            REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
-          cache-from: |
-            type=gha,scope=frontend,mode=max
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache,mode=max
-          cache-to: type=gha,scope=frontend,mode=max
+      # - name: Build and Cache Frontend Image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./frontend
+      #     push: false
+      #     load: true
+      #     target: runner
+      #     tags: jamlive/frontend:test
+      #     build-args: |
+      #       REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
+      #     cache-from: |
+      #       type=gha,scope=frontend,mode=max
+      #       type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache,mode=max
+      #     cache-to: type=gha,scope=frontend,mode=max
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
