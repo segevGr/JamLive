@@ -119,8 +119,7 @@ jobs:
           cache-from: |
             type=gha,scope=frontend,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:cache,mode=max
-          cache-to: |
-            type=gha,scope=frontend,mode=max
+          cache-to: type=gha,scope=frontend,mode=max
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
