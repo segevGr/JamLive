@@ -49,16 +49,16 @@ jobs:
           OWNER: segevgr
         with:
           context: ./${{ inputs.project }}
-          push: true
+          push: false
           load: true
-          build-args: |
-            BUILDKIT_INLINE_CACHE=1
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
-          cache-to: |
-            type=gha,scope=${{ inputs.project }},mode=max
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
+          cache-to: type=gha,scope=${{ inputs.project }},mode=max
+
+      - name: Push builder image to GHCR
+        run: |
+          docker push ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
