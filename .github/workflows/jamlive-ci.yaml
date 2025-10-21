@@ -104,24 +104,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Build and Cache Frontend Image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./frontend
-          push: false
-          load: true
-          pull: true
-          provenance: false
-          sbom: false
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          target: runner
-          tags: jamlive/frontend:test
-          build-args: |
-            REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
-          cache-from: |
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
-            type=gha,scope=frontend,mode=max
-          cache-to: type=gha,scope=frontend,mode=max
+      - name: Pull frontend builder image manually
+        run: |
+          docker pull ghcr.io/${{ env.OWNER }}/frontend:builder
+          docker tag ghcr.io/${{ env.OWNER }}/frontend:builder builder
+
+      # - name: Build and Cache Frontend Image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./frontend
+      #     push: false
+      #     load: true
+      #     target: runner
+      #     tags: jamlive/frontend:test
+      #     build-args: |
+      #       REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
+      #     cache-from: type=gha,scope=frontend,mode=max
+      #     cache-to: type=gha,scope=frontend,mode=max
+
+      - name: Pull backend builder image manually
+        run: |
+          docker pull ghcr.io/${{ env.OWNER }}/backend:builder
+          docker tag ghcr.io/${{ env.OWNER }}/backend:builder builder
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
@@ -129,15 +133,9 @@ jobs:
           context: ./backend
           push: false
           load: true
-          pull: true
-          provenance: false
-          sbom: false
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           target: runner
           tags: jamlive/backend:test
-          cache-from: |
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
-            type=gha,scope=backend,mode=max
+          cache-from: type=gha,scope=backend,mode=max
           cache-to: type=gha,scope=backend,mode=max
 
       - name: Run Docker Compose
