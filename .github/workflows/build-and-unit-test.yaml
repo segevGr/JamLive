@@ -61,6 +61,7 @@ jobs:
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
             type=gha,scope=${{ inputs.project }},mode=max
+            type=inline,mode=max,compression=uncompressed
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
 
       - name: Verify inline cache exists
