@@ -59,7 +59,7 @@ jobs:
           cache-from: type=gha,scope=${{ inputs.project }}:builder,mode=max
           cache-to: |
             type=gha,scope=${{ inputs.project }}:builder,mode=max
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
