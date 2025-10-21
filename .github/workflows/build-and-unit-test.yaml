@@ -27,8 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: ${{ inputs.timeout-minutes }}
     if: ${{ inputs.should_run == 'true' }}
-    env:
-      OWNER: segevgr
     defaults:
       run:
         working-directory: ${{ inputs.project }}
@@ -47,9 +45,11 @@ jobs:
 
       - name: Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
+        env:
+          OWNER: segevgr
         with:
           context: ./${{ inputs.project }}
-          push: false
+          push: true
           load: true
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
@@ -64,7 +64,3 @@ jobs:
           tags: jamlive/${{ inputs.project }}-test
           push: false
           load: false
-
-      - name: Push builder image to GHCR
-        run: |
-          docker push ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
