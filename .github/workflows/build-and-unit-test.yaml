@@ -41,7 +41,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
       - name: Stabilize timestamps
         run: git ls-files | xargs touch --date="@$(git log -1 --format=%ct)"
@@ -60,7 +60,7 @@ jobs:
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
-            type=gha,scope=${{ inputs.project }},mode=max
+            type=gha,scope=${{ inputs.project }}:builder,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
 
       - name: Run Unit Tests
@@ -71,4 +71,6 @@ jobs:
           tags: jamlive/${{ inputs.project }}-test
           push: false
           load: false
-          cache-from: type=gha,scope=${{ inputs.project }},mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+          cache-from: type=gha,scope=${{ inputs.project }}:builder,mode=max
