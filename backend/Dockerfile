@@ -14,6 +14,7 @@ RUN npm run build
 ######################################
 
 FROM builder AS unit-tests
+COPY test ./test
 RUN npm test
 
 ######################################

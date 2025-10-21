@@ -16,24 +16,16 @@ coverage/
 *.log
 
 # ===========================
-# Public Assets prone to timestamp changes
-# ===========================
-public/*.png
-public/*.jpg
-public/*.jpeg
-public/*.gif
-public/*.svg
-public/*.ico
-public/*.webp
-public/*.map
-public/*.json
-
-# ===========================
 # Tests & Jest
 # ===========================
 *.spec.ts
 jest-cache/
 jest-results.json
+
+# ===========================
+# Databases / Local Dev
+# ===========================
+db/
 
 # ===========================
 # Env Files
@@ -64,3 +56,15 @@ docker-compose*.yml
 # ===========================
 logs/
 *.log
+
+# ===========================
+# Explicit allowlist for build
+# ===========================
+!Dockerfile
+!package*.json
+!nest-cli.json
+!tsconfig*.json
+!jest.config.js
+!public/**
+!src/**
+!test/**

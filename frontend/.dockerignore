@@ -4,6 +4,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+pnpm-lock.yaml
 
 # ===========================
 # Build Output / Artifacts
@@ -12,8 +13,20 @@ build/
 dist/
 .cache/
 .tmp/
-*.map
+coverage/
+*.tsbuildinfo
 *.log
+*.map
+
+# ===========================
+# Tests
+# ===========================
+*.spec.ts
+*.spec.tsx
+*.test.ts
+*.test.tsx
+jest-cache/
+jest-results.json
 
 # ===========================
 # Env Files
@@ -39,7 +52,6 @@ Thumbs.db
 # ===========================
 .git/
 .gitignore
-Dockerfile
 docker-compose*.yml
 
 # ===========================
@@ -49,24 +61,18 @@ logs/
 *.log
 
 # ===========================
-# Public Assets prone to timestamp changes
-# ===========================
-public/*.png
-public/*.jpg
-public/*.jpeg
-public/*.gif
-public/*.svg
-public/*.ico
-public/*.webp
-public/*.map
-public/*.json
-
-# Manifest / Service Worker
-public/manifest.json
-public/service-worker.js
-public/robots.txt
-
-# ===========================
-# Tailwind / Local Config
+# Local Config / Tailwind
 # ===========================
 **/tailwind.config.local.js
+
+# ===========================
+# Explicit allowlist for build
+# ===========================
+!Dockerfile
+!package*.json
+!tsconfig.json
+!tailwind.config.js
+!postcss.config.js
+!public/**
+!src/**
+!test/**

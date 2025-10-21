@@ -52,7 +52,6 @@ jobs:
           file: ./${{ inputs.project }}/Dockerfile
           push: true
           load: true
-          pull: true
           build-args: |
             BUILDKIT_INLINE_CACHE=1
           target: builder
