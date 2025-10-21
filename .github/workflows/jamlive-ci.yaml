@@ -102,13 +102,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
+      - name: Verify Builder Cache Exists in GHCR
+        run: |
+          echo "🔍 Checking if cached builder image is available before build..."
+          docker buildx imagetools inspect ghcr.io/${{ env.OWNER }}/frontend:builder | tee builder_pull_check.log
+          if grep -q "org.mobyproject.buildkit.cache.v0" builder_pull_check.log; then
+            echo "✅ Builder cache metadata found — ready to reuse cache."
+          else
+            echo "⚠️ Warning: Builder cache metadata missing — build will likely not be fully cached."
+          fi
+
       - name: Build and Cache Frontend Image
         uses: docker/build-push-action@v6
-
-        env:
-          BUILDKIT_PROGRESS: "plain"
-          BUILDKIT_DEBUG: "1"
-
         with:
           context: ./frontend
           push: false
@@ -117,28 +122,29 @@ jobs:
           tags: jamlive/frontend:test
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
-          cache-from: |
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
-            type=gha,scope=frontend-runner,mode=max
-          cache-to: type=gha,scope=frontend-runner,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
+          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
+
+      - name: Verify Builder Cache Exists in GHCR
+        run: |
+          echo "🔍 Checking if cached builder image is available before build..."
+          docker buildx imagetools inspect ghcr.io/${{ env.OWNER }}/backend:builder | tee builder_pull_check.log
+          if grep -q "org.mobyproject.buildkit.cache.v0" builder_pull_check.log; then
+            echo "✅ Builder cache metadata found — ready to reuse cache."
+          else
+            echo "⚠️ Warning: Builder cache metadata missing — build will likely not be fully cached."
+          fi
 
       - name: Build and Cache Backend Image
         uses: docker/build-push-action@v6
-
-        env:
-          BUILDKIT_PROGRESS: "plain"
-          BUILDKIT_DEBUG: "1"
-
         with:
           context: ./backend
           push: false
           load: true
           target: runner
           tags: jamlive/backend:test
-          cache-from: |
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
-            type=gha,scope=backend-runner,mode=max
-          cache-to: type=gha,scope=backend-runner,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
+          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
 
       - name: Run Docker Compose
         env:
