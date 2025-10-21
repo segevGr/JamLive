@@ -104,10 +104,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Pull frontend builder image manually
-        run: |
-          docker pull ghcr.io/${{ env.OWNER }}/frontend:builder
-          docker tag ghcr.io/${{ env.OWNER }}/frontend:builder builder
+      # - name: Pull frontend builder image manually
+      #   run: |
+      #     docker pull ghcr.io/${{ env.OWNER }}/frontend:builder
+      #     docker tag ghcr.io/${{ env.OWNER }}/frontend:builder builder
 
       # - name: Build and Cache Frontend Image
       #   uses: docker/build-push-action@v6
