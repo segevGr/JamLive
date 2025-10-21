@@ -102,8 +102,8 @@ jobs:
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: |
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:builder,mode=max
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:runner,mode=max
-          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:runner,mode=max
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:runner-cache,mode=max
+          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:runner-cache,mode=max
 
   e2e_tests_and_publish:
     name: Package E2E Tests and Publish
