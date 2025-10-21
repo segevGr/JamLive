@@ -141,7 +141,7 @@ jobs:
           target: runner
           tags: jamlive/backend:test
           cache-from: |
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend,mode=max
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/backend:builder,mode=max
             type=gha,scope=backend,mode=max
           cache-to: type=gha,scope=backend,mode=max
 
