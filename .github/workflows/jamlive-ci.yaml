@@ -115,8 +115,8 @@ jobs:
           build-args: |
             REACT_APP_BASE_URL=${{ secrets.BACKEND_URL }}
           cache-from: |
-            type=gha,scope=frontend,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/frontend:builder,mode=max
+            type=gha,scope=frontend,mode=max
           cache-to: type=gha,scope=frontend,mode=max
 
       - name: Build and Cache Backend Image
