@@ -107,10 +107,12 @@ jobs:
       - name: Stabilize timestamps
         run: git ls-files | xargs touch --date="@$(git log -1 --format=%ct)"
 
-      - name: Verify builder cache available (frontend)
+      - name: Debug inline cache (raw)
         run: |
-          echo "🧱 Checking inline cache for frontend builder..."
-          docker buildx imagetools inspect ghcr.io/segevgr/frontend:builder | grep cache.v0 || echo "❌ No inline cache found for frontend!"
+          echo "🔎 raw manifest:"
+          docker buildx imagetools inspect ghcr.io/segevgr/frontend:builder --raw | sed -n '1,120p'
+          echo "🔎 search for cache.v0:"
+          docker buildx imagetools inspect ghcr.io/segevgr/frontend:builder --raw | grep -n "org.mobyproject.buildkit.cache.v0" || echo "❌ cache.v0 not found in raw output"
 
       - name: Build and Cache Frontend Image
         uses: docker/build-push-action@v6
