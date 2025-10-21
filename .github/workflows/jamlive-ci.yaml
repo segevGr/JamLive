@@ -102,10 +102,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Enable BuildKit debug
-        run: |
-          echo '{"debug": true}' | sudo tee /etc/buildkit/buildkitd.toml
-
       - name: Build and Cache Frontend Image
         uses: docker/build-push-action@v6
 
