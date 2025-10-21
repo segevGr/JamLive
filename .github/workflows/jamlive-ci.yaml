@@ -53,28 +53,19 @@ jobs:
             backend:
               - 'backend/**'
 
-  frontend_build_and_test:
-    name: Frontend Build & Test
+  build_and_unit_test:
+    name: Build & Unit Tests (${{ matrix.project }})
     needs: detect_changes
     uses: ./.github/workflows/build-and-unit-test.yaml
     secrets: inherit
     permissions:
       packages: write
+    strategy:
+      matrix:
+        project: [frontend, backend]
     with:
-      project: frontend
-      should_run: ${{ needs.detect_changes.outputs.frontend }}
-      timeout-minutes: 30
-
-  backend_build_and_test:
-    name: Backend Build & Test
-    needs: detect_changes
-    uses: ./.github/workflows/build-and-unit-test.yaml
-    secrets: inherit
-    permissions:
-      packages: write
-    with:
-      project: backend
-      should_run: ${{ needs.detect_changes.outputs.backend }}
+      project: ${{ matrix.project }}
+      should_run: ${{ needs.detect_changes.outputs[matrix.project] }}
       timeout-minutes: 30
 
   package_e2e_tests_and_publish:
