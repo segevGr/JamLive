@@ -69,3 +69,4 @@ jobs:
           tags: jamlive/${{ inputs.project }}-test
           push: false
           load: false
+          cache-from: type=gha,scope=${{ inputs.project }}:builder,mode=max
