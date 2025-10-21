@@ -54,6 +54,8 @@ jobs:
           context: ./${{ inputs.project }}
           push: true
           load: false
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
           cache-from: type=gha,scope=${{ inputs.project }},mode=max

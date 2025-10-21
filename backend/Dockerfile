@@ -1,7 +1,5 @@
 FROM node:20.10.0-alpine3.19 AS builder
 
-ENV BUILDKIT_INLINE_CACHE=1
-
 WORKDIR /app
 
 COPY package*.json ./
