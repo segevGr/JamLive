@@ -104,15 +104,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Stabilize timestamps
-        run: git ls-files | xargs touch --date="@$(git log -1 --format=%ct)"
-
       - name: Build and Cache Frontend Image
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: false
           load: true
+          pull: true
+          provenance: false
+          sbom: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           target: runner
           tags: jamlive/frontend:test
           build-args: |
@@ -128,6 +129,10 @@ jobs:
           context: ./backend
           push: false
           load: true
+          pull: true
+          provenance: false
+          sbom: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           target: runner
           tags: jamlive/backend:test
           cache-from: |

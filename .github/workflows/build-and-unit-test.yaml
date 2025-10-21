@@ -43,9 +43,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Stabilize timestamps
-        run: git ls-files | xargs touch --date="@$(git log -1 --format=%ct)"
-
       - name: Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
         env:
@@ -54,6 +51,9 @@ jobs:
           context: ./${{ inputs.project }}
           push: true
           load: false
+          provenance: false
+          sbom: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           build-args: |
             BUILDKIT_INLINE_CACHE=1
           target: builder
@@ -71,6 +71,4 @@ jobs:
           tags: jamlive/${{ inputs.project }}-test
           push: false
           load: false
-          build-args: |
-            BUILDKIT_INLINE_CACHE=1
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
