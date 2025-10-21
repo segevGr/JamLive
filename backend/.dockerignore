@@ -16,6 +16,19 @@ coverage/
 *.log
 
 # ===========================
+# Public Assets prone to timestamp changes
+# ===========================
+public/*.png
+public/*.jpg
+public/*.jpeg
+public/*.gif
+public/*.svg
+public/*.ico
+public/*.webp
+public/*.map
+public/*.json
+
+# ===========================
 # Tests & Jest
 # ===========================
 *.spec.ts

@@ -58,6 +58,8 @@ public/*.gif
 public/*.svg
 public/*.ico
 public/*.webp
+public/*.map
+public/*.json
 
 # Manifest / Service Worker
 public/manifest.json

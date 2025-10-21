@@ -43,6 +43,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Stabilize timestamps
+        run: git ls-files | xargs touch --date="@$(git log -1 --format=%ct)"
+
       - name: Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
         env:
@@ -53,21 +56,10 @@ jobs:
           load: false
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
-          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
+          cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
-            type=inline,mode=max,compression=uncompressed
+            type=gha,scope=${{ inputs.project }},mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
-
-      - name: Inspect Builder Cache Metadata
-        run: |
-          echo "🔍 Checking inline cache for ghcr.io/segevgr/${{ inputs.project }}:builder"
-          docker buildx imagetools inspect ghcr.io/segevgr/${{ inputs.project }}:builder | tee builder_inspect.log
-          if grep -q "org.mobyproject.buildkit.cache.v0" builder_inspect.log; then
-            echo "✅ Inline cache FOUND for ${{ inputs.project }} builder"
-          else
-            echo "❌ Inline cache NOT found for ${{ inputs.project }} builder"
-            exit 1
-          fi
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
@@ -77,4 +69,4 @@ jobs:
           tags: jamlive/${{ inputs.project }}-test
           push: false
           load: false
-          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
+          cache-from: type=gha,scope=${{ inputs.project }},mode=max
