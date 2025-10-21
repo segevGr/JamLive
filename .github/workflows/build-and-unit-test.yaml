@@ -63,6 +63,10 @@ jobs:
             type=gha,scope=${{ inputs.project }}:builder,mode=max
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
 
+      - name: Verify inline cache exists
+        run: |
+          docker buildx imagetools inspect ghcr.io/segevgr/${{ inputs.project }}:builder | grep cache.v0 || echo "❌ No inline cache found!"
+
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
         with:
