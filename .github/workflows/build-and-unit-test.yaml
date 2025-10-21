@@ -54,7 +54,9 @@ jobs:
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
           cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
-          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
+          cache-to: |
+            type=inline,mode=max,compression=uncompressed
+            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
 
       - name: Inspect Builder Cache Metadata
         run: |
