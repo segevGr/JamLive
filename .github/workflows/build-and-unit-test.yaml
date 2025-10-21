@@ -61,15 +61,7 @@ jobs:
           cache-from: type=gha,scope=${{ inputs.project }},mode=max
           cache-to: |
             type=gha,scope=${{ inputs.project }},mode=max
-            type=inline,mode=max,compression=uncompressed
             type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
-
-      - name: Debug inline cache (raw)
-        run: |
-          echo "🔎 raw manifest:"
-          docker buildx imagetools inspect ghcr.io/segevgr/${{ inputs.project }}:builder --raw | sed -n '1,120p'
-          echo "🔎 search for cache.v0:"
-          docker buildx imagetools inspect ghcr.io/segevgr/${{ inputs.project }}:builder --raw | grep -n "org.mobyproject.buildkit.cache.v0" || echo "❌ cache.v0 not found in raw output"
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
