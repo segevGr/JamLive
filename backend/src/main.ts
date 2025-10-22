@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-// note for cache 
+// note for cache 1
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -14,7 +14,7 @@ async function bootstrap() {
   const frontendOrigin = process.env.FRONTEND_URL || 'http://localhost';
   app.enableCors({
     origin: frontendOrigin,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   });
 

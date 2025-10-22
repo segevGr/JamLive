@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN --mount=type=cache,target=/root/.npm \
 	npm ci
 
-COPY nest-cli.json tsconfig.build.json tsconfig.json jest.config.js ./
+COPY nest-cli.json tsconfig.build.json tsconfig.json jest.config.js eslint.config.mjs ./
 COPY public ./public
 COPY src ./src
 
