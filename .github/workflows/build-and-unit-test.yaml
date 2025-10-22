@@ -3,14 +3,14 @@ name: build-and-unit-test
 on:
   workflow_call:
     inputs:
-      project:
+      service:
         required: true
         type: string
       should_run:
         required: true
         type: string
       timeout-minutes:
-        required: false
+        required: true
         type: number
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
     if: ${{ inputs.should_run == 'true' }}
     defaults:
       run:
-        working-directory: ${{ inputs.project }}
+        working-directory: ${{ inputs.service }}
     steps:
       - uses: actions/checkout@v4
 
@@ -48,23 +48,22 @@ jobs:
         env:
           OWNER: segevgr
         with:
-          context: ./${{ inputs.project }}
-          file: ./${{ inputs.project }}/Dockerfile
+          context: ./${{ inputs.service }}
+          file: ./${{ inputs.service }}/Dockerfile
           push: true
           load: true
           build-args: |
             BUILDKIT_INLINE_CACHE=1
           target: builder
-          tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
-          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder-cache,mode=max
-          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder-cache,mode=max
+          tags: ghcr.io/${{ env.OWNER }}/${{ inputs.service }}:builder
+          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.service }}:builder-cache,mode=max
+          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.service }}:builder-cache,mode=max
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6
         with:
-          context: ./${{ inputs.project }}
+          context: ./${{ inputs.service }}
           target: unit-tests
-          tags: jamlive/${{ inputs.project }}-test
+          tags: jamlive/${{ inputs.service }}-test
           push: false
           load: false
-          cache-from: type=gha,scope=${{ inputs.project }}:builder,mode=max
