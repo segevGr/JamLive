@@ -6,7 +6,8 @@ ARG REACT_APP_BASE_URL
 ENV REACT_APP_BASE_URL=$REACT_APP_BASE_URL
 
 COPY package*.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm \
+	npm ci
 
 COPY tsconfig.json tailwind.config.js postcss.config.js ./
 COPY public ./public

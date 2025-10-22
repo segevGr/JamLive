@@ -56,10 +56,8 @@ jobs:
             BUILDKIT_INLINE_CACHE=1
           target: builder
           tags: ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder
-          cache-from: type=gha,scope=${{ inputs.project }}:builder,mode=max
-          cache-to: |
-            type=gha,scope=${{ inputs.project }}:builder,mode=max
-            type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder-cache,mode=max
+          cache-to: type=registry,ref=ghcr.io/${{ env.OWNER }}/${{ inputs.project }}:builder-cache,mode=max
 
       - name: Run Unit Tests
         uses: docker/build-push-action@v6

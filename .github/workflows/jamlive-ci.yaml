@@ -90,6 +90,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
+      - name: Pull cached builder image
+        run: docker pull ghcr.io/${{ env.OWNER }}/${{ matrix.service }}:builder
+
       - name: Build and Cache ${{ matrix.service }} Image
         uses: docker/build-push-action@v6
         with:
