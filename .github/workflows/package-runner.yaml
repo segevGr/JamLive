@@ -37,7 +37,9 @@ jobs:
       - name: Build and Cache ${{ inputs.service }} Image
         uses: docker/build-push-action@v6
         env:
-          BUILD_ARGS: ${{ inputs.service == 'frontend' && format('REACT_APP_BASE_URL={0}', secrets.BACKEND_URL) || '' }}
+          BUILD_ARGS: |
+            BUILDKIT_INLINE_CACHE=1
+            ${{ inputs.service == 'frontend' && format('REACT_APP_BASE_URL={0}', secrets.BACKEND_URL) || '' }}
         with:
           context: ./${{ inputs.service }}
           push: true

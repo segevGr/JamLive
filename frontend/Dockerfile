@@ -13,6 +13,8 @@ COPY tsconfig.json tailwind.config.js postcss.config.js ./
 COPY public ./public
 COPY src ./src
 
+RUN npm run lint
+
 RUN npm run build
 
 ######################################

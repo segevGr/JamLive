@@ -10,6 +10,8 @@ COPY nest-cli.json tsconfig.build.json tsconfig.json jest.config.js ./
 COPY public ./public
 COPY src ./src
 
+RUN npm run lint
+
 RUN npm run build
 
 ######################################

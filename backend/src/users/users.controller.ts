@@ -56,7 +56,7 @@ export class UsersController {
       throw new BadRequestException('Instrument is required');
     }
 
-    if (!instruments.includes(body.instrument as Instrument)) {
+    if (!instruments.includes(body.instrument)) {
       throw new BadRequestException('Invalid instrument value');
     }
 

@@ -45,10 +45,7 @@ export class SongSessionGateway
   }
 
   @SubscribeMessage('startSong')
-  handleStartSong(
-    @MessageBody() payload: { song: SongData; token: string },
-    @ConnectedSocket() client: Socket,
-  ) {
+  handleStartSong(@MessageBody() payload: { song: SongData; token: string }) {
     try {
       const decoded = jwt.verify(
         payload.token,
@@ -73,7 +70,7 @@ export class SongSessionGateway
         }
       }
     } catch (err) {
-      this.logger.error('Invalid token in startSong');
+      this.logger.error('Invalid token in startSong - ', err);
     }
   }
 

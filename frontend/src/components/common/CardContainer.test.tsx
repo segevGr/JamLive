@@ -16,7 +16,7 @@ describe("CardContainer", () => {
 
   test("renders with header mode (no bg-white)", () => {
     render(<CardContainer isHeader>header content</CardContainer>);
-    const div = screen.getByText("header content").parentElement;
-    expect(div).not.toHaveClass("bg-white");
+    const card = screen.getByTestId("card-container");
+    expect(card).not.toHaveClass("bg-white");
   });
 });

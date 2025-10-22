@@ -15,6 +15,7 @@ const CardContainer = ({
 }: Props) => {
   return (
     <div
+      data-testid="card-container"
       onClick={onClick}
       className={clsx(
         "p-4 rounded-xl border border-borderGray  shadow-sm transition",
