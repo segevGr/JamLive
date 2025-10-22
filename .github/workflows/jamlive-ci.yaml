@@ -53,8 +53,8 @@ jobs:
             backend:
               - 'backend/**'
 
-  build_and_unit_test:
-    name: Build & Unit Tests (${{ matrix.service }})
+  lint_build_and_unit_test:
+    name: Lint, Build & Unit Tests (${{ matrix.service }})
     needs: [detect_changes]
     uses: ./.github/workflows/build-lint-and-unit-test.yaml
     secrets: inherit
@@ -70,7 +70,7 @@ jobs:
 
   package_runners:
     name: Package ${{ matrix.service }} Runner
-    needs: [build_and_unit_test]
+    needs: [lint_build_and_unit_test]
     uses: ./.github/workflows/package-runner.yaml
     secrets: inherit
     permissions:
@@ -205,7 +205,7 @@ jobs:
     needs:
       - cancel-previous
       - detect_changes
-      - build_and_unit_test
+      - lint_build_and_unit_test
       - package_runners
       - e2e_tests_and_publish
       - deploy_frontend
