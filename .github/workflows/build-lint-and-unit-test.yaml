@@ -1,4 +1,4 @@
-name: build-and-unit-test
+name: build-lint-and-unit-test
 
 on:
   workflow_call:
@@ -43,7 +43,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
-      - name: Build Builder Stage (cache only)
+      - name: Lint and Build Builder Stage (cache only)
         uses: docker/build-push-action@v6
         env:
           OWNER: segevgr

@@ -56,7 +56,7 @@ jobs:
   build_and_unit_test:
     name: Build & Unit Tests (${{ matrix.service }})
     needs: [detect_changes]
-    uses: ./.github/workflows/build-and-unit-test.yaml
+    uses: ./.github/workflows/build-lint-and-unit-test.yaml
     secrets: inherit
     permissions:
       packages: write
