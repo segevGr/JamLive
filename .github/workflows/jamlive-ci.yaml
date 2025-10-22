@@ -79,7 +79,7 @@ jobs:
       matrix:
         service: [frontend, backend]
     with:
-      project: ${{ matrix.service }}
+      service: ${{ matrix.service }}
       timeout-minutes: 30
       repo-owner: segevgr
 
