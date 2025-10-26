@@ -159,7 +159,7 @@ FRONTEND_URL=<frontend URL> \\default is http://localhost
 
 You can test the backend API using the Postman collection provided in this repository:
 
-👉 [Download JamLive.postman_collection.json](./postman/JamLive.postman_collection.json)
+👉 [Download JamLive.postman_collection.json](./utils/postman/JamLive.postman_collection.json)
 
 The collection includes all available endpoints:
 
@@ -174,27 +174,27 @@ The collection includes all available endpoints:
 
 ### 🔐 Register Page
 
-![Register](./screenshots/register.png)
+![Register](./utils/screenshots/register.png)
 
 ### 🔑 Login Page
 
-![Login](./screenshots/login.png)
+![Login](./utils/screenshots/login.png)
 
 ### ⏳ User Lobby: Waiting Mode
 
-![Waiting Mode](./screenshots/user-lobby-waiting-mode.png)
+![Waiting Mode](./utils/screenshots/user-lobby-waiting-mode.png)
 
 ### 🔍 Admin Lobby: Search Songs
 
-![Search songs](./screenshots/admin-lobby-search-songs.png)
+![Search songs](./utils/screenshots/admin-lobby-search-songs.png)
 
 ### 🔍 Admin Lobby: Live Session
 
-![Live Session](./screenshots/admin-lobby-live-song.png)
+![Live Session](./utils/screenshots/admin-lobby-live-song.png)
 
 ### 🎼 Profile
 
-![Profile](./screenshots/profile.png)
+![Profile](./utils/screenshots/profile.png)
 
 ## 📎 Notes
 
