@@ -106,10 +106,10 @@ jobs:
 
       - name: Pull images built in previous jobs
         run: |
-          docker pull ghcr.io/${{ toLower(github.repository_owner) }}/frontend:runner
-          docker pull ghcr.io/${{ toLower(github.repository_owner) }}/backend:runner
-          docker tag ghcr.io/${{ toLower(github.repository_owner) }}/frontend:runner jamlive/frontend:test
-          docker tag ghcr.io/${{ toLower(github.repository_owner) }}/backend:runner jamlive/backend:test
+          docker pull ghcr.io/${{ github.repository_owner }}/frontend:runner
+          docker pull ghcr.io/${{ github.repository_owner }}/backend:runner
+          docker tag ghcr.io/${{ github.repository_owner }}/frontend:runner jamlive/frontend:test
+          docker tag ghcr.io/${{ github.repository_owner }}/backend:runner jamlive/backend:test
 
       - name: Run Docker Compose
         env:
