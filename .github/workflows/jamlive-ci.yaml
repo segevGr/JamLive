@@ -1,12 +1,16 @@
 name: jamlive-ci
 
 on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+#WILL BE DELETED
   push:
-    branches: ["master"]
+    branches: ["segev/dev"]
     paths-ignore:
       - "README.md"
-      - "postman/**"
-      - "screenshots/**"
+      - "utils/**"
       - "terraform/**"
   workflow_dispatch:
 
@@ -22,6 +26,8 @@ concurrency:
 jobs:
   cancel-previous:
     name: Cancel Previous Workflow Runs
+    #WILL BE DELETED - Remove the comment
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
