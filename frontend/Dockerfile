@@ -36,7 +36,8 @@ WORKDIR /app
 
 RUN npm install -g serve@14.2.1
 
-COPY --from=builder --chown=appuser:appuser /app/build ./build
+COPY --from=builder /app/build ./build
+RUN chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 3000

@@ -33,13 +33,14 @@ FROM node:20.10.0-alpine3.19 AS runner
 RUN addgroup -S appuser && adduser -S appuser -G appuser
 WORKDIR /app
 
-COPY --from=base --chown=appuser:appuser /app/node_modules ./node_modules
+COPY --from=base /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-COPY --from=builder --chown=appuser:appuser /app/dist ./dist
-COPY --from=builder --chown=appuser:appuser /app/public ./public
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
 
-RUN npm prune --omit=dev & chown -R appuser:appuser /app
+RUN npm prune --omit=dev
 
+RUN chown -R appuser:appuser /app
 USER appuser
 
 EXPOSE 8000

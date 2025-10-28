@@ -60,7 +60,7 @@ jobs:
           push: false
           load: true
 
-      - name: Run Full Lint
+      - name: Run Linter
         uses: docker/build-push-action@v6
         env:
           BUILDX_NO_SUMMARY: 1
