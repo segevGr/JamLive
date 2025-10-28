@@ -19,9 +19,6 @@ concurrency:
   group: jamlive-ci-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  OWNER: segevgr
-
 jobs:
   cancel-previous:
     name: Cancel Previous Workflow Runs
@@ -70,7 +67,6 @@ jobs:
       service: ${{ matrix.service }}
       should_run: ${{ needs.detect_changes.outputs[matrix.service] }}
       timeout-minutes: 30
-      repo-owner: ${{ env.OWNER }}
 
   package_runners:
     name: Package ${{ matrix.service }} Runner
@@ -85,7 +81,6 @@ jobs:
     with:
       service: ${{ matrix.service }}
       timeout-minutes: 30
-      repo-owner: ${{ env.OWNER }}
 
   e2e_tests_and_publish:
     name: Package E2E Tests and Publish
@@ -111,10 +106,10 @@ jobs:
 
       - name: Pull images built in previous jobs
         run: |
-          docker pull ghcr.io/${{ env.OWNER }}/frontend:runner
-          docker pull ghcr.io/${{ env.OWNER }}/backend:runner
-          docker tag ghcr.io/${{ env.OWNER }}/frontend:runner jamlive/frontend:test
-          docker tag ghcr.io/${{ env.OWNER }}/backend:runner jamlive/backend:test
+          docker pull ghcr.io/${{ toLower(github.repository_owner) }}/frontend:runner
+          docker pull ghcr.io/${{ toLower(github.repository_owner) }}/backend:runner
+          docker tag ghcr.io/${{ toLower(github.repository_owner) }}/frontend:runner jamlive/frontend:test
+          docker tag ghcr.io/${{ toLower(github.repository_owner) }}/backend:runner jamlive/backend:test
 
       - name: Run Docker Compose
         env:

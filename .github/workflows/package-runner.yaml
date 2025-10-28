@@ -9,9 +9,6 @@ on:
       timeout-minutes:
         required: true
         type: number
-      repo-owner:
-        required: true
-        type: string
 
 permissions:
   packages: write
@@ -32,7 +29,7 @@ jobs:
           password: ${{ secrets.GHCR_ACCESS_TOKEN }}
 
       - name: Pull cached builder image
-        run: docker pull ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:builder
+        run: docker pull ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:builder
 
       - name: Build and Cache ${{ inputs.service }} Image
         uses: docker/build-push-action@v6
@@ -45,10 +42,10 @@ jobs:
           push: true
           load: false
           target: runner
-          tags: ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:runner
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:runner
           build-args: ${{ env.BUILD_ARGS }}
           cache-from: |
-            type=registry,ref=ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:builder
-            type=registry,ref=ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:builder-cache
-            type=registry,ref=ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:runner-cache
-          cache-to: type=registry,ref=ghcr.io/${{ inputs.repo-owner }}/${{ inputs.service }}:runner-cache,mode=max
+            type=registry,ref=ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:builder
+            type=registry,ref=ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:builder-cache
+            type=registry,ref=ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:runner-cache
+          cache-to: type=registry,ref=ghcr.io/${{ toLower(github.repository_owner) }}/${{ inputs.service }}:runner-cache,mode=max
