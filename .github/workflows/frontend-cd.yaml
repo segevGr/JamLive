@@ -12,13 +12,6 @@ on:
         required: true
         type: string
 
-  workflow_dispatch: #WILL BE DELETED
-    inputs:
-      artifact:
-        description: 'Artifact name from CI'
-        required: true
-        type: string
-
 permissions:
   id-token: write
 
